@@ -14,18 +14,24 @@ films = [
 
 friends = [
     ("Paul", "Blade Runner"),
-    ("Lucie",),2
+    ("Lucie",),
     ("Zoé", "Terminator 2 : Le Jugement dernier"),
 ]
 
 class Film:
     def __init__(self, titre, date, lieu):
         self.titre = titre
-        self.lieu = lieu
         self.date = date
+        self.lieu = lieu
+        
+    def display(self):
+        print(f" Titre:'{self.titre}' de '{self.date}' chez '{self.lieu}' ")
+        
     
-    def vhf(self):
-        print("C'est une VHF")
+class TypeFormat(Film):
+    def __init__(self,type):
+        self.type = type
     
-    def dvd(self):
-        print("C'est un DVD")
+    def display(self):
+        super().display()
+        print(f" Le film est de type:'{self.type}'")
