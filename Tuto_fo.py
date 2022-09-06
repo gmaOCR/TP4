@@ -154,6 +154,9 @@ post3 = modo1.post(thread1,"Message précedent HS !")
 print(thread1.display())
 modo1.delete(thread1,post3)
 modo1.delete(thread1,post2)
-
+print(thread1.display())
+img1 = FilePost(user1,"Aujourd'hui","Voici le modèle que je veux",file="moto.jpg")
+print(img1)
+#post4 = user1.post(thread1,"Voici le modèle que je veux",img1)
 print(thread1.display())
 
