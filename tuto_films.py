@@ -19,6 +19,6 @@ friends = [
 ]
 
 class Film:
-    def __init__(self, titre, support):
+    def __init__(self, titre, date, support):
         self.titre = titre
         self.suport = support
