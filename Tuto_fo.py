@@ -147,8 +147,13 @@ class Thread:
 user1 = User("Greg",1234)
 modo1 = Moderator("Modo",1234)
 thread1 = Thread("","","")
-thread1 = user1.make_thread("Nouvelle moto","Coucou les gars")
-
+thread1 = user1.make_thread("Nouvelle moto","Je cherche un nouveau modèle")
+post1 = modo1.post(thread1,"Salut !")
+post2 = user1.post(thread1,"Hors sujet")
+post3 = modo1.post(thread1,"Message précedent HS !")
+print(thread1.display())
+modo1.delete(thread1,post3)
+modo1.delete(thread1,post2)
 
 print(thread1.display())
 
