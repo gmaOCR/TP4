@@ -19,6 +19,13 @@ friends = [
 ]
 
 class Film:
-    def __init__(self, titre, date, support):
+    def __init__(self, titre, date, lieu):
         self.titre = titre
-        self.suport = support
+        self.lieu = lieu
+        self.date = date
+    
+    def vhf(self):
+        print("C'est une VHF")
+    
+    def dvd(self):
+        print("C'est un DVD")
