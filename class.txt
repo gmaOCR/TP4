@@ -1,0 +1,51 @@
+* = arguments
+| = méthodes
+(M) = Modèles
+(V) = Vues
+(C) = Contrôleur
+
+(M)Tournois:
+    * nom
+    * lieu
+    * plage de dates
+    * nombre de tour (defaut 4)
+    * liste des instances rondes
+    * liste des indices correspondant aux instances du joueur
+    * contrôle de temps (blitz, bullet ou coup rapide)
+    * (description optionnelle)
+    | Créer un tournoi
+    | Ajouter un joueur (jusqu'a 8 obligatoirement)
+    | Afficher les resultats du tournoi
+
+
+(M)Tours
+    * Nom du tour en cours
+    * Date et heure de debut
+    * Date et heure de fin
+    | Générer un tour (liste de match)
+    | Stocker une liste de match
+    | Saisir les résultats de chaque joueur pour chaque match
+
+(M)Matchs
+    | Générer une paire de joueurs (voir système Suisse)
+    | Stocker les resultats du match dans un tuple contenant 2 listes (liste 1 instance de joueur et liste 2 score)
+    | Afficher les résultats du match
+
+(M)Joueurs
+    * nom
+    * un prénom
+    * une date de naissance
+    * un sexe
+    * un classement (entier naturel)
+
+(M)Gestionnaire
+    | Modifier un classement en tout temps
+
+(C)Controleur
+    | Lister tous les tournois
+    | Liste les tours d'un tournoi spécifique
+    | Lister tous les match d'un tournoi specifique
+    | Lister tous les acteurs (??? à préciser ???)
+    | Lister tous les joueurs d'un tournoi spécifique
+
+(V)Vues à dèfinir
