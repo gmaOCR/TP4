@@ -1,5 +1,5 @@
 class Tournament:
-    def __init__(self, name, place, date, rounds, timecontrol, description=None):
+    def __init__(self, name, place, date, rounds=(4), timecontrol, description=None):
         self.name = name
         self.place = place
         self.date = date
@@ -9,6 +9,19 @@ class Tournament:
 
 
 class Player:
-    def __init__(self, lastname, surname, birthday, genre, rank):
+    def __init__(self, lastname, surname, birthday, genre, rank, id):
         self.lastname = lastname
-        self.sruname = surname
+        self.surname = surname
+        self.birthday = birthday
+        self.genre = genre
+        self.rank = rank
+        self.id = id
+        
+        
+class RoundFourPlayers:
+    def __init__(self, player1, player2, player3, player4):
+        self.player1 = Player.id
+        
+        
+        
+

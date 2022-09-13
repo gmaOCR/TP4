@@ -18,6 +18,13 @@ while choice not in ["1","2","3","4"]:
 if choice == "1":
     """ Créer un tournoi"""
     view.create_tournament()
-else:
-    view.start_menu()
+elif choice == "2":
+    """ Ajouter des joueurs """
+    pass
+elif choice == "3":
+    """ Consulter des informations """
+    pass
+elif choice == "4":
+    exit
 
+#A continuer
