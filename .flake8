@@ -1,0 +1,4 @@
+[flake8]
+exclude= .git, Lib, Scripts, Include
+
+max-line-length = 119
