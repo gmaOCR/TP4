@@ -1,5 +1,5 @@
 class Tournament:
-    def __init__(self, name, place, date, rounds=(4), timecontrol, description=None):
+    def __init__(self, name, place, date, timecontrol, rounds=4, description=None):
         self.name = name
         self.place = place
         self.date = date
