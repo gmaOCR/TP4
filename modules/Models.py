@@ -7,3 +7,6 @@ class Tournament:
         self.timecontrol = timecontrol
         self.description = description
 
+
+class Player:
+    
