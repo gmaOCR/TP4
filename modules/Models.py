@@ -9,4 +9,6 @@ class Tournament:
 
 
 class Player:
-    
+    def __init__(self, lastname, surname, birthday, genre, rank):
+        self.lastname = lastname
+        self.sruname = surname
