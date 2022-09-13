@@ -1,20 +1,23 @@
 from View import Menus
-from Tournois import Tournament
+from Models import Tournament
 
 
 #Code client provisoire
 view = Menus()
-"""Déclare l'objet "View" """
+"""Déclare l'objet "view" """
 
 view.hello()
 """Affiche le message de bienvenue"""
 
-choice_lvl1 = view.start_menu()
+choice = view.start_menu()
 """Récupère la sélection"""
-
-print(choice_lvl1)
-if choice_lvl1 == "1":
-    view
+while choice not in ["1","2","3","4"]:
+    print("\n Choix incorrect\n")
+    view.start_menu() 
+    
+if choice == "1":
+    """ Créer un tournoi"""
+    view.create_tournament()
 else:
     view.start_menu()
 

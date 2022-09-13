@@ -1,2 +1,2 @@
-from modules import Tournois, View, Controller
+from modules import Models, View, Controller
 
