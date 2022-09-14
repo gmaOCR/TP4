@@ -7,7 +7,7 @@ class Tournament:
         self.rounds = rounds
         self.timecontrol = timecontrol
         self.description = description
-        
+
     def add_player_tournament(self):
         """A coder"""
         pass
@@ -31,7 +31,7 @@ class Player:
         pass
 
     def display_player(self):
-        print(f"Nom: {self.lastname}\n"
+        return(f"Nom: {self.lastname}\n"
               f"Prénom: {self.surname}\n"
               f"Date de naissance: {self.birthday}\n"
               f"Sexe: {self.genre}\n"
