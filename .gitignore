@@ -706,3 +706,5 @@
 /.idea/modules.xml
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/vcs.xml
+modules/__pycache__/Models.cpython-310.pyc
+modules/__pycache__/View.cpython-310.pyc

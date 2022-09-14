@@ -16,7 +16,7 @@ class Tournament:
         pass
 
 class Player:
-    def __init__(self, lastname, surname, birthday, genre, rank, id):
+    def __init__(self, lastname, surname, birthday, genre, rank, id=[int]):
         self.lastname = lastname
         self.surname = surname
         self.birthday = birthday
@@ -29,8 +29,14 @@ class Player:
         pass
     
     def display_player(self):
-        print("Nom: {self.lastname}")
+        print(f"Nom: {self.lastname}\n"
+              f"Prénom: {self.surname}\n"
+              f"Date de naissance: {self.birthday}\n"
+              f"Sexe: {self.genre}\n"
+              f"Classement: {self.rank}\n")
         
+    def player_testing(self):
+        player 1 Player("A","1","01/01/01","M","100",1000)
         
 class RoundEightPlayers:
     def __init__(self, match=[1,2,3,4], start_time=0, end_time=0):
