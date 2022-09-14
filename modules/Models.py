@@ -1,3 +1,4 @@
+
 class Tournament:
     def __init__(self, name, place, date, timecontrol, rounds=[1,2,3,4], description=None):
         self.name = name
@@ -7,7 +8,7 @@ class Tournament:
         self.timecontrol = timecontrol
         self.description = description
         
-    def add_player(self):
+    def add_player_tournament(self):
         """A coder"""
         pass
     
@@ -15,29 +16,28 @@ class Tournament:
         """A coder"""
         pass
 
+
 class Player:
-    def __init__(self, lastname, surname, birthday, genre, rank, id=[int]):
+    def __init__(self, lastname, surname, birthday, genre, rank, ident=int):
         self.lastname = lastname
         self.surname = surname
         self.birthday = birthday
         self.genre = genre
         self.rank = rank
-        self.id = id
-        
+        self.ident = ident
+
     def add_player_to_db(self):
         """A coder"""
         pass
-    
+
     def display_player(self):
         print(f"Nom: {self.lastname}\n"
               f"Prénom: {self.surname}\n"
               f"Date de naissance: {self.birthday}\n"
               f"Sexe: {self.genre}\n"
-              f"Classement: {self.rank}\n")
-        
-    def player_testing(self):
-        player 1 Player("A","1","01/01/01","M","100",1000)
-        
+              f"Classement: {self.rank}\n"
+              f"Identifiant: {self.ident}\n")
+
 class RoundEightPlayers:
     def __init__(self, match=[1,2,3,4], start_time=0, end_time=0):
         
