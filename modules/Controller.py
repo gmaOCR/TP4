@@ -25,6 +25,7 @@ elif choice == "3":
     """ Consulter des informations """
     pass
 elif choice == "4":
+    """ Quitter le programme """
     exit
 
 #A continuer
