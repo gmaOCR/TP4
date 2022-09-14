@@ -27,6 +27,9 @@ class Player:
     def add_player_to_db(self):
         """A coder"""
         pass
+    
+    def display_player(self):
+        print("Nom: {self.lastname}")
         
         
 class RoundEightPlayers:

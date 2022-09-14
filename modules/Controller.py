@@ -1,5 +1,6 @@
 from View import Menus
 from Models import Tournament
+from Models import Player
 
 
 #Code client provisoire
@@ -19,7 +20,7 @@ if choice == "1":
     """ Créer un tournoi"""
     view.create_tournament()
 elif choice == "2":
-    """ Ajouter des joueurs """
+    """ Ajouter des joueurs à la database"""
     pass
 elif choice == "3":
     """ Consulter des informations """
@@ -27,5 +28,8 @@ elif choice == "3":
 elif choice == "4":
     """ Quitter le programme """
     exit
-
 #A continuer
+
+
+#Lignes de test
+player1 = Player("A","1","01/01/01","M","100",1000)
