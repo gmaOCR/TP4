@@ -1,4 +1,5 @@
 from Models import Tournament
+from PlayerManager import players_list
 
 
 def display_tournament(self):
@@ -15,5 +16,5 @@ def add_player_tournament(self, player):
     self.player_list.append(player)
 
 
-tournament = Tournament("Tournoi de la rue du Stand", "Genève", "05/09/22", "Blitz", 4, player_list, "" )
+tournament = Tournament("Tournoi de la rue du Stand", "Genève", "05/09/22", "Blitz", 4, players_list, "" )
 print(tournament.display_tournament())
