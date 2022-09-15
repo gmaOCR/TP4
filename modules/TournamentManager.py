@@ -1,5 +1,5 @@
-from .Models import Tournament
-from .View import Menus
+from modules.Models import Tournament
+from modules.View import Menus
 
 class TournamentManager:
 
