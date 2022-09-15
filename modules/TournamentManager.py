@@ -2,10 +2,9 @@ from Models import Tournament
 from PlayerManager import players_list
 
 
-def display_tournament(self, tournament):
-    self.tournament = tournament
+def display_tournament(self):
     return (f"Nom du tournoi: {self.name}\n"
-            f"Lieur: {self.place}\n"
+            f"Lieu: {self.place}\n"
             f"Jour:  {self.date}\n"
             f"Nombre de tour: {self.rounds}\n"
             f"Type de chrono: {self.timecontrol}\n"
