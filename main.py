@@ -1,2 +1,3 @@
-from modules import MainController, Models, View
+from . import MainController
+from modules import Models, View
 
