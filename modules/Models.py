@@ -36,7 +36,9 @@ class Player:
               f"Classement: {self.rank}\n")
         
     def player_testing(self):
-        player 1 Player("A","1","01/01/01","M","100",1000)
+        return Player("A","1","01/01/01","M","100",1000)
+        return Player("B","2","02/02/02","M","95",1001)
+        return Player("C","3","03/03/03","F","105",1002)
         
 class RoundEightPlayers:
     def __init__(self, match=[1,2,3,4], start_time=0, end_time=0):
