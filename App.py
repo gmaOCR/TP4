@@ -1,14 +1,16 @@
-from modules import TournamentManager, Models, RoundManager, PlayerManager
+from modules import TournamentManager, Models, RoundManager, PlayerManager, MatchManager
 
 
+class App:
 
-tournament = TournamentManager()
-tournament.display_tournament()
-#tournament.add_player_tournament()
+    def run(self):
+        start =  TournamentManager()
+        start.get_info()
 
 
-
-
+if __name__ == "__main__":
+    app = App()
+    app.run()
 
 
 

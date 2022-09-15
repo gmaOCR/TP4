@@ -1,9 +1,20 @@
-from Models import Tournament
+from .Models import Tournament
+from .View import Menus
 
 class TournamentManager:
-    
+
     def __init__(self):
-        self.tourmament = Tournament("Tournoi de la rue du Stand", "Genève", "05/09/22", "Blitz", 4, players_list, "" )
+        pass
+
+    def get_info(self):
+        menu = Menus()
+        menu.hello()
+        menu.start_menu("1.Créer un tournoi \n"
+                       "2.Ajouter des joueurs \n"
+                       "3.Consulter des informations \n"
+                       "4.Quitter \n")
+    def create_tournament(self):
+        tournament = Tournament()
 
     def display_tournament(self):
         return (f"Nom du tournoi: {self.name}\n"

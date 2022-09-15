@@ -1,4 +1,4 @@
-from Models import Player
+from .Models import Player
 
 def add_player_to_db(self):
     """A coder"""

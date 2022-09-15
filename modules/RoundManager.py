@@ -1,5 +1,4 @@
-
-from Models import Round
+from .Models import Round
 
 def add_player_to_round(self, player):
     """Ajout des joueurs au round"""
