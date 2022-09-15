@@ -1,8 +1,10 @@
+from modules import TournamentManager, Models, RoundManager, PlayerManager
 
 
 
-
-
+tournament = TournamentManager()
+tournament.display_tournament()
+#tournament.add_player_tournament()
 
 
 

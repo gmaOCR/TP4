@@ -1,6 +1,4 @@
 from Models import Tournament
-from PlayerManager import players_list
-
 
 class TournamentManager:
     
@@ -21,6 +19,3 @@ class TournamentManager:
         self.players_list.append(player)
 
 
-tournament = TournamentManager()
-tournament.display_tournament()
-#tournament.add_player_tournament()
