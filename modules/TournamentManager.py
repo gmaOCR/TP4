@@ -8,19 +8,15 @@ class TournamentManager:
         """Déclare l'objet "Menus" """
         menu.hello()
         """Message de bienvenue"""
-        choice = menu.start_menu("1.Créer un tournoi \n"
-                       "2.Ajouter des joueurs \n"
-                       "3.Consulter des informations \n"
-                       "4.Quitter \n")
+        choice = menu.select_menu(menu.main_menu())
         """Menu principal"""
-
         while choice not in ["1","2","3","4"]:
             print("\n Choix incorrect\n")
-            menu.start_menu()
+            choice = menu.select_menu(menu.main_menu())
         if choice == "1":
             """ Créer un tournoi"""
-            tournament_input = menu.create_tournament()
-
+            tournament_input = menu.create_tournament("Entrez le nom du tournoi:")
+           # tournament = Tournament()
         elif choice == "2":
             """ Ajouter des joueurs à la database"""
             pass
