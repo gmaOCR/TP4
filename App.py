@@ -1,4 +1,4 @@
-from modules.TournamentManager import TournamentManager, Models, RoundManager, PlayerManager, MatchManager
+from modules.TournamentManager import TournamentManager
 
 
 class App:

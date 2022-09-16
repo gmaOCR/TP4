@@ -10,14 +10,15 @@ class Menus:
         return choice
 
     def create_tournament(self):
-            name = input("Entrez le nom du tournoi")
+            name = input("Entrez le nom du tournoi:")
             """ Nom du tournoi """
-            place = input("Entrez le lieu du tournoi")
+            place = input("Entrez le lieu du tournoi:")
             """" Lieu du tournoi """
-            date_input = input("Entrez la date du tournoi (JJ/MM/AAAA)")
-            """ A retravailler """
-            #date = datetime.datetime.strptime(date_input, "%d/%m/%Y").date
-            #print(date)
+            date = input("Entrez la date du tournoi: (JJ/MM/AAAA)")
+            """ Date du jour du tournoi"""
+            rounds = input("Entrez le nombre de rondes: (défaut 4)")
+            desc = input ("Entre un commentaire (facultatif):")
+            return [name, place, date, rounds, desc]
             
 
 
