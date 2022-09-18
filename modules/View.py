@@ -19,6 +19,7 @@ class Menus:
 
     def get_input_int(self, menu):
         choice = input(menu)
+        # return int(choice)
         if choice == "":
             return None
         elif choice.isnumeric() is True:
