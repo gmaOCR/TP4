@@ -37,7 +37,7 @@ class TournamentManager:
         t_place = menu.get_input_str("Entrez le lieu du tournoi:")
         t_date = menu.get_input_str("Entrez la date du tournoi: (JJ/MM/AAAA)")
         t_rounds = menu.get_input_int("Entrez le nombre de rondes: (défaut 4)")
-        t_rounds.input_int_checker()
+        self.input_int_checker(t_rounds)
         # if t_rounds is None:
         #     t_rounds = 4
         t_time_control = menu.get_time_control("Entrez le type de chrono: (1. bullet 2. blitz 3. coup rapide)")
@@ -66,7 +66,7 @@ class TournamentManager:
             print("La saisie doit être un nombre entier")
             while ValueError is not None:
                 try:
-                    choice = menu.get_input_int()
+                    menu.get_input_int("")
                     return int(choice)
                 except ValueError:
                     print("La saisie doit être un nombre entier")
