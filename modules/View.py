@@ -18,33 +18,41 @@ class Menus:
         return choice
 
     def get_input_int(self, menu):
-        if input(menu) == "":
+        choice = input(menu)
+        if choice == "":
             return None
-        else:
+        elif choice.isnumeric() is True:
+            return choice
+        elif choice.isnumeric() is False:
+            print("La saisie doit être un nombre entier")
             while ValueError is not None:
                 try:
                     choice = input(menu)
                     return int(choice)
                 except ValueError:
-                    print("Le nombre de rounds doit être un nombre entier")
+                    print("La saisie doit être un nombre entier")
+        else:
+            return "Contactez l'administrateur"
+
 
     def get_time_control(self, menu):
+        choice = input(menu)
+
         while ValueError is not None:
             try:
+                print("try")
                 choice = input(menu)
                 return int(choice)
             except ValueError:
+                print("err")
                 return Menus.tc_out_of_range()
 
 
     def tc_out_of_range(self):
         """Retourne le menu de choix de TIMECONTROL """
         return("Entrez le chiffre correspondant:\n"
-                + print(*TIME_CONTROL, sep = "\n"))
+                + str("\n".join(TIME_CONTROL)))
 
-    def create_tournament(self):
-        """A coder"""
-        pass
 
 
 

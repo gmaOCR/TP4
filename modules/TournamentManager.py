@@ -52,7 +52,7 @@ class TournamentManager:
             t_time_control = TIME_CONTROL[2]
         else:
             menu.get_time_control(menu.tc_out_of_range())
-        t_desc = menu.get_input_str("Entre un commentaire (facultatif):")
+        t_desc = menu.get_input_str("Entrez un commentaire (facultatif):")
         #tournament = Tournament()
 
     def display_tournament(self):
