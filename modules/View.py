@@ -20,20 +20,6 @@ class Menus:
     def get_input_int(self, menu):
         choice = input(menu)
         return choice
-        # if choice == "":
-        #     return None
-        # elif choice.isnumeric() is True:
-        #     return choice
-        # elif choice.isnumeric() is False:
-        #     print("La saisie doit être un nombre entier")
-        #     while ValueError is not None:
-        #         try:
-        #             choice = input(menu)
-        #             return int(choice)
-        #         except ValueError:
-        #             print("La saisie doit être un nombre entier")
-        # else:
-        #     return "Contactez l'administrateur"
 
 
     def get_time_control(self, menu):
