@@ -66,7 +66,7 @@ class TournamentManager:
             print("La saisie doit être un nombre entier")
             while ValueError is not None:
                 try:
-                    choice = input(menu)
+                    choice = menu.get_input_int()
                     return int(choice)
                 except ValueError:
                     print("La saisie doit être un nombre entier")
