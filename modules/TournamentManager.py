@@ -37,9 +37,9 @@ class TournamentManager:
         t_place = menu.get_input_str("Entrez le lieu du tournoi:")
         t_date = menu.get_input_str("Entrez la date du tournoi: (JJ/MM/AAAA)")
         t_rounds = menu.get_input_int("Entrez le nombre de rondes: (défaut 4)")
-        # t_rounds.input_int_checker(t_rounds)
-        if t_rounds is None:
-            t_rounds = 4
+        t_rounds.input_int_checker()
+        # if t_rounds is None:
+        #     t_rounds = 4
         t_time_control = menu.get_time_control("Entrez le type de chrono: (1. bullet 2. blitz 3. coup rapide)")
         while t_time_control > len(TIME_CONTROL):
             print("\n Choix incorrect\n")
@@ -57,21 +57,21 @@ class TournamentManager:
         #tournament = Tournament()
 
 
-    # def input_int_checker(self,choice):
-    #     if choice == "":
-    #         return 4
-    #     elif choice.isnumeric() is True:
-    #         return choice
-    #     elif choice.isnumeric() is False:
-    #         print("La saisie doit être un nombre entier")
-    #         while ValueError is not None:
-    #             try:
-    #                 choice = input(menu)
-    #                 return int(choice)
-    #             except ValueError:
-    #                 print("La saisie doit être un nombre entier")
-    #     else:
-    #         return "Contactez l'administrateur"
+    def input_int_checker(self,choice):
+        if choice == "":
+            return 4
+        elif choice.isnumeric() is True:
+            return choice
+        elif choice.isnumeric() is False:
+            print("La saisie doit être un nombre entier")
+            while ValueError is not None:
+                try:
+                    choice = input(menu)
+                    return int(choice)
+                except ValueError:
+                    print("La saisie doit être un nombre entier")
+        else:
+            return "Contactez l'administrateur"
 
     def display_tournament(self):
         return (f"Nom du tournoi: {self.name}\n"
