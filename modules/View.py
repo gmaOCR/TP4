@@ -13,11 +13,7 @@ class Menus:
                 "3.Consulter des informations \n"
                 "4.Quitter \n")
 
-    def get_input_str(self, menu):
-        choice = input(menu)
-        return choice
-
-    def get_input_int(self, menu):
+    def get_input(self, menu):
         choice = input(menu)
         return choice
 
@@ -35,10 +31,11 @@ class Menus:
                 return Menus.tc_out_of_range()
 
 
-    def tc_out_of_range(self):
+    def tc_menu(self):
         """Retourne le menu de choix de TIMECONTROL """
-        return("Entrez le chiffre correspondant:\n"
+        menu = input("Sélectionner le chiffre du type de chronométrage:\n"
                 + str("\n".join(TIME_CONTROL)))
+        return menu
 
 
 
