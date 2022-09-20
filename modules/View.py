@@ -37,5 +37,14 @@ class Menus:
         return menu
 
 
+    def display_tournament(self,name ,place, date, rounds, timecontrol, players_list, round_list, desc ):
+        return (f"Nom du tournoi: {name}\n"
+                f"Lieu: {place}\n"
+                f"Jour:  {date}\n"
+                f"Nombre de tour: {rounds}\n"
+                f"Type de chrono: {timecontrol}\n"
+                f"Liste des rondes: {round_list}\n"
+                f"Joueurs: {players_list}\n"
+                f"Information complémentaire: {desc}\n")
 
 

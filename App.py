@@ -4,8 +4,8 @@ from modules.TournamentManager import TournamentManager
 class App:
 
     def run(self):
-        start = TournamentManager()
-        start.get_info()
+        tm = TournamentManager()
+        tm.start()
 
 
 if __name__ == "__main__":
