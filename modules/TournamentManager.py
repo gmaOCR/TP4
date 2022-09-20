@@ -69,7 +69,7 @@ class TournamentManager:
         #             menu.tc_menu()
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
         tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds,None,None,t_desc)
-
+        print(self.display_tournament(t_name))
 
     def input_round_checker(self,choice):
         if choice == "":
@@ -88,13 +88,13 @@ class TournamentManager:
 
 
 
-    def display_tournament(self):
-        return (f"Nom du tournoi: {Tournament.name}\n"
-                f"Lieu: {self.place}\n"
-                f"Jour:  {self.date}\n"
-                f"Nombre de tour: {self.rounds}\n"
-                f"Type de chrono: {self.timecontrol}\n"
-                f"Joueurs: {self.players_list}\n"
-                f"Information complémentaire: {self.description}\n")
+    def display_tournament(self,t_name):
+        return (f"Nom du tournoi: {t_name}\n")
+                # f"Lieu: {self.place}\n"
+                # f"Jour:  {self.date}\n"
+                # f"Nombre de tour: {self.rounds}\n"
+                # f"Type de chrono: {self.timecontrol}\n"
+                # f"Joueurs: {self.players_list}\n"
+                # f"Information complémentaire: {self.description}\n")
 
 
