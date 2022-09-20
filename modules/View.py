@@ -18,23 +18,22 @@ class Menus:
         return choice
 
 
-    def get_time_control(self, menu):
-        choice = input(menu)
+    # def get_time_control(self, menu):
+    #     choice = input(menu)
+    #
+    #     while ValueError is not None:
+    #         try:
+    #             print("try")
+    #             choice = input(menu)
+    #             return int(choice)
+    #         except ValueError:
+    #             print("err")
+    #             return Menus.tc_out_of_range()
 
-        while ValueError is not None:
-            try:
-                print("try")
-                choice = input(menu)
-                return int(choice)
-            except ValueError:
-                print("err")
-                return Menus.tc_out_of_range()
 
-
-    def tc_menu(self):
+    def tc_menu(self,menu):
         """Retourne le menu de choix de TIMECONTROL """
-        menu = input("Sélectionner le chiffre du type de chronométrage:\n"
-                + str("\n".join(TIME_CONTROL)))
+        menu = input(menu + str("\n".join(TIME_CONTROL)))
         return menu
 
 

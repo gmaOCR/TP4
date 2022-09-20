@@ -38,31 +38,37 @@ class TournamentManager:
         t_date = menu.get_input("Entrez la date du tournoi: (JJ/MM/AAAA)")
         t_rounds = menu.get_input("Entrez le nombre de rondes: (défaut 4)")
         self.input_round_checker(t_rounds)
-        t_time_control = menu.tc_menu()
+        t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
         """Vérifier et récupère le type de chrono dans la constante TIME_CONTROL"""
-        while t_time_control.isnumeric() is False:
-            print("\n Choix incorrect\n")
-            t_time_control = menu.tc_menu()
-        while t_time_control > len(TIME_CONTROL):
-            print("\n Choix incorrect\n")
-            t_time_control = menu.tc_menu()
-        if int(t_time_control) == 1:
-            t_time_control = TIME_CONTROL[0]
-        if int(t_time_control) == 2:
-            t_time_control = TIME_CONTROL[1]
-        if int(t_time_control) == 3:
-            t_time_control = TIME_CONTROL[2]
-        else:
-            while t_time_control.isnumeric() is False:
-                try:
-                    t_time_control.isnumeric() is True
-                except ValueError:
-                    print("\n Choix incorrect\n")
 
-
-            menu.tc_menu()
+        # while t_time_control.isnumeric() is False:
+        #     try:
+        #         print("\n Choix incorrect\n")
+        #         t_time_control = menu.tc_menu()
+        #         int(t_time_control)
+        #     except ValueError:
+        #         print("\n Entrez un chiffre:\n")
+        #         menu.tc_menu()
+        #
+        # while int(t_time_control) > len(TIME_CONTROL):
+        #     print("\n Sélectionnez dans la liste\n")
+        #     t_time_control = menu.tc_menu()
+        #     print(TIME_CONTROL[int(t_time_control)])
+        # if int(t_time_control) == 1:
+        #     t_time_control = TIME_CONTROL[0]
+        # if int(t_time_control) == 2:
+        #     t_time_control = TIME_CONTROL[1]
+        # if int(t_time_control) == 3:
+        #     t_time_control = TIME_CONTROL[2]
+        # else:
+        #     while t_time_control.isnumeric() is False:
+        #         try:
+        #             t_time_control.isnumeric() is True
+        #         except ValueError:
+        #             print("\n Choix incorrect\n")
+        #             menu.tc_menu()
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
-        #tournament = Tournament()
+        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds,None,None,t_desc)
 
 
     def input_round_checker(self,choice):
@@ -82,9 +88,8 @@ class TournamentManager:
 
 
 
-
     def display_tournament(self):
-        return (f"Nom du tournoi: {self.name}\n"
+        return (f"Nom du tournoi: {Tournament.name}\n"
                 f"Lieu: {self.place}\n"
                 f"Jour:  {self.date}\n"
                 f"Nombre de tour: {self.rounds}\n"
