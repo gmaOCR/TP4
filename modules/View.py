@@ -47,4 +47,11 @@ class Menus:
                 f"Joueurs: {players_list}\n"
                 f"Information complémentaire: {desc}\n")
 
+    def display_player(self, lastname, surname, birthday, genre, rank, ident):
+        return(f"Nom: {lastname}\n"
+                f"Prénom: {surname}\n"
+                f"Date de naissance: {birthday}\n"
+                f"Sexe: {genre}\n"
+                f"Classement: {rank}\n"
+                f"Identifiant: {ident}\n")
 

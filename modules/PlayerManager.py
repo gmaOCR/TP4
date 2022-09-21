@@ -14,21 +14,19 @@ class PlayerManager:
         p_birthday = menu.get_input("Entrez la date de naissance du joueur:")
         p_genre = menu.get_input("Entrez le sexe du joueur:")
         p_rank = menu.get_input("Entrez le classement du joueur:")
-        p_ident = uuid.uuid4()
+        p_ident = uuid.uuid1()
         player = Player(p_name, p_surname, p_birthday, p_genre, p_rank, p_ident)
+        return player
 
 
-    def add_player_to_db(self):
-        """A coder"""
-        pass
-
-    def display_player(self):
-        return(f"Nom: {self.lastname}\n"
-                f"Prénom: {self.surname}\n"
-                f"Date de naissance: {self.birthday}\n"
-                f"Sexe: {self.genre}\n"
-                f"Classement: {self.rank}\n"
-                f"Identifiant: {self.ident}\n")
+    def add_player_to_db(self,player):
+        """Ajoute le joueur à TinyDB"""
+        serialized_player = {
+            'lastname': player.lastname,
+            'surname': player.surname
+            'age': player.birthday,
+        }
+        return serialized_player
 
 
     # Lignes de test

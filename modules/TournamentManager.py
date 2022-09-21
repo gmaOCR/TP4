@@ -31,8 +31,9 @@ class TournamentManager:
         elif choice == "2":
             """ Instancie et ajoute des joueurs à la database"""
             pm = PlayerManager()
-            pm.create_player()
-
+            player = pm.create_player()
+            print(vars(player))
+            print(pm.add_player_to_db(player))
         elif choice == "3":
             """ Consulter des informations """
             pass
