@@ -23,11 +23,11 @@ class TournamentManager:
             print("\n Choix incorrect\n")
             choice = menu.get_input(menu.main_menu())
         if choice == "1":
-            """ Créer un tournoi et récupère ses propriétés"""
-            tournament = TournamentManager()
-            tournament.create_tournament()
-            print(tournament)
-
+            """ Créer une instance tournoi et récupère ses propriétés"""
+            tm = TournamentManager()
+            tournoi = tm.create_tournament()
+            print(menu.display_tournament(tournoi.name,tournoi.place,tournoi.date,tournoi.rounds,tournoi.timecontrol,
+                  tournoi.round_list, tournoi.player_list, tournoi.description))
         elif choice == "2":
             """ Instancie et ajoute des joueurs à la database"""
             pm = PlayerManager()
@@ -49,7 +49,8 @@ class TournamentManager:
         self.input_round_checker(t_rounds)
         t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
-        Tournament(t_name, t_place, t_date, t_time_control, t_rounds,None,None,t_desc)
+        tournoi = Tournament(t_name, t_place, t_date, t_time_control, t_rounds,None,None,t_desc)
+        return tournoi
         #print(menu.display_tournament(t_name, t_place, t_date, t_time_control, t_rounds, None, None, t_desc))
 
     def input_round_checker(self, choice):
