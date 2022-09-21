@@ -23,8 +23,11 @@ class PlayerManager:
         """Ajoute le joueur à TinyDB"""
         serialized_player = {
             'lastname': player.lastname,
-            'surname': player.surname
+            'surname': player.surname,
             'age': player.birthday,
+            'genre': player.genre,
+            'rank': player.rank,
+            'id': player.ident
         }
         return serialized_player
 

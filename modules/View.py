@@ -8,10 +8,11 @@ class Menus:
         print("Bienvenue sur votre outil de gestion de tournois d'échecs:")
 
     def main_menu(self):
-        return("1.Créer un tournoi \n"
-                "2.Ajouter des joueurs \n"
-                "3.Consulter des informations \n"
-                "4.Quitter \n")
+        return("1.Créer un tournoi\n"
+               "2.Ajouter des joueurs au tournoi en cours\n"
+                "3.Ajouter des joueurs à la base\n"
+                "4.Consulter des informations\n"
+                "5.Quitter \n")
 
     def get_input(self, menu):
         choice = input(menu)
