@@ -2,43 +2,34 @@ import datetime
 
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
+
 class Menus:
 
-    def hello(self):
+    @staticmethod
+    def hello():
         print("Bienvenue sur votre outil de gestion de tournois d'échecs:")
 
-    def main_menu(self):
-        return("1.Créer un tournoi\n"
-               "2.Ajouter des joueurs au tournoi en cours\n"
-                "3.Ajouter des joueurs à la base\n"
+    @staticmethod
+    def main_menu():
+        return ("1.Créer un tournoi\n"
+                "2.Consulter la base de joueurs et en choisir 8 pour le tournoi en cours\n"
+                "3.Ajouter des joueurs à la base de données\n"
                 "4.Consulter des informations\n"
                 "5.Quitter \n")
 
-    def get_input(self, menu):
+    @staticmethod
+    def get_input(menu):
         choice = input(menu)
         return choice
 
-
-    # def get_time_control(self, menu):
-    #     choice = input(menu)
-    #
-    #     while ValueError is not None:
-    #         try:
-    #             print("try")
-    #             choice = input(menu)
-    #             return int(choice)
-    #         except ValueError:
-    #             print("err")
-    #             return Menus.tc_out_of_range()
-
-
-    def tc_menu(self,menu):
+    @staticmethod
+    def tc_menu(menu):
         """Retourne le menu de choix de TIMECONTROL """
         menu = input(menu + str("\n".join(TIME_CONTROL)))
         return menu
 
-
-    def display_tournament(self,name ,place, date, rounds, timecontrol, players_list, round_list, desc ):
+    @staticmethod
+    def display_tournament(name, place, date, rounds, timecontrol, players_list, round_list, desc):
         return (f"Nom du tournoi: {name}\n"
                 f"Lieu: {place}\n"
                 f"Jour:  {date}\n"
@@ -48,11 +39,15 @@ class Menus:
                 f"Joueurs: {players_list}\n"
                 f"Information complémentaire: {desc}\n")
 
-    def display_player(self, lastname, surname, birthday, genre, rank, ident):
-        return(f"Nom: {lastname}\n"
+    @staticmethod
+    def display_player(lastname, surname, birthday, genre, rank, ident):
+        return (f"\nNom: {lastname}\n"
                 f"Prénom: {surname}\n"
                 f"Date de naissance: {birthday}\n"
                 f"Sexe: {genre}\n"
                 f"Classement: {rank}\n"
                 f"Identifiant: {ident}\n")
+
+    def display_player_from_db(self, players):
+        return print(players)
 
