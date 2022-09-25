@@ -1,5 +1,6 @@
 import datetime
 
+
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
 
@@ -15,7 +16,7 @@ class Menus:
                 "2.Consulter la base de joueurs\n"
                 "3.Ajouter des joueurs à la base de données\n"
                 "4.Consulter des informations\n"
-                "5 *** RESET LA BASE DE JOUEURS (F° TP)\n"
+                "5 *** RESET LA BASE DE JOUEURS (F° HORS TP!)\n"
                 "9.Quitter \n")
 
     @staticmethod
@@ -42,16 +43,14 @@ class Menus:
 
     @staticmethod
     def display_player(lastname, surname, birthday, genre, rank, ident):
-        return (f"\nNom: {lastname}\n"
-                f"Prénom: {surname}\n"
-                f"Date de naissance: {birthday}\n"
-                f"Sexe: {genre}\n"
-                f"Classement: {rank}\n"
-                f"Identifiant: {ident}\n")
+        return print(f"\nNom: {lastname}\n"
+                     f"Prénom: {surname}\n"
+                     f"Date de naissance: {birthday}\n"
+                     f"Sexe: {genre}\n"
+                     f"Classement: {rank}\n"
+                     f"Identifiant: {ident}\n")
 
     def display_player_from_db(self, players):
-        return print(*players)
-        #return print(("\n" .join(map(str, players)) + "\n").replace("}", ""))
-        #return print("\n" .join(map(str("Nom"), (str(players).translate(str.maketrans({"{": None, "}": None, "'": None}))))))
+        return print(*players, sep="\n")
 
 

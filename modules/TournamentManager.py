@@ -1,21 +1,28 @@
 from tinydb import TinyDB
+from tinydb import where
+from operator import itemgetter
 
 import modules.View
 from modules.Models import Tournament
 from modules.View import Menus
 from modules.PlayerManager import PlayerManager
+from modules.RoundManager import RoundManager
 
 TIME_CONTROL = modules.View.TIME_CONTROL
 """Liste des types de chronomètres standardisés"""
 
 db = TinyDB("db.json")
 players_table = db.table("players")
+tournaments_table = db.table("tournaments")
 """ Déclaration de la base de données et des tables """
 
 menu = Menus()
 """Déclare l'objet "Menus" from View.py """
 pm = PlayerManager()
 """Déclare l'objet "PlayerManager" from PlayerManager.py """
+rm = RoundManager()
+"""Déclare l'objet "Roudnmanager" from Roundmanager.py """
+
 
 
 class TournamentManager:
@@ -37,7 +44,7 @@ class TournamentManager:
                 self.menu_2()
                 choice = menu.get_input(menu.main_menu())
             elif choice == "3":
-                self.menu_3()
+                self.menu_3(choice)
                 choice = menu.get_input(menu.main_menu())
             elif choice == "4":
                 """ Consulter des informations """
@@ -85,34 +92,45 @@ class TournamentManager:
     @staticmethod
     def clear_db():
         players_table.truncate()  # clear the table first
-        return print("Table Players effacée !")
+        return print("\nTable Players effacée !\n")
 
-    def menu_3(self):
-        """ Instancie et ajoute des joueurs à la database"""
-        player = pm.create_player()
-        menu.display_player(player.lastname, player.surname, player.birthday, player.genre, player.rank,
-                            player.ident)
-        choice = menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
-        while choice == "O":
-            serialized_player = pm.serialize_player(player)
-            self.add_player_to_db(serialized_player)
-            print("\nJoueur ajouté avec succès !\n")
-            choice = menu.get_input("Ajouter un autre joueur ? (O/N)")
-        if choice == "N":
-            print("\nRetour au menu principal\n")
+    def menu_3(self, choice):
+        """ Ajoute des joueurs à la database"""
+        while choice in ["O", "3"]:
+            if choice == "O" or "3":
+                player = pm.create_player()
+                menu.display_player(player.lastname, player.surname, player.birthday, player.genre, player.rank,
+                                    player.ident)
+                choice = menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
+                if choice == "O":
+                    serialized_player = pm.serialize_player(player)
+                    self.add_player_to_db(serialized_player)
+                    print("\nJoueur ajouté avec succès !\n")
+            choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
+            if choice == "N":
+                print("\nRetour au menu principal\n")
 
-    @staticmethod
-    def menu_1():
-        """ Créer une instance tournoi et récupère ses propriétés"""
+
+    def menu_1(self):
+        """ Créer une instance tournoi et récupère ses propriétés
+        Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
+        menu.display_player_from_db(pm.unserialize_table_of_players(players_table))
+        players = pm.unserialize_table_of_players(players_table)
+        choice = menu.get_input("\nChoisir 8 joueurs: (saisir le numéro de ligne): \n")
+        self.get_player_parameters(int(choice), players)
         tm = TournamentManager()
         tournoi = tm.create_tournament()
         menu.display_tournament(tournoi.name, tournoi.place, tournoi.date, tournoi.rounds,tournoi.timecontrol,
                                 tournoi.round_list, tournoi.player_list, tournoi.description)
+        menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
 
     @staticmethod
     def menu_2():
         """Liste les joueurs depuis la DB"""
-        serialized_player = pm.unserialize_table_of_players(players_table)
-        return menu.display_player_from_db(serialized_player)
+        return menu.display_player_from_db(pm.unserialize_table_of_players(players_table))
 
-    # def add_player_to_current_tournamnent(self):
+    def get_player_parameters(self, choice, player):
+            player[choice]["Nom"] = player.lastname
+
+
+

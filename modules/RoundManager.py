@@ -1,6 +1,15 @@
+import datetime
+
 from .Models import Round
 
 class RoundManager:
+
+    def create_round_1(self, tournament):
+        r_name = "Round_1"
+        r_tournament = tournament
+        r_match_list = []
+
+        pass
 
     def add_player_to_round(self, player):
         """Ajout des joueurs au round"""

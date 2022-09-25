@@ -24,7 +24,7 @@ class Match:
 
 
 class Round:
-    def __init__(self, name, tournament, match_list=[], start_time=0, end_time=0):
+    def __init__(self, name, tournament, match_list, start_time=0, end_time=0):
 
         self.name = name
         self.match_list = match_list
