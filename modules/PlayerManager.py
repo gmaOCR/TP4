@@ -14,7 +14,7 @@ class PlayerManager:
         p_birthday = menu.get_input("Entrez la date de naissance du joueur:")
         p_genre = menu.get_input("Entrez le sexe du joueur:")
         p_rank = menu.get_input("Entrez le classement du joueur:")
-        p_ident = str(uuid.uuid1())
+        p_ident = str(uuid.uuid4())
         player = Player(p_name, p_surname, p_birthday, p_genre, p_rank, p_ident)
         return player
 
@@ -27,7 +27,7 @@ class PlayerManager:
             'Date de naissance': player.birthday,
             'Sexe': player.genre,
             'Rang': player.rank,
-            'Identifiant unique': str(player.ident)
+            #'Identifiant unique': str(player.ident)
         }
         return serialized_player
 

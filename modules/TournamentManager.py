@@ -26,24 +26,26 @@ class TournamentManager:
         """Message de bienvenue"""
         choice = menu.get_input(menu.main_menu())
         """Menu principal"""
-        while choice != "5":
+        while choice != "9":
             while choice not in ["1", "2", "3", "4", "5"]:
                 print("\n Choix incorrect\n")
                 choice = menu.get_input(menu.main_menu())
             if choice == "1":
-                self.menu_choice_1()
+                self.menu_1()
+                choice = menu.get_input(menu.main_menu())
             elif choice == "2":
-                self.menu_choice_2()
-                print("choice 2")
-                break
+                self.menu_2()
+                choice = menu.get_input(menu.main_menu())
             elif choice == "3":
-                self.menu_choice_3(choice)
-                print("choice 3")
-                print(choice)
+                self.menu_3()
+                choice = menu.get_input(menu.main_menu())
             elif choice == "4":
                 """ Consulter des informations """
                 choice = menu.get_input(menu.main_menu())
                 pass
+            elif choice == "5":
+                self.clear_db()
+                choice = menu.get_input(menu.main_menu())
         """ Quitter le programme """
         exit("Fin")
 
@@ -83,8 +85,9 @@ class TournamentManager:
     @staticmethod
     def clear_db():
         players_table.truncate()  # clear the table first
+        return print("Table Players effacée !")
 
-    def menu_choice_3(self, choice):
+    def menu_3(self):
         """ Instancie et ajoute des joueurs à la database"""
         player = pm.create_player()
         menu.display_player(player.lastname, player.surname, player.birthday, player.genre, player.rank,
@@ -97,23 +100,19 @@ class TournamentManager:
             choice = menu.get_input("Ajouter un autre joueur ? (O/N)")
         if choice == "N":
             print("\nRetour au menu principal\n")
-            choice = menu.get_input(menu.main_menu())
-            return choice
-        else:
-            choice = menu.get_input(menu.main_menu())
-            return choice
 
     @staticmethod
-    def menu_choice_1():
+    def menu_1():
         """ Créer une instance tournoi et récupère ses propriétés"""
         tm = TournamentManager()
         tournoi = tm.create_tournament()
-        print(menu.display_tournament(tournoi.name, tournoi.place, tournoi.date, tournoi.rounds,
-                                      tournoi.timecontrol,
-                                      tournoi.round_list, tournoi.player_list, tournoi.description))
+        menu.display_tournament(tournoi.name, tournoi.place, tournoi.date, tournoi.rounds,tournoi.timecontrol,
+                                tournoi.round_list, tournoi.player_list, tournoi.description)
 
     @staticmethod
-    def menu_choice_2():
-        """Liste les joueurs depuis la DB et en choisi 8"""
+    def menu_2():
+        """Liste les joueurs depuis la DB"""
         serialized_player = pm.unserialize_table_of_players(players_table)
         return menu.display_player_from_db(serialized_player)
+
+    # def add_player_to_current_tournamnent(self):
