@@ -7,7 +7,7 @@ menu = Menus()
 
 
 class PlayerManager:
-    def create_player(self):
+    def create_player_to_db(self):
         """Instancie un joueur"""
         p_name = menu.get_input("Entrez le nom du joueur:")
         p_surname = menu.get_input("Entrez le prénom du joueur:")
@@ -31,14 +31,14 @@ class PlayerManager:
         }
         return serialized_player
 
-    def unserialize_player(self, choice, serialized_player):
+    def unserialize_player(self, serialized_player):
         """Déserialise un joueur et l'instancie"""
-        lastname = serialized_player[choice]["Nom"]
-        surname = serialized_player[choice]["Prénom"]
-        birthday = serialized_player[choice]["Date de naissance"]
-        genre = serialized_player[choice]["Sexe"]
-        rank = serialized_player[choice]["Rang"]
-        ident = serialized_player[choice]["Identifiant unique"]
+        lastname = serialized_player["Nom"]
+        surname = serialized_player["Prénom"]
+        birthday = serialized_player["Date de naissance"]
+        genre = serialized_player["Sexe"]
+        rank = serialized_player["Rang"]
+        ident = serialized_player["Identifiant unique"]
         player = Player(lastname, surname, birthday, genre, rank, ident)
         return player
 
