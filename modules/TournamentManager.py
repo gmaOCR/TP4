@@ -1,6 +1,7 @@
 from tinydb import TinyDB
 from tinydb import where
 from operator import itemgetter
+import json
 
 import modules.View
 from modules.Models import Tournament
@@ -114,23 +115,41 @@ class TournamentManager:
     def menu_1(self):
         """ Créer une instance tournoi et récupère ses propriétés
         Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
-        menu.display_player_from_db(pm.unserialize_table_of_players(players_table))
-        players = pm.unserialize_table_of_players(players_table)
-        choice = menu.get_input("\nChoisir 8 joueurs: (saisir le numéro de ligne): \n")
-        self.get_player_parameters(int(choice), players)
+        i = 0
+        player_list = []
+        with open("db.json") as z:
+            dictData = json.load(z)
+            #a = print(dictData['players'])
+            #b = print(dictData)
+            aa = []
+            bb = []
+        for j in (dictData['players'].values()):
+            aa = print(j.values())
+            bb = print(j.keys())
+        print(bb)
+        """
+            #print(type(dictData))
+        while i < 8:
+            i = i + 1
+            serialized_player = pm.unserialize_table_of_players(players_table)
+            player_list_full = pm.unserialize_table_of_players(players_table)
+            print(player_list_full)
+            r = set(player_list_full) - set(player_list)
+            print(r)
+            choice = menu.get_input("\nChoisir le joueur "+ str(i) + ": (saisir le numéro de ligne): \n")
+            player = pm.unserialize_player(int(choice), serialized_player)
+            player_list.append(player)
+            #print(player_list)
         tm = TournamentManager()
         tournoi = tm.create_tournament()
         menu.display_tournament(tournoi.name, tournoi.place, tournoi.date, tournoi.rounds,tournoi.timecontrol,
                                 tournoi.round_list, tournoi.player_list, tournoi.description)
         menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
+        """
 
     @staticmethod
     def menu_2():
         """Liste les joueurs depuis la DB"""
-        return menu.display_player_from_db(pm.unserialize_table_of_players(players_table))
-
-    def get_player_parameters(self, choice, player):
-            player[choice]["Nom"] = player.lastname
-
+        return menu.display_players_from_db(pm.unserialize_table_of_players(players_table))
 
 

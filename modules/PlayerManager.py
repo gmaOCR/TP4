@@ -8,6 +8,7 @@ menu = Menus()
 
 class PlayerManager:
     def create_player(self):
+        """Instancie un joueur"""
         p_name = menu.get_input("Entrez le nom du joueur:")
         p_surname = menu.get_input("Entrez le prénom du joueur:")
         p_birthday = menu.get_input("Entrez la date de naissance du joueur:")
@@ -17,7 +18,6 @@ class PlayerManager:
         p_ident = p_ident[0:4]
         player = Player(p_name, p_surname, p_birthday, p_genre, p_rank, p_ident)
         return player
-
 
     def serialize_player(self,player):
         """Sérialise le joueur pour TinyDB"""
@@ -31,14 +31,14 @@ class PlayerManager:
         }
         return serialized_player
 
-    def unserialize_player(self, lastname, surname, birthday, genre, rank, ident):
-        """Déserialise un joueur pour l'instancier"""
-        lastname = serialized_player["Nom"]
-        surname = serialized_player["Prénom"]
-        birthday = serialized_player["Date de naissance"]
-        genre = serialized_player["Sexe"]
-        rank = serialized_player["Rang"]
-        ident = serialized_player["Identifiant unique"]
+    def unserialize_player(self, choice, serialized_player):
+        """Déserialise un joueur et l'instancie"""
+        lastname = serialized_player[choice]["Nom"]
+        surname = serialized_player[choice]["Prénom"]
+        birthday = serialized_player[choice]["Date de naissance"]
+        genre = serialized_player[choice]["Sexe"]
+        rank = serialized_player[choice]["Rang"]
+        ident = serialized_player[choice]["Identifiant unique"]
         player = Player(lastname, surname, birthday, genre, rank, ident)
         return player
 

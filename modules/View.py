@@ -50,7 +50,7 @@ class Menus:
                      f"Classement: {rank}\n"
                      f"Identifiant: {ident}\n")
 
-    def display_player_from_db(self, players):
+    def display_players_from_db(self, players):
         return print(*players, sep="\n")
 
 
