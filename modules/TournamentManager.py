@@ -87,7 +87,7 @@ class TournamentManager:
     @staticmethod
     def add_player_to_db(serialized_players):
         players_table.insert(serialized_players)
-        print(db)
+        return "\nJoueur ajouté avec succès !\n"
 
     @staticmethod
     def clear_db():
@@ -105,7 +105,6 @@ class TournamentManager:
                 if choice in ["O", "o"]:
                     serialized_player = pm.serialize_player(player)
                     self.add_player_to_db(serialized_player)
-                    print("\nJoueur ajouté avec succès !\n")
                 else:
                     print("\nRetour au menu précédent\n")
             if choice in ["N", "n"]:
@@ -123,9 +122,9 @@ class TournamentManager:
             i = i + 1
             menu.display_players_from_db(players_table)
             choice = menu.get_input("Choisir le joueur "+ str(i) + ": (saisir le numéro de ligne): \n")
-            print(int(choice))
+            print(players_list_full[int(choice)])
             players_list = players_list.append(players_list_full[int(choice)])
-            print(players_list.append(players_list_full[int(choice)]))
+            print(players_list)
             r = set(players_list_full) - set(players_list)
             print(r)
             #player = pm.unserialize_player(int(choice), serialized_player)
