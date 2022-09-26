@@ -94,11 +94,11 @@ class TournamentManager:
         players_table.truncate()  # clear the table first
         return print("\nTable Players effacée !\n")
 
-    def menu_add_players(self, choice):
+    def menu_add_players_to_db(self, choice):
         """ Ajoute des joueurs à la database"""
         while choice in ["O", "o", "3"]:
             if choice == "O" or "o" or "3":
-                player = pm.create_player()
+                player = pm.create_player_to_db()
                 menu.display_player(player.lastname, player.surname, player.birthday, player.genre, player.rank,
                                     player.ident)
                 choice = menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
@@ -113,24 +113,24 @@ class TournamentManager:
             choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
 
     def menu_tournament(self):
-        """ Créer une instance tournoi et récupère ses propriétés
+        """ Créé une instance tournoi et récupère ses propriétés
         Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
         players_list_full = pm.unserialize_table_of_players(players_table)
-        print(players_list_full)
         players_list = []
         i = 0
         while i < 8:
             i = i + 1
-            menu.display_players_from_db(players_table)
+            #menu.display_players_from_db(players_table)
             choice = menu.get_input("Choisir le joueur "+ str(i) + ": (saisir le numéro de ligne): \n")
-            print(int(choice))
-            players_list = players_list.append(players_list_full[int(choice)])
-            print(players_list.append(players_list_full[int(choice)]))
-            r = set(players_list_full) - set(players_list)
+            players_list.append(players_list_full[int(choice)])
+            p = pm.unserialize_player(players_list_full[int(choice)])
+            menu.display_player(p.lastname,p.surname,p.birthday,p.genre,p.rank,p.ident)
+            print(p)
+            all_player = [player['Identifiant unique'] for player in players_list_full]
+            all_selected_player = [player['Identifiant unique'] for player in players_list]
+            r = set(all_player) - set(all_selected_player)
             print(r)
-            #player = pm.unserialize_player(int(choice), serialized_player)
-            #players_list.append(player)
-            #print(player_list)
+
         tm = TournamentManager()
         tournoi = tm.create_tournament()
         menu.display_tournament(tournoi.name, tournoi.place, tournoi.date, tournoi.rounds,tournoi.timecontrol,
