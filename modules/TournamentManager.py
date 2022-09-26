@@ -38,13 +38,13 @@ class TournamentManager:
                 print("\n Choix incorrect\n")
                 choice = menu.get_input(menu.main_menu())
             if choice == "1":
-                self.menu_1()
+                self.menu_tournament()
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
-                self.menu_2()
+                self.menu_show_players()
                 choice = menu.get_input(menu.main_menu())
             elif choice == "3":
-                self.menu_3(choice)
+                self.menu_add_players(choice)
                 choice = menu.get_input(menu.main_menu())
             elif choice == "4":
                 """ Consulter des informations """
@@ -94,7 +94,7 @@ class TournamentManager:
         players_table.truncate()  # clear the table first
         return print("\nTable Players effacée !\n")
 
-    def menu_3(self, choice):
+    def menu_add_players(self, choice):
         """ Ajoute des joueurs à la database"""
         while choice in ["O", "3"]:
             if choice == "O" or "3":
@@ -112,7 +112,7 @@ class TournamentManager:
                 print("\nRetour au menu principal\n")
             choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
 
-    def menu_1(self):
+    def menu_tournament(self):
         """ Créer une instance tournoi et récupère ses propriétés
         Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
         players_list_full = pm.unserialize_table_of_players(players_table)
@@ -139,7 +139,7 @@ class TournamentManager:
 
 
     @staticmethod
-    def menu_2():
+    def menu_show_players():
         """Liste les joueurs depuis la DB"""
         return menu.display_players_from_db(pm.unserialize_table_of_players(players_table))
 
