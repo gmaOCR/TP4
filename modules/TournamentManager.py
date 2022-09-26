@@ -96,19 +96,19 @@ class TournamentManager:
 
     def menu_add_players(self, choice):
         """ Ajoute des joueurs à la database"""
-        while choice in ["O", "3"]:
-            if choice == "O" or "3":
+        while choice in ["O", "o", "3"]:
+            if choice == "O" or "o" or "3":
                 player = pm.create_player()
                 menu.display_player(player.lastname, player.surname, player.birthday, player.genre, player.rank,
                                     player.ident)
                 choice = menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
-                if choice == "O":
+                if choice in ["O", "o"]:
                     serialized_player = pm.serialize_player(player)
                     self.add_player_to_db(serialized_player)
                     print("\nJoueur ajouté avec succès !\n")
                 else:
                     print("\nRetour au menu précédent\n")
-            if choice == "N":
+            if choice in ["N", "n"]:
                 print("\nRetour au menu principal\n")
             choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
 
