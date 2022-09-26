@@ -115,28 +115,19 @@ class TournamentManager:
     def menu_1(self):
         """ Créer une instance tournoi et récupère ses propriétés
         Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
+        players_list_full = pm.unserialize_table_of_players(players_table)
+        #print(players_list_full)
+        players_list = []
         i = 0
-        player_list = []
-        with open("db.json") as z:
-            dictData = json.load(z)
-            #a = print(dictData['players'])
-            #b = print(dictData)
-            aa = []
-            bb = []
-        for j in (dictData['players'].values()):
-            aa = print(j.values())
-            bb = print(j.keys())
-        print(bb)
-        """
-            #print(type(dictData))
         while i < 8:
             i = i + 1
-            serialized_player = pm.unserialize_table_of_players(players_table)
-            player_list_full = pm.unserialize_table_of_players(players_table)
-            print(player_list_full)
-            r = set(player_list_full) - set(player_list)
+            menu.display_players_from_db(players_table)
+            choice = menu.get_input("Choisir le joueur "+ str(i) + ": (saisir le numéro de ligne): \n")
+            print(int(choice))
+            players_list = players_list.append(players_list_full[int(choice)])
+            print(players_list.append(players_list_full[int(choice)]))
+            r = set(players_list_full) - set(players_list)
             print(r)
-            choice = menu.get_input("\nChoisir le joueur "+ str(i) + ": (saisir le numéro de ligne): \n")
             player = pm.unserialize_player(int(choice), serialized_player)
             player_list.append(player)
             #print(player_list)
@@ -145,7 +136,7 @@ class TournamentManager:
         menu.display_tournament(tournoi.name, tournoi.place, tournoi.date, tournoi.rounds,tournoi.timecontrol,
                                 tournoi.round_list, tournoi.player_list, tournoi.description)
         menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
-        """
+
 
     @staticmethod
     def menu_2():

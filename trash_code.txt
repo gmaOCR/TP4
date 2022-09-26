@@ -8,3 +8,11 @@ def player_testing():
             Player("H", "8", "08/08/08", "F", "324", 1007)}
 
 # Fin temporaire
+
+        # with open("db.json") as z:
+        #     dictData = json.load(z)
+        #     aa = []
+        #     bb = []
+        # for j in (dictData['players'].values()):
+        #     aa.append(j.values())
+        # print(dictData['players'].values())
