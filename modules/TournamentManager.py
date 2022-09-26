@@ -1,5 +1,4 @@
 from tinydb import TinyDB
-from tinydb import where
 from operator import itemgetter
 import json
 
@@ -107,16 +106,17 @@ class TournamentManager:
                     serialized_player = pm.serialize_player(player)
                     self.add_player_to_db(serialized_player)
                     print("\nJoueur ajouté avec succès !\n")
-            choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
+                else:
+                    print("\nRetour au menu précédent\n")
             if choice == "N":
                 print("\nRetour au menu principal\n")
-
+            choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
 
     def menu_1(self):
         """ Créer une instance tournoi et récupère ses propriétés
         Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
         players_list_full = pm.unserialize_table_of_players(players_table)
-        #print(players_list_full)
+        print(players_list_full)
         players_list = []
         i = 0
         while i < 8:
@@ -128,8 +128,8 @@ class TournamentManager:
             print(players_list.append(players_list_full[int(choice)]))
             r = set(players_list_full) - set(players_list)
             print(r)
-            player = pm.unserialize_player(int(choice), serialized_player)
-            player_list.append(player)
+            #player = pm.unserialize_player(int(choice), serialized_player)
+            #players_list.append(player)
             #print(player_list)
         tm = TournamentManager()
         tournoi = tm.create_tournament()
