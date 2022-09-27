@@ -16,8 +16,9 @@ class Score:
 
 
 class Match:
-    def __init__(self, result, player_a, player_b, tournament):
-        self.result = result
+    def __init__(self, result_p_a, result_p_b, player_a, player_b, tournament):
+        self.result_p_a = result_p_a
+        self.result_p_b = result_p_b
         self.player_a = player_a
         self.player_b = player_b
         self.tournament = tournament

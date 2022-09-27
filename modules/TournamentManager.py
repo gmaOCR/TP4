@@ -104,7 +104,10 @@ class TournamentManager:
             del all_player_available[int(choice)]
         """Tri la liste des instances de joueurs par rang"""
         players_list_per_rank = pm.sort_players_per_rank(players_list)
-        
+        """Genère la liste de match du round 1"""
+        a = mm.generate_matches_first_round(players_list_per_rank)
+        for i in a:
+            menu.display_match(i)
         tm = TournamentManager()
         tournament = tm.create_tournament()
         menu.display_tournament(tournament)

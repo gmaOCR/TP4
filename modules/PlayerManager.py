@@ -56,6 +56,6 @@ class PlayerManager:
         return table.insert(serialized_players)
 
     def sort_players_per_rank(self,players_list):
-        sorted_list = sorted(player_list, key=lambda player: int(player.rank), reverse=True)
+        sorted_list = sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         return sorted_list
 
