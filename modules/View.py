@@ -31,30 +31,30 @@ class Menus:
         return menu
 
     @staticmethod
-    def display_tournament(name, place, date, rounds, timecontrol, players_list, round_list, desc):
-        return print((f"Nom du tournoi: {name}\n"
-                f"Lieu: {place}\n"
-                f"Jour:  {date}\n"
-                f"Nombre de tour: {rounds}\n"
-                f"Type de chrono: {timecontrol}\n"
-                f"Liste des rondes: {round_list}\n"
-                f"Joueurs: {players_list}\n"
-                f"Information complémentaire: {desc}\n"))
+    def display_tournament(tournament):
+        return print((f"Nom du tournoi: {tournament.name}\n"
+                f"Lieu: {tournament.place}\n"
+                f"Jour:  {tournament.date}\n"
+                f"Nombre de tour: {tournament.rounds}\n"
+                f"Type de chrono: {tournament.timecontrol}\n"
+                f"Liste des rondes: {tournament.round_list}\n"
+                f"Joueurs: {tournament.players_list}\n"
+                f"Information complémentaire: {tournament.desc}\n"))
 
     @staticmethod
-    def display_player(lastname, surname, birthday, genre, rank, ident):
-        return print(f"\nNom: {lastname}\n"
-                     f"Prénom: {surname}\n"
-                     f"Date de naissance: {birthday}\n"
-                     f"Sexe: {genre}\n"
-                     f"Classement: {rank}\n"
-                     f"Identifiant: {ident}\n")
+    def display_player(player):
+        return print(f"\nNom: {player.lastname}\n"
+                     f"Prénom: {player.surname}\n"
+                     f"Date de naissance: {player.birthday}\n"
+                     f"Sexe: {player.genre}\n"
+                     f"Classement: {player.rank}\n"
+                     f"Identifiant: {player.ident}\n")
 
     def display_players_from_db(self, players):
-        list = []
+        list_players = []
         j = - 1
         for i in players:
             j = j + 1
-            list.append(i)
+            list_players.append(i)
             print("N°", str(j), i)
-        return list
+        return list_players

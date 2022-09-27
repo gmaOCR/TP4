@@ -44,7 +44,7 @@ class TournamentManager:
                 self.menu_show_players()
                 choice = menu.get_input(menu.main_menu())
             elif choice == "3":
-                self.menu_add_players(choice)
+                self.menu_add_players_to_db(choice)
                 choice = menu.get_input(menu.main_menu())
             elif choice == "4":
                 """ Consulter des informations """
@@ -117,25 +117,25 @@ class TournamentManager:
         Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
         players_list_full = pm.unserialize_all_players(players_table)
         players_list = []
-        menu.display_players_from_db(players_table)
-        all_player_avalaible = players_list_full
+        all_player_available = players_list_full
         i = 0
         while i < 8:
             i = i + 1
-            menu.display_players_from_db(all_player_avalaible)
+            menu.display_players_from_db(all_player_available)
             choice = menu.get_input("Choisir le joueur "+ str(i) + ": (saisir le numéro de ligne): \n")
-            players_list.append(pm.unserialize_player(all_player_avalaible[int(choice)]))
-            del all_player_avalaible[int(choice)]
+            players_list.append(pm.unserialize_player(all_player_available[int(choice)]))
+            del all_player_available[int(choice)]
+        for player in players_list:
+            menu.display_player(player)
         tm = TournamentManager()
-        tournoi = tm.create_tournament()
-        menu.display_tournament(tournoi.name, tournoi.place, tournoi.date, tournoi.rounds,tournoi.timecontrol,
-                                tournoi.round_list, tournoi.player_list, tournoi.description)
+        tournament = tm.create_tournament()
+        menu.display_tournament(tournament)
         menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
 
 
     @staticmethod
     def menu_show_players():
         """Liste les joueurs depuis la DB"""
-        return menu.display_players_from_db(pm.unserialize_table_of_players(players_table))
+        return menu.display_players_from_db(pm.unserialize_all_players(players_table))
 
 
