@@ -24,7 +24,6 @@ rm = RoundManager()
 """Déclare l'objet "Roudnmanager" from Roundmanager.py """
 
 
-
 class TournamentManager:
 
     def start(self):
@@ -66,7 +65,52 @@ class TournamentManager:
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
         tournoi = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, None, None, t_desc)
         return tournoi
-        # print(menu.display_tournament(t_name, t_place, t_date, t_time_control, t_rounds, None, None, t_desc))
+
+    def menu_add_players_to_db(self, choice):
+        """ Ajoute des joueurs à la database"""
+        while choice in ["O", "o", "3"]:
+            if choice == "O" or "o" or "3":
+                player = pm.create_player_to_db()
+                menu.display_player(player)
+                choice = menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
+                if choice in ["O", "o"]:
+                    serialized_player = pm.serialize_player(player)
+                    pm.add_player_to_db(serialized_player, players_table)
+                    print("\nJoueur ajouté avec succès !\n")
+                else:
+                    print("\nRetour au menu principal\n")
+            if choice in ["N", "n"]:
+                print("\nRetour au menu principal\n")
+            choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
+            print("\nRetour au menu principal\n")
+
+    def menu_tournament(self):
+        """ Créé une instance tournoi et récupère ses propriétés
+        Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
+        players_list_full = pm.unserialize_all_players(players_table)
+        players_list = []
+        all_player_available = players_list_full
+        i = 0
+        while i < 8:
+            i = i + 1
+            menu.display_players_from_db(all_player_available)
+            choice = menu.get_input("Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
+            players_list.append(pm.unserialize_player(all_player_available[int(choice)]))
+            del all_player_available[int(choice)]
+        tm = TournamentManager()
+        tournament = tm.create_tournament()
+        menu.display_tournament(tournament)
+        menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
+
+    @staticmethod
+    def menu_show_players():
+        """Liste les joueurs depuis la DB"""
+        return menu.display_players_from_db(pm.unserialize_all_players(players_table))
+
+    @staticmethod
+    def clear_db():
+        players_table.truncate()  # clear the table first
+        return print("\nTable Players effacée !\n")
 
     @staticmethod
     def input_round_checker(choice):
@@ -83,59 +127,4 @@ class TournamentManager:
             return choice
         else:
             return "Contactez l'administrateur"
-
-    @staticmethod
-    def add_player_to_db(serialized_players):
-        players_table.insert(serialized_players)
-        print(db)
-
-    @staticmethod
-    def clear_db():
-        players_table.truncate()  # clear the table first
-        return print("\nTable Players effacée !\n")
-
-    def menu_add_players_to_db(self, choice):
-        """ Ajoute des joueurs à la database"""
-        while choice in ["O", "o", "3"]:
-            if choice == "O" or "o" or "3":
-                player = pm.create_player_to_db()
-                menu.display_player(player.lastname, player.surname, player.birthday, player.genre, player.rank,
-                                    player.ident)
-                choice = menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
-                if choice in ["O", "o"]:
-                    serialized_player = pm.serialize_player(player)
-                    self.add_player_to_db(serialized_player)
-                    print("\nJoueur ajouté avec succès !\n")
-                else:
-                    print("\nRetour au menu précédent\n")
-            if choice in ["N", "n"]:
-                print("\nRetour au menu principal\n")
-            choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
-
-    def menu_tournament(self):
-        """ Créé une instance tournoi et récupère ses propriétés
-        Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
-        players_list_full = pm.unserialize_all_players(players_table)
-        players_list = []
-        all_player_available = players_list_full
-        i = 0
-        while i < 8:
-            i = i + 1
-            menu.display_players_from_db(all_player_available)
-            choice = menu.get_input("Choisir le joueur "+ str(i) + ": (saisir le numéro de ligne): \n")
-            players_list.append(pm.unserialize_player(all_player_available[int(choice)]))
-            del all_player_available[int(choice)]
-        for player in players_list:
-            menu.display_player(player)
-        tm = TournamentManager()
-        tournament = tm.create_tournament()
-        menu.display_tournament(tournament)
-        menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
-
-
-    @staticmethod
-    def menu_show_players():
-        """Liste les joueurs depuis la DB"""
-        return menu.display_players_from_db(pm.unserialize_all_players(players_table))
-
 

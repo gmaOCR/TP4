@@ -7,7 +7,8 @@ menu = Menus()
 
 
 class PlayerManager:
-    def create_player_to_db(self):
+    @staticmethod
+    def create_player_to_db():
         """Instancie un joueur"""
         p_name = menu.get_input("Entrez le nom du joueur:")
         p_surname = menu.get_input("Entrez le prénom du joueur:")
@@ -19,7 +20,8 @@ class PlayerManager:
         player = Player(p_name, p_surname, p_birthday, p_genre, p_rank, p_ident)
         return player
 
-    def serialize_player(self,player):
+    @staticmethod
+    def serialize_player(player):
         """Sérialise le joueur pour TinyDB"""
         serialized_player = {
             'Nom': player.lastname,
@@ -31,7 +33,8 @@ class PlayerManager:
         }
         return serialized_player
 
-    def unserialize_player(self, serialized_player):
+    @staticmethod
+    def unserialize_player(serialized_player):
         """Déserialise un joueur et l'instancie"""
         lastname = serialized_player["Nom"]
         surname = serialized_player["Prénom"]
@@ -42,7 +45,12 @@ class PlayerManager:
         player = Player(lastname, surname, birthday, genre, rank, ident)
         return player
 
-    def unserialize_all_players(self, players_table):
+    @staticmethod
+    def unserialize_all_players(players_table):
         """Déserialise la table complète des joueurs"""
         unserialized_players = players_table.all()
         return unserialized_players
+    @staticmethod
+    def add_player_to_db(serialized_players,table):
+        return table.insert(serialized_players)
+

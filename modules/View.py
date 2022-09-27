@@ -4,6 +4,7 @@ import datetime
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
 
+
 class Menus:
 
     @staticmethod
@@ -12,7 +13,7 @@ class Menus:
 
     @staticmethod
     def main_menu():
-        return ("1.Créer un tournoi\n"
+        return ("\n1.Créer un tournoi\n"
                 "2.Consulter la base de joueurs\n"
                 "3.Ajouter des joueurs à la base de données\n"
                 "4.Consulter des informations\n"
@@ -50,7 +51,8 @@ class Menus:
                      f"Classement: {player.rank}\n"
                      f"Identifiant: {player.ident}\n")
 
-    def display_players_from_db(self, players):
+    @staticmethod
+    def display_players_from_db(players):
         list_players = []
         j = - 1
         for i in players:
@@ -58,3 +60,4 @@ class Menus:
             list_players.append(i)
             print("N°", str(j), i)
         return list_players
+
