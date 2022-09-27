@@ -42,10 +42,7 @@ class PlayerManager:
         player = Player(lastname, surname, birthday, genre, rank, ident)
         return player
 
-    def unserialize_table_of_players(self, players_table):
+    def unserialize_all_players(self, players_table):
         """Déserialise la table complète des joueurs"""
         unserialized_players = players_table.all()
         return unserialized_players
-
-    def add_player_to_current_tournament(self):
-        """"""
