@@ -7,6 +7,7 @@ from modules.Models import Tournament
 from modules.View import Menus
 from modules.PlayerManager import PlayerManager
 from modules.RoundManager import RoundManager
+from modules.MatchManager import MatchManager
 
 TIME_CONTROL = modules.View.TIME_CONTROL
 """Liste des types de chronomètres standardisés"""
@@ -21,7 +22,9 @@ menu = Menus()
 pm = PlayerManager()
 """Déclare l'objet "PlayerManager" from PlayerManager.py """
 rm = RoundManager()
-"""Déclare l'objet "Roudnmanager" from Roundmanager.py """
+"""Déclare l'objet "Roundmanager" from Roundmanager.py """
+mm = MatchManager()
+"""Déclare l'objet "Matchmanager" from matchmanager.py """
 
 
 class TournamentManager:
@@ -63,8 +66,8 @@ class TournamentManager:
         self.input_round_checker(t_rounds)
         t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
-        tournoi = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, None, None, t_desc)
-        return tournoi
+        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, None, None, t_desc)
+        return tournament
 
     def menu_add_players_to_db(self, choice):
         """ Ajoute des joueurs à la database"""
@@ -85,9 +88,10 @@ class TournamentManager:
             print("\nRetour au menu principal\n")
 
     def menu_tournament(self):
-        """ Créé une instance tournoi et récupère ses propriétés
-        Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
+        """ Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi
+        Créé une instance tournoi et récupère ses propriétés par saisie utilisateur """
         players_list_full = pm.unserialize_all_players(players_table)
+        """" Génère la liste des joueurs présent en DB"""
         players_list = []
         all_player_available = players_list_full
         i = 0
@@ -97,6 +101,10 @@ class TournamentManager:
             choice = menu.get_input("Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
             players_list.append(pm.unserialize_player(all_player_available[int(choice)]))
             del all_player_available[int(choice)]
+        """" Boucle selectionnant 8 joueurs"""
+        a = mm.generate_matches_first_round(players_list)
+        for j in a:
+            menu.display_player(j)
         tm = TournamentManager()
         tournament = tm.create_tournament()
         menu.display_tournament(tournament)
