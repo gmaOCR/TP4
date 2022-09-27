@@ -90,21 +90,21 @@ class TournamentManager:
     def menu_tournament(self):
         """ Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi
         Créé une instance tournoi et récupère ses propriétés par saisie utilisateur """
-        players_list_full = pm.unserialize_all_players(players_table)
         """" Génère la liste des joueurs présent en DB"""
+        players_list_full = pm.unserialize_all_players(players_table)
         players_list = []
         all_player_available = players_list_full
         i = 0
+        """" Boucle selectionnant 8 joueurs par choix opérateur"""
         while i < 8:
             i = i + 1
             menu.display_players_from_db(all_player_available)
             choice = menu.get_input("Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
-            players_list.append(pm.unserialize_player(all_player_available[int(choice)]))
+            players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
             del all_player_available[int(choice)]
-        """" Boucle selectionnant 8 joueurs"""
-        a = mm.generate_matches_first_round(players_list)
-        for j in a:
-            menu.display_player(j)
+        """Tri la liste des instances de joueurs par rang"""
+        players_list_per_rank = pm.sort_players_per_rank(players_list)
+        
         tm = TournamentManager()
         tournament = tm.create_tournament()
         menu.display_tournament(tournament)

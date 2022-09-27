@@ -34,7 +34,7 @@ class PlayerManager:
         return serialized_player
 
     @staticmethod
-    def unserialize_player(serialized_player):
+    def create_player_from_db(serialized_player):
         """Déserialise un joueur et l'instancie"""
         lastname = serialized_player["Nom"]
         surname = serialized_player["Prénom"]
@@ -51,6 +51,11 @@ class PlayerManager:
         unserialized_players = players_table.all()
         return unserialized_players
     @staticmethod
+    
     def add_player_to_db(serialized_players,table):
         return table.insert(serialized_players)
+
+    def sort_players_per_rank(self,players_list):
+        sorted_list = sorted(player_list, key=lambda player: int(player.rank), reverse=True)
+        return sorted_list
 

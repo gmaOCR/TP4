@@ -61,3 +61,9 @@ class Menus:
             print("N°", str(j), i)
         return list_players
 
+    def display_match(self,match_list):
+        return print(f"\nJoueur a: {player_a.surname}"
+                     f"\nJoueur b: {player_b.surname}"
+                     f"\nScore: {match.score}"
+                     f"\nTournoi: {tournament.name}"
+                     )
