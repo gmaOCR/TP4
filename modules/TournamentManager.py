@@ -115,22 +115,17 @@ class TournamentManager:
     def menu_tournament(self):
         """ Créé une instance tournoi et récupère ses propriétés
         Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi"""
-        players_list_full = pm.unserialize_table_of_players(players_table)
+        players_list_full = pm.unserialize_all_players(players_table)
         players_list = []
+        menu.display_players_from_db(players_table)
+        all_player_avalaible = players_list_full
         i = 0
         while i < 8:
             i = i + 1
-            #menu.display_players_from_db(players_table)
+            menu.display_players_from_db(all_player_avalaible)
             choice = menu.get_input("Choisir le joueur "+ str(i) + ": (saisir le numéro de ligne): \n")
-            players_list.append(players_list_full[int(choice)])
-            p = pm.unserialize_player(players_list_full[int(choice)])
-            menu.display_player(p.lastname,p.surname,p.birthday,p.genre,p.rank,p.ident)
-            print(p)
-            all_player = [player['Identifiant unique'] for player in players_list_full]
-            all_selected_player = [player['Identifiant unique'] for player in players_list]
-            r = set(all_player) - set(all_selected_player)
-            print(r)
-
+            players_list.append(pm.unserialize_player(all_player_avalaible[int(choice)]))
+            del all_player_avalaible[int(choice)]
         tm = TournamentManager()
         tournoi = tm.create_tournament()
         menu.display_tournament(tournoi.name, tournoi.place, tournoi.date, tournoi.rounds,tournoi.timecontrol,

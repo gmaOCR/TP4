@@ -51,13 +51,10 @@ class Menus:
                      f"Identifiant: {ident}\n")
 
     def display_players_from_db(self, players):
-        players_list = []
+        list = []
         j = - 1
         for i in players:
             j = j + 1
-            players_list.append(i)
+            list.append(i)
             print("N°", str(j), i)
-        print("\n")
-
-
-
+        return list
