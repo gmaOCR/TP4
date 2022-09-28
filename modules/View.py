@@ -62,8 +62,8 @@ class Menus:
         return list_players
 
     def display_match(self,match):
-        return print(f"\nJoueur a: {player_a.surname}"
-                     f"\nJoueur b: {player.surname}"
+        return print(f"\nJoueur a: {match.Player.surname}"
+                     f"\nJoueur b: {match.player_b}"
                      f"\nResultat joueur a: {match.result_p_a}"
                      f"\nResultat joueur b: {match.result_p_b}"
-                     f"\nTournoi: {tournament.name}")
+                     f"\nTournoi: {match.tournament.name}")
