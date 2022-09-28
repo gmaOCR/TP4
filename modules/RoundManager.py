@@ -4,7 +4,7 @@ from .Models import Round
 
 class RoundManager:
 
-    def create_round_1(self, tournament):
+    def create_first_round(self, tournament):
         r_name = "Round_1"
         r_tournament = tournament
         r_match_list = []

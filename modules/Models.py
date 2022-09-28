@@ -1,5 +1,6 @@
 class Player:
-    def __init__(self, lastname, surname, birthday, genre, rank, ident=""):
+    def __init__(self, lastname, surname, birthday, genre, rank, points=None, ident=""):
+        self.points = points
         self.lastname = lastname
         self.surname = surname
         self.birthday = birthday
@@ -16,11 +17,12 @@ class Score:
 
 
 class Match:
-    def __init__(self, result_p_a, result_p_b, player_a, player_b, tournament):
+    def __init__(self, result_p_a, result_p_b, player_a, player_b, rounds, tournament):
         self.result_p_a = result_p_a
         self.result_p_b = result_p_b
         self.player_a = player_a
         self.player_b = player_b
+        self.rounds = rounds
         self.tournament = tournament
 
 
@@ -36,12 +38,14 @@ class Round:
 
 
 class Tournament:
-    def __init__(self, name, place, date, timecontrol, rounds=4, round_list=[], player_list=[], description=None):
+    def __init__(self, name, place, date, timecontrol, rounds=4, round_list=[], player_list=[], match_list=[], 
+                 description=None):
         self.name = name
         self.place = place
         self.date = date
         self.rounds = rounds
         self.round_list = round_list
         self.player_list = player_list
+        self.match_list = match_list
         self.timecontrol = timecontrol
         self.description = description

@@ -66,7 +66,7 @@ class TournamentManager:
         self.input_round_checker(t_rounds)
         t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
-        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, None, None, t_desc)
+        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, None, None, None, t_desc)
         return tournament
 
     def menu_add_players_to_db(self, choice):
