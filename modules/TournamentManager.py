@@ -53,7 +53,7 @@ class TournamentManager:
                 choice = menu.get_input(menu.main_menu())
                 pass
             elif choice == "5":
-                self.clear_db()
+                self.clear_player_table()
                 choice = menu.get_input(menu.main_menu())
         """ Quitter le programme """
         exit("Fin")
@@ -119,7 +119,7 @@ class TournamentManager:
         return menu.display_players_from_db(pm.unserialize_all_players(players_table))
 
     @staticmethod
-    def clear_db():
+    def clear_player_table():
         players_table.truncate()  # clear the table first
         return print("\nTable Players effacée !\n")
 

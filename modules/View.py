@@ -45,7 +45,7 @@ class Menus:
     @staticmethod
     def display_player(player):
         return print(f"\nNom: {player.lastname}\n"
-                     f"Prénom: {player.surname}\n"
+                     f"Prénom: {player.firstname}\n"
                      f"Date de naissance: {player.birthday}\n"
                      f"Sexe: {player.genre}\n"
                      f"Classement: {player.rank}\n"
