@@ -27,3 +27,12 @@ print("now =", now)
 # dd/mm/YY H:M:S
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 print("date and time =", dt_string)
+
+"""Genère la liste de match du round 1"""
+a = mm.generate_matches_first_round(players_list_per_rank)
+for i in a:
+    menu.display_match(i)
+tm = TournamentManager()
+tournament = tm.create_tournament()
+menu.display_tournament(tournament)
+menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")

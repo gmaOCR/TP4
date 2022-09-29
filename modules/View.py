@@ -13,7 +13,7 @@ class Menus:
 
     @staticmethod
     def main_menu():
-        return ("\n1.Créer un tournoi\n"
+        return ("\n1.Créer et lancer un tournoi\n"
                 "2.Consulter la base de joueurs\n"
                 "3.Ajouter des joueurs à la base de données\n"
                 "4.Consulter des informations\n"
@@ -33,14 +33,12 @@ class Menus:
 
     @staticmethod
     def display_tournament(tournament):
-        return print((f"Nom du tournoi: {tournament.name}\n"
+        return print((f"\nNom du tournoi: {tournament.name}\n"
                 f"Lieu: {tournament.place}\n"
                 f"Jour:  {tournament.date}\n"
                 f"Nombre de tour: {tournament.rounds}\n"
                 f"Type de chrono: {tournament.timecontrol}\n"
-                f"Liste des rondes: {tournament.round_list}\n"
-                f"Joueurs: {tournament.players_list}\n"
-                f"Information complémentaire: {tournament.desc}\n"))
+                f"Information complémentaire: {tournament.description}\n"))
 
     @staticmethod
     def display_player(player):
@@ -67,4 +65,11 @@ class Menus:
                      f"\nResultat joueur a: {match.result_p_a}"
                      f"\nResultat joueur b: {match.result_p_b}"
                      # f"\nTournoi: {match.tournament.name}"
+                     )
+
+    def display_round(self, current_round, tournament):
+        return print(f"\nN° du tour: {current_round.name}"
+                     f"\nNom du tournoi: {tournament.name}"
+                     f"\nHeure de début: {current_round.start_time}"                         
+                     f"\nHeure de fin: {current_round.end_time}"
                      )

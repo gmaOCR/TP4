@@ -50,12 +50,13 @@ class PlayerManager:
         """Déserialise la table complète des joueurs"""
         unserialized_players = players_table.all()
         return unserialized_players
+
     @staticmethod
-    
-    def add_player_to_db(serialized_players,table):
+    def add_player_to_db(serialized_players, table):
         return table.insert(serialized_players)
 
-    def sort_players_per_rank(self,players_list):
+    @staticmethod
+    def sort_players_per_rank(players_list):
         sorted_list = sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         return sorted_list
 

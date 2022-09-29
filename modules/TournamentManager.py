@@ -1,9 +1,9 @@
 from tinydb import TinyDB
-from operator import itemgetter
-import json
-
+# import os
+# import sys
+# sys.path.append(os.getcwd())
 import modules.View
-from modules.Models import Tournament
+from .Models import Tournament
 from modules.View import Menus
 from modules.PlayerManager import PlayerManager
 from modules.RoundManager import RoundManager
@@ -31,16 +31,25 @@ class TournamentManager:
 
     def start(self):
         "Lance le menu de départ"
-        menu.hello()
         """Message de bienvenue"""
-        choice = menu.get_input(menu.main_menu())
+        menu.hello()
         """Menu principal"""
+        choice = menu.get_input(menu.main_menu())
         while choice != "9":
             while choice not in ["1", "2", "3", "4", "5"]:
                 print("\n Choix incorrect\n")
                 choice = menu.get_input(menu.main_menu())
             if choice == "1":
-                self.menu_tournament()
+                """instancie et affiche un tournoi"""
+                tournament = self.create_tournament()
+                menu.display_tournament(tournament)
+                """instancie et affiche une liste de 8 joueurs instanciés triée par rang"""
+                players_list = self.select_8_players()
+                for i in players_list:
+                    menu.display_player(i)
+                round_1 = rm.create_first_round(tournament)
+                menu.display_round(round_1, tournament)
+                #menu.get_input(menu="Verifier la saisie, saisie correcte ? (O/N)")
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
                 self.menu_show_players()
@@ -57,17 +66,6 @@ class TournamentManager:
                 choice = menu.get_input(menu.main_menu())
         """ Quitter le programme """
         exit("Fin")
-
-    def create_tournament(self):
-        t_name = menu.get_input("Entrez le nom du tournoi:")
-        t_place = menu.get_input("Entrez le lieu du tournoi:")
-        t_date = menu.get_input("Entrez la date du tournoi: (JJ/MM/AAAA)")
-        t_rounds = menu.get_input("Entrez le nombre de rondes: (défaut 4)")
-        self.input_round_checker(t_rounds)
-        t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
-        t_desc = menu.get_input("Entrez un commentaire (facultatif):")
-        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, None, None, None, t_desc)
-        return tournament
 
     def menu_add_players_to_db(self, choice):
         """ Ajoute des joueurs à la database"""
@@ -87,9 +85,8 @@ class TournamentManager:
             choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
             print("\nRetour au menu principal\n")
 
-    def menu_tournament(self):
-        """ Fais choisir 8 joueurs à l'opérateur depuis la DB et les ajoutent au tournoi
-        Créé une instance tournoi et récupère ses propriétés par saisie utilisateur """
+    def select_8_players(self):
+        """ Fais choisir 8 joueurs à l'opérateur depuis la DB """
         """" Génère la liste des joueurs présent en DB"""
         players_list_full = pm.unserialize_all_players(players_table)
         players_list = []
@@ -99,20 +96,24 @@ class TournamentManager:
         while i < 8:
             i = i + 1
             menu.display_players_from_db(all_player_available)
-            choice = menu.get_input("Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
+            choice = menu.get_input("\n Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
             players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
             del all_player_available[int(choice)]
         """Tri la liste des instances de joueurs par rang"""
         players_list_per_rank = pm.sort_players_per_rank(players_list)
-        """Genère la liste de match du round 1"""
-        a = mm.generate_matches_first_round(players_list_per_rank)
-        for i in a:
-            menu.display_match(i)
-        tm = TournamentManager()
-        tournament = tm.create_tournament()
-        menu.display_tournament(tournament)
-        menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
+        return players_list_per_rank
 
+    def create_tournament(self):
+        "Instancie un tournoi"
+        t_name = menu.get_input("Entrez le nom du tournoi:")
+        t_place = menu.get_input("Entrez le lieu du tournoi:")
+        t_date = menu.get_input("Entrez la date du tournoi: (JJ/MM/AAAA)")
+        t_rounds = menu.get_input("Entrez le nombre de rondes: (défaut 4)")
+        self.input_round_checker(t_rounds)
+        t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
+        t_desc = menu.get_input("Entrez un commentaire (facultatif):")
+        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, t_desc)
+        return tournament
     @staticmethod
     def menu_show_players():
         """Liste les joueurs depuis la DB"""
@@ -120,7 +121,7 @@ class TournamentManager:
 
     @staticmethod
     def clear_player_table():
-        players_table.truncate()  # clear the table first
+        players_table.truncate()  # clear the table
         return print("\nTable Players effacée !\n")
 
     @staticmethod
@@ -138,4 +139,3 @@ class TournamentManager:
             return choice
         else:
             return "Contactez l'administrateur"
-

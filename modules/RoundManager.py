@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from .Models import Round
 
@@ -6,8 +6,8 @@ from .Models import Round
 class RoundManager:
 
     def create_first_round(self, tournament):
-        round = Round("Round_1", tournament.name,self.timestamp(),"")
-        return round
+        round_1 = Round("Round 1", tournament.name, self.timestamp(), "")
+        return round_1
 
     def timestamp(self):
         now = datetime.now()
