@@ -5,13 +5,13 @@ from modules.Models import Match
 class MatchManager:
 
     def add_result(self, result, match):
-        """Ajoute les resultats au match"""
+        """Ajoute les resultats aux matchs"""
         if result in ["a", "A"]:
             match.result_p_a = 1
             match.result_p_b = 0
         elif result in ["b", "B"]:
             match.result_p_b = 1
-            match.result_p_b = 0
+            match.result_p_a = 0
         elif result in ["N", "n"]:
             match.result_p_b = 0.5
             match.result_p_a = 0.5
@@ -26,17 +26,17 @@ class MatchManager:
                 break
         return match_list
 
-    def run_match(self,match):
-        #Prepare sequence for random results
+    def run_match(self, match):
+        # Prepare sequence for random results
         sequence = [i for i in [0, 0.5, 1]]
-        #Random match result and points
+        # Random match result and points
         select = float
         for _ in range(1):
             select = random.choice(sequence)
         if select == 0:
-            print("Joueur B gagnant !")
+            print("Joueur B gagnant !\n")
         elif select == 0.5:
-            print("Match Nul !")
+            print("Match Nul !\n")
         elif select == 1:
-            print("Joueur A gagnant !")
+            print("Joueur A gagnant !\n")
         return match

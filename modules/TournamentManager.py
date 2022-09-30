@@ -50,12 +50,17 @@ class TournamentManager:
                 round_1 = rm.create_first_round(tournament)
                 # menu.display_round(round_1, tournament)
                 match_list = mm.create_matches_first_round(round_1, players_list)
+                results_list = []
                 for i in match_list:
                     menu.display_match_without_results(i, tournament)
                     mm.run_match(i)
                     result = menu.get_result(input("Saisissez le résultat du match: A, B ou (N)ul"))
                     mm.add_result(result, i)
                     menu.display_match_with_results(i, tournament)
+                    results_list.append([[i.player_a, i.result_p_a], [i.player_b, i.result_p_b]])
+                final_result = tuple(results_list)
+
+
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
                 self.menu_show_players()

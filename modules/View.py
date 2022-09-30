@@ -66,7 +66,7 @@ class Menus:
             print("N°", str(j), i)
         return list_players
 
-    def display_match_without_results(self, match,tournament):
+    def display_match_without_results(self, match, tournament):
         return print(f"\nTournoi: {tournament.name}"
                      f"\nN° du tour: {match.rounds.name}"
                      f"\nJoueur a: {match.player_a.lastname} rang: {match.player_a.rank}\n"
