@@ -45,13 +45,15 @@ class TournamentManager:
                 menu.display_tournament(tournament)
                 """instancie et affiche une liste de 8 joueurs instanciés triée par rang"""
                 players_list = self.select_8_players()
-                for i in players_list:
-                    menu.display_player(i)
+                #for i in players_list:
+                #    menu.display_player(i)
                 round_1 = rm.create_first_round(tournament)
-                menu.display_round(round_1, tournament)
+                #menu.display_round(round_1, tournament)
                 match_list = mm.create_matches_first_round(round_1, players_list)
                 for i in match_list:
-                    menu.display_match(i, tournament)
+                    menu.display_match_without_results(i, tournament)
+                    mm.run_match(i)
+                    menu.get_result(input("Saisissez le résultat du match: A, B ou (N)ul"))
                 #menu.get_input(menu="Verifier la saisie, saisie correcte ? (O/N)")
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":

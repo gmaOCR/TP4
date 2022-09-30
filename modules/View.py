@@ -26,6 +26,13 @@ class Menus:
         return choice
 
     @staticmethod
+    def get_result(menu):
+        while menu not in ["A","a", "B", "b", "N", "n" ]:
+            print("Choix incorrect: A pour joueur A gagnant, B pour joueur B gagnant, N pour match nul ")
+            menu = input(menu)
+        return menu
+
+    @staticmethod
     def tc_menu(menu):
         """Retourne le menu de choix de TIMECONTROL """
         menu = input(menu + str("\n".join(TIME_CONTROL)))
@@ -33,12 +40,12 @@ class Menus:
 
     @staticmethod
     def display_tournament(tournament):
-        return print((f"\nNom du tournoi: {tournament.name}\n"
+        return print(f"\nNom du tournoi: {tournament.name}\n"
                 f"Lieu: {tournament.place}\n"
                 f"Jour:  {tournament.date}\n"
                 f"Nombre de tour: {tournament.rounds}\n"
                 f"Type de chrono: {tournament.timecontrol}\n"
-                f"Information complémentaire: {tournament.description}\n"))
+                f"Information complémentaire: {tournament.description}\n")
 
     @staticmethod
     def display_player(player):
@@ -59,14 +66,12 @@ class Menus:
             print("N°", str(j), i)
         return list_players
 
-    def display_match(self, match,tournament):
+    def display_match_without_results(self, match,tournament):
         return print(f"\nTournoi: {tournament.name}"
                      f"\nN° du tour: {match.rounds.name}\n"
                      f"\nJoueur a: {match.player_a.lastname} rang: {match.player_a.rank}\n"
                      f"VS\n"
                      f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"
-                     f"\nResultat joueur a: {match.result_p_a}"
-                     f"\nResultat joueur b: {match.result_p_b}"
                      )
 
     def display_round(self, current_round, tournament):
@@ -74,4 +79,14 @@ class Menus:
                      f"\nNom du tournoi: {tournament.name}"
                      f"\nHeure de début: {current_round.start_time}"                         
                      f"\nHeure de fin: {current_round.end_time}"
+                     )
+
+    def display_match_wit_results(self, match,tournament):
+        return print(f"\nTournoi: {tournament.name}"
+                     f"\nN° du tour: {match.rounds.name}\n"
+                     f"\nJoueur a: {match.player_a.lastname} rang: {match.player_a.rank}\n"
+                     f"VS\n"
+                     f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"
+                     f"\nResultat joueur a: {match.result_p_a}"
+                     f"\nResultat joueur b: {match.result_p_b}"
                      )

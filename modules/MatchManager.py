@@ -20,15 +20,16 @@ class MatchManager:
         return match_list
 
     def run_match(self,match):
-        #Init max loop and local variable
-        i = 0
         #Prepare sequence for random results
         sequence = [i for i in [0, 0.5, 1]]
         #Random match result and points
-        select = float()
+        select = float
         for _ in range(1):
             select = random.choice(sequence)
         if select == 0:
-            match.result_p_a = 0
-            match.result_p_b = 1
-
+            print("Joueur B gagnant !")
+        elif select == 0.5:
+            print("Match Nul !")
+        elif select == 1:
+            print("Joueur A gagnant !")
+        return match
