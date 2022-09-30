@@ -68,7 +68,7 @@ class Menus:
 
     def display_match_without_results(self, match,tournament):
         return print(f"\nTournoi: {tournament.name}"
-                     f"\nN° du tour: {match.rounds.name}\n"
+                     f"\nN° du tour: {match.rounds.name}"
                      f"\nJoueur a: {match.player_a.lastname} rang: {match.player_a.rank}\n"
                      f"VS\n"
                      f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"
@@ -81,9 +81,9 @@ class Menus:
                      f"\nHeure de fin: {current_round.end_time}"
                      )
 
-    def display_match_wit_results(self, match,tournament):
+    def display_match_with_results(self, match,tournament):
         return print(f"\nTournoi: {tournament.name}"
-                     f"\nN° du tour: {match.rounds.name}\n"
+                     f"\nN° du tour: {match.rounds.name}"
                      f"\nJoueur a: {match.player_a.lastname} rang: {match.player_a.rank}\n"
                      f"VS\n"
                      f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"

@@ -4,13 +4,20 @@ from modules.Models import Match
 
 class MatchManager:
 
-    def add_result(self):
-        """A coder"""
-        """Ajoute le score """
-        pass
+    def add_result(self, result, match):
+        """Ajoute les resultats au match"""
+        if result in ["a", "A"]:
+            match.result_p_a = 1
+            match.result_p_b = 0
+        elif result in ["b", "B"]:
+            match.result_p_b = 1
+            match.result_p_b = 0
+        elif result in ["N", "n"]:
+            match.result_p_b = 0.5
+            match.result_p_a = 0.5
 
     def create_matches_first_round(self, round_obj, player_list_per_rank):
-        i = 0
+        """Créé la liste des matchs deu PREMIER round uniquement"""
         match_list = []
         for i, match in enumerate(player_list_per_rank):
             match = Match("", "", player_list_per_rank[int(i)], player_list_per_rank[int(i + 4)], round_obj)

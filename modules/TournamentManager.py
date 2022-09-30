@@ -37,7 +37,7 @@ class TournamentManager:
         choice = menu.get_input(menu.main_menu())
         while choice != "9":
             while choice not in ["1", "2", "3", "4", "5"]:
-                print("\n Choix incorrect\n")
+                print("\n Choix incorrect !\n")
                 choice = menu.get_input(menu.main_menu())
             if choice == "1":
                 """instancie et affiche un tournoi"""
@@ -45,16 +45,17 @@ class TournamentManager:
                 menu.display_tournament(tournament)
                 """instancie et affiche une liste de 8 joueurs instanciés triée par rang"""
                 players_list = self.select_8_players()
-                #for i in players_list:
+                # for i in players_list:
                 #    menu.display_player(i)
                 round_1 = rm.create_first_round(tournament)
-                #menu.display_round(round_1, tournament)
+                # menu.display_round(round_1, tournament)
                 match_list = mm.create_matches_first_round(round_1, players_list)
                 for i in match_list:
                     menu.display_match_without_results(i, tournament)
                     mm.run_match(i)
-                    menu.get_result(input("Saisissez le résultat du match: A, B ou (N)ul"))
-                #menu.get_input(menu="Verifier la saisie, saisie correcte ? (O/N)")
+                    result = menu.get_result(input("Saisissez le résultat du match: A, B ou (N)ul"))
+                    mm.add_result(result, i)
+                    menu.display_match_with_results(i, tournament)
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
                 self.menu_show_players()
@@ -119,6 +120,7 @@ class TournamentManager:
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
         tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, t_desc)
         return tournament
+
     @staticmethod
     def menu_show_players():
         """Liste les joueurs depuis la DB"""
