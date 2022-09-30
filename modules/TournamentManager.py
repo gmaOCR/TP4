@@ -49,6 +49,9 @@ class TournamentManager:
                     menu.display_player(i)
                 round_1 = rm.create_first_round(tournament)
                 menu.display_round(round_1, tournament)
+                match_list = mm.create_matches_first_round(round_1, players_list)
+                for i in match_list:
+                    menu.display_match(i)
                 #menu.get_input(menu="Verifier la saisie, saisie correcte ? (O/N)")
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
