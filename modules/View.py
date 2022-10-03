@@ -45,6 +45,7 @@ class Menus:
                 f"Jour:  {tournament.date}\n"
                 f"Nombre de tour: {tournament.rounds}\n"
                 f"Type de chrono: {tournament.timecontrol}\n"
+                f"Liste de rounds: {tournament.round_list}\n"
                 f"Information complémentaire: {tournament.description}\n")
 
     @staticmethod
@@ -54,6 +55,7 @@ class Menus:
                      f"Date de naissance: {player.birthday}\n"
                      f"Sexe: {player.genre}\n"
                      f"Classement: {player.rank}\n"
+                     f"Score total: {player.score}\n"
                      f"Identifiant: {player.ident}\n")
 
     @staticmethod
@@ -68,7 +70,6 @@ class Menus:
 
     def display_match_without_results(self, match, tournament):
         return print(f"\nTournoi: {tournament.name}"
-                     f"\nN° du tour: {match.rounds.name}"
                      f"\nJoueur a: {match.player_a.lastname} rang: {match.player_a.rank}\n"
                      f"VS\n"
                      f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"
@@ -83,10 +84,10 @@ class Menus:
 
     def display_match_with_results(self, match,tournament):
         return print(f"\nTournoi: {tournament.name}"
-                     f"\nN° du tour: {match.rounds.name}"
                      f"\nJoueur a: {match.player_a.lastname} rang: {match.player_a.rank}\n"
                      f"VS\n"
                      f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"
                      f"\nResultat joueur a: {match.result_p_a}"
                      f"\nResultat joueur b: {match.result_p_b}"
+                     f"\nTuple de TP: {match.score}"
                      )

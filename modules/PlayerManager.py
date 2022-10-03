@@ -17,7 +17,8 @@ class PlayerManager:
         p_rank = menu.get_input("Entrez le classement du joueur:")
         p_ident = str(uuid.uuid4())
         p_ident = p_ident[0:4]
-        player = Player(p_name, p_firstname, p_birthday, p_genre, p_rank, p_ident)
+        p_score = 0
+        player = Player(p_name, p_firstname, p_birthday, p_genre, p_rank, p_score, p_ident)
         return player
 
     @staticmethod
@@ -29,9 +30,16 @@ class PlayerManager:
             'Date de naissance': player.birthday,
             'Sexe': player.genre,
             'Rang': player.rank,
+            'Score' : player.score,
             'Identifiant unique': str(player.ident)
         }
         return serialized_player
+
+    @staticmethod
+    def unserialize_all_players(players_table):
+        """Déserialise la table complète des joueurs"""
+        unserialized_players = players_table.all()
+        return unserialized_players
 
     @staticmethod
     def create_player_from_db(serialized_player):
@@ -41,22 +49,14 @@ class PlayerManager:
         birthday = serialized_player["Date de naissance"]
         genre = serialized_player["Sexe"]
         rank = serialized_player["Rang"]
+        score = serialized_player["Score"]
         ident = serialized_player["Identifiant unique"]
-        player = Player(lastname, firstname, birthday, genre, rank, ident)
+        player = Player(lastname, firstname, birthday, genre, rank, score, ident)
         return player
-
-    @staticmethod
-    def unserialize_all_players(players_table):
-        """Déserialise la table complète des joueurs"""
-        unserialized_players = players_table.all()
-        return unserialized_players
-
-    @staticmethod
-    def add_player_to_db(serialized_players, table):
-        return table.insert(serialized_players)
 
     @staticmethod
     def sort_players_per_rank(players_list):
         sorted_list = sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         return sorted_list
+
 
