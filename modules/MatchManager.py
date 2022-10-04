@@ -52,7 +52,11 @@ class MatchManager:
     def run_match(self, match_list):
         match_list_result = []
         # Prepare sequence for random results
+        j = 1
         for match in match_list:
+            print("Lancement du match N°" + str(j) + " !" )
+            self.countdown()
+            print("Match terminé !\n")
             sequence = [i for i in [0, 0.5, 1]]
             # Random match result and points
             select = float
@@ -68,5 +72,11 @@ class MatchManager:
             self.add_result(result, match)
             """Ajoute les resultats au match ET aux joueurs"""
             match_list_result.append(match)
+            j = j + 1
         return match_list_result
+
+    def countdown(self):
+        for i in range(3, 0, -1):
+            time.sleep(1)
+            print(i)
 

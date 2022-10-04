@@ -17,7 +17,6 @@ class Menus:
                 "2.Consulter la base de joueurs\n"
                 "3.Ajouter des joueurs à la base de données\n"
                 "4.Consulter des informations\n"
-                "5 *** RESET LA BASE DE JOUEURS (F° HORS TP!)\n"
                 "9.Quitter \n")
 
     @staticmethod

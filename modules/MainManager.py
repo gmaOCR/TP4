@@ -13,6 +13,7 @@ TIME_CONTROL = modules.View.TIME_CONTROL
 db = TinyDB("db.json")
 players_table = db.table("players")
 tournaments_table = db.table("tournaments")
+rounds_table = db.table('rounds')
 match_table = db.table("matchs")
 """ Déclaration de la base de données et des tables """
 
@@ -37,7 +38,7 @@ class MainManager:
         """Menu principal"""
         choice = menu.get_input(menu.main_menu())
         while choice != "9":
-            while choice not in ["1", "2", "3", "4", "5", "9"]:
+            while choice not in ["1", "2", "3", "4", "9"]:
                 print("\n Choix incorrect !\n")
                 choice = menu.get_input(menu.main_menu())
             if choice == "1":
@@ -71,6 +72,10 @@ class MainManager:
                         i = i + 1
                 """Ajoute le tournoi terminé à la table tournament"""
                 self.add_data_to_db(tm.serialize_tournament(tournament),tournaments_table)
+                """Ajoute les rounds du tournoi terminé à la table rounds"""
+                for round in round_list:
+                    rm.serialize_round(round,tournament)
+
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
                 self.menu_show_players()
@@ -82,9 +87,9 @@ class MainManager:
                 """ Consulter des informations """
                 choice = menu.get_input(menu.main_menu())
                 pass
-            elif choice == "5":
-                self.clear_player_table()
-                choice = menu.get_input(menu.main_menu())
+         #   elif choice == "5":
+          #      self.clear_player_table()
+           #     choice = menu.get_input(menu.main_menu())
             elif choice == "9":
                 exit("Fin")
         """ Quitter le programme """

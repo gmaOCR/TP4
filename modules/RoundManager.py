@@ -22,3 +22,13 @@ class RoundManager:
         dt_string = now.strftime("%H:%M:%S")
         return dt_string
 
+    def serialize_round(self, round,tournament):
+        """Sérialise un round pour TinyDB"""
+        serialized_tournament = {
+            'Nom du tournoi': tournament.name,
+            'Lieu': tournament.place,
+            'Date': tournament.date,
+            'Nb de rounds': tournament.rounds,
+            'Nature du chronométrage': tournament.timecontrol,
+        }
+        return serialized_tournament
