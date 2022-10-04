@@ -1,4 +1,5 @@
 import random
+import time
 from modules.Models import Match
 from .View import Menus
 
@@ -37,13 +38,14 @@ class MatchManager:
         """Créé la liste des matchs pour les rounds suivants les scores du round précédent"""
         sorted_list = sorted(players_list, key=lambda player: (int(player.score), int(player.rank)))
         match_list = []
-        for i, match in enumerate(sorted_list):
+        i = 0
+        for j, match in enumerate(sorted_list):
             match = Match("", "", sorted_list[int(i)], sorted_list[int(i+1)],())
             match_list.append(match)
             print(i)
             i = i + 2
             print(i)
-            if i == 6:
+            if j == 3:
                 break
         return match_list
 

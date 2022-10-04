@@ -55,3 +55,14 @@ class TournamentManager:
         else:
             return "Contactez l'administrateur"
 
+    def serialize_tournament(self,tournament):
+        """Sérialise le tournoi pour TinyDB"""
+        serialized_tournament = {
+            'Nom du tournoi': tournament.name,
+            'Lieu': tournament.place,
+            'Date': tournament.date,
+            'Nb de rounds': tournament.rounds,
+            'Nature du chronométrage': tournament.timecontrol,
+            'Liste des rounds' : tournament.round_list
+        }
+        return serialized_tournament
