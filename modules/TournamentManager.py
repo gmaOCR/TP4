@@ -54,3 +54,4 @@ class TournamentManager:
             return choice
         else:
             return "Contactez l'administrateur"
+

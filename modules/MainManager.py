@@ -46,22 +46,31 @@ class MainManager:
                 menu.display_tournament(tournament)
                 """instancie et affiche une liste de 8 joueurs instanciés triée par rang"""
                 players_list = tm.select_8_players(players_table)
-                """ Instancie le round N° 1"""
-                r_input = menu.get_input("Saisir le numéro du round")
-                round = rm.create_round(tournament, r_input)
-                """Ajoute le round 1 à la liste de round du tournoi"""
-                tournament.round_list.append(round)
-                """Génère la liste des 4 match du Round 1"""
-                match_list = mm.create_matches_first_round( players_list)
-                """Run les 4 matchs du Round 1"""
+                """ Instancie les rounds"""
+                round_list = rm.create_round(tournament, tournament.rounds)
+                """Ajoute les rounds à la liste de round du tournoi"""
+                tournament.round_list = round_list
+                """Génère la liste des 4 match du 1er Round"""
+                match_list = mm.create_matches_first_round(players_list)
+                """Run les 4 matchs du Round """
                 match_list_result = mm.run_match(match_list)
-                """Ajoute la liste des match avec resultats au round 1"""
-                round_1.match_list = match_list_result
-                """"Cloture le round 1 par ajout de l'heure de fin"""
+                """Ajoute la liste des match avec resultats au round """
+                round_list[0].match_list = match_list_result
+                """"Cloture le round par ajout de l'heure de fin"""
                 menu.get_input("Valider la fin du round en cours ? O/N")
-                round_1.end_time = rm.timestamp()
-
-
+                round_list[0].end_time = rm.timestamp()
+                if len(round_list) > 1:
+                    i = 1
+                    while i  < len(round_list):
+                        match_list = mm.create_matches_next_round(players_list)
+                        match_list_result = mm.run_match(match_list)
+                        round_list[i].match_list = match_list_result
+                        menu.get_input("Valider la fin du round en cours ? O/N")
+                        round_list[i].end_time = rm.timestamp()
+                        i = i + 1
+                menu.display_tournament(tournament)
+                for p in players_list:
+                    menu.display_player(p)
 
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
@@ -77,6 +86,8 @@ class MainManager:
             elif choice == "5":
                 self.clear_player_table()
                 choice = menu.get_input(menu.main_menu())
+            elif choice == "9":
+                exit("Fin")
         """ Quitter le programme """
         exit("Fin")
 

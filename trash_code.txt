@@ -36,3 +36,17 @@ tm = TournamentManager()
 tournament = tm.create_tournament()
 menu.display_tournament(tournament)
 menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
+
+ def create_odd_even_list(self):
+        """Genere une liste de nombre pair et une liste de nombre imppair"""
+        num_list = []
+        for number in range(MAXPLAYER):
+            num_list.append(number)
+        even_list = []
+        odd_list= []
+        for type_num in num_list:
+            if type_num%2 == 0:
+                even_list.append(type_num)
+            else:
+                odd_list.append(type_num)
+        return even_list, odd_list
