@@ -69,10 +69,8 @@ class MainManager:
                         menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                         round_list[i].end_time = rm.timestamp()
                         i = i + 1
-
-
-                menu.display_tournament(tournament)
-
+                """Ajoute le tournoi terminé à la table tournament"""
+                self.add_data_to_db(tm.serialize_tournament(tournament),tournaments_table)
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
                 self.menu_show_players()

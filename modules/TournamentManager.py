@@ -63,6 +63,5 @@ class TournamentManager:
             'Date': tournament.date,
             'Nb de rounds': tournament.rounds,
             'Nature du chronométrage': tournament.timecontrol,
-            'Liste des rounds' : tournament.round_list
         }
         return serialized_tournament

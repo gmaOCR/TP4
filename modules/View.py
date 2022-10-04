@@ -41,18 +41,18 @@ class Menus:
     @staticmethod
     def display_tournament(tournament):
         tc = ""
-        if tournament.timecontrol == 1:
-            tc = TIME_CONTROL[0]
-        elif tournament.timecontrol == 2:
+        if tournament.timecontrol == "1":
+            tc = str(TIME_CONTROL[0])
+        elif tournament.timecontrol == "2":
             tc = TIME_CONTROL[1]
-        elif tournament.timecontrol == 3:
+        elif tournament.timecontrol == "3":
             tc = TIME_CONTROL[2]
         return print(f"\nNom du tournoi: {tournament.name}\n"
                 f"Lieu: {tournament.place}\n"
                 f"Jour:  {tournament.date}\n"
                 f"Nombre de tour: {tournament.rounds}\n"
-                f"Type de chrono: {tc}\n"
-                f"Liste de rounds: {tournament.round_list}\n"
+                f"Type de chrono: {tc[3:]}\n"
+                #f"Liste de rounds: {tournament.round_list}\n"
                 f"Information complémentaire: {tournament.description}\n")
 
     @staticmethod
