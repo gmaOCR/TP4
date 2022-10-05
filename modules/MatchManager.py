@@ -1,14 +1,15 @@
 import random
 import time
 from modules.Models import Match
-from .View import Menus
+from View import Menus
 
 menu = Menus()
 
 
 class MatchManager:
 
-    def add_result(self, result, match):
+    @staticmethod
+    def add_result(result, match):
         """Ajoute les resultats aux matchs"""
         if result in ["a", "A"]:
             match.result_p_a = 1
@@ -24,7 +25,8 @@ class MatchManager:
             match.player_a.score += 0.5
             match.player_a.score += 0.5
 
-    def create_matches_first_round(self, players_list):
+    @staticmethod
+    def create_matches_first_round(players_list):
         """Créé la liste des matchs du PREMIER round uniquement"""
         sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         match_list = []
@@ -35,7 +37,8 @@ class MatchManager:
                 break
         return match_list
 
-    def create_matches_next_round(self, players_list):
+    @staticmethod
+    def create_matches_next_round(players_list):
         """Créé la liste des matchs pour les rounds suivants les scores du round précédent"""
         sorted_list = sorted(players_list, key=lambda player: (int(player.score), int(player.rank)))
         match_list = []
@@ -79,3 +82,18 @@ class MatchManager:
         for i in range(2, 0, -1):
             time.sleep(1)
             print(i)
+
+    @staticmethod
+    def serialize_matchs(matchs_list, tournament):
+        """Sérialise un match pour TinyDB"""
+        serialized_matchs = []
+        for match in matchs_list:
+            serialized_round = {
+                'Tournoi' : tournament.name,
+                'Joueur A': match.player_a,
+                'Résultat A': match.result_a,
+                'Joueur B': match.player_b,
+                'Résultat B': match.result_b,
+            }
+            serialized_matchs.append(serialized_round)
+        return serialized_matchs

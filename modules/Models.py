@@ -25,12 +25,8 @@ class Player(CRUD):
 
 
 class Match(CRUD):
-    def __init__(self, result_p_a, result_p_b, player_a, player_b, score):
-        self.player_a = player_a
-        self.player_b = player_b
-        self.result_a = result_p_a
-        self.result_b = result_p_b
-        self.score = tuple([[player_a, result_p_a],[player_b, result_p_b]])
+    def __init__(self, result_p_a, result_p_b, player_a, player_b):
+        self.score = tuple([[player_a, result_p_a], [player_b, result_p_b]])
 
 
 class Round(CRUD):
@@ -38,8 +34,8 @@ class Round(CRUD):
         self.name = name
         self.match_list = match_list
         self.tournament = tournament
-        self.start_time = start_time  # Automatiquement rempli à l'instanciation
-        self.end_time = end_time  # Automatiquement rempli à la fin du tour (fin de TOUR et non de MATCH donc après le match N°4)
+        self.start_time = start_time
+        self.end_time = end_time
 
 
 class Tournament(CRUD):

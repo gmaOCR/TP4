@@ -1,33 +1,31 @@
-from tinydb import TinyDB
-import json
-
 import modules.View
-from modules.View import Menus
-from modules.TournamentManager import TournamentManager
+from modules.MatchManager import MatchManager
 from modules.PlayerManager import PlayerManager
 from modules.RoundManager import RoundManager
-from modules.MatchManager import MatchManager
+from modules.TournamentManager import TournamentManager
+from modules.View import Menus
+from tinydb import TinyDB
 
-TIME_CONTROL = modules.View.TIME_CONTROL
 """Liste des types de chronomètres standardisés"""
+TIME_CONTROL = modules.View.TIME_CONTROL
 
+""" Déclaration de la base de données et des tables """
 db = TinyDB("db.json", sort_keys=True, indent=4, separators=(',', ': '))
 players_table = db.table("players")
 tournaments_table = db.table("tournaments")
 rounds_table = db.table('rounds')
 match_table = db.table("matchs")
-""" Déclaration de la base de données et des tables """
 
-menu = Menus()
 """Déclare l'objet "Menus" from View.py """
-tm = TournamentManager()
+menu = Menus()
 """Déclare l'objet "Tournament Manager" from TournamentManager.py """
-pm = PlayerManager()
+tm = TournamentManager()
 """Déclare l'objet "PlayerManager" from PlayerManager.py """
-rm = RoundManager()
+pm = PlayerManager()
 """Déclare l'objet "Roundmanager" from Roundmanager.py """
-mm = MatchManager()
+rm = RoundManager()
 """Déclare l'objet "Matchmanager" from matchmanager.py """
+mm = MatchManager()
 
 
 class MainManager:
@@ -62,15 +60,14 @@ class MainManager:
                 menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                 round_list[0].end_time = rm.timestamp()
                 """Boucle pour les N round suivant le premier"""
-                if len(round_list) > 1:
-                    i = 1
-                    while i < len(round_list):
-                        match_list = mm.create_matches_next_round(players_list)
-                        match_list_result = mm.run_match(match_list)
-                        round_list[i].match_list = match_list_result
-                        menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
-                        round_list[i].end_time = rm.timestamp()
-                        i = i + 1
+                i = 1
+                while i < len(round_list):
+                    match_list = mm.create_matches_next_round(players_list)
+                    match_list_result = mm.run_match(match_list)
+                    round_list[i].match_list = match_list_result
+                    menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
+                    round_list[i].end_time = rm.timestamp()
+                    i = i + 1
 
 
                 for match in match_list_result:

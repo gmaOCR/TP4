@@ -3,7 +3,8 @@ from modules.MainManager import MainManager
 
 class App:
 
-    def run(self):
+    @staticmethod
+    def run():
         main = MainManager()
         main.start()
 

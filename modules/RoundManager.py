@@ -1,9 +1,13 @@
 from datetime import datetime
 
-from .Models import Round
-from .View import Menus
+from modules.MatchManager import MatchManager
+from Models import Round
+from View import Menus
 
+"""Instancie le menu"""
 menu = Menus()
+"""Instancie le MatchManager"""
+mm = MatchManager()
 
 
 class RoundManager:
@@ -18,21 +22,23 @@ class RoundManager:
             i = i + 1
         return round_list
 
-    def timestamp(self):
+    @staticmethod
+    def timestamp():
         now = datetime.now()
         dt_string = now.strftime("%H:%M:%S")
         return dt_string
 
-    def serialize_rounds(self, rounds_list, tournament):
+    @staticmethod
+    def serialize_rounds(rounds_list, match_list, tournament):
         """Sérialise un round pour TinyDB"""
         serialized_rounds = []
-        for rounds in rounds_list:
+        for round_unit in rounds_list:
             serialized_round = {
-                'Nom du round': rounds.name,
+                'Nom du round': round_unit.name,
                 'Tournoi': tournament.name,
-                'Heure de début': rounds.start_time,
-                'Heure de fin': rounds.end_time,
-                'Liste des match du round': rounds.match_list,
+                'Heure de début': round_unit.start_time,
+                'Heure de fin': round_unit.end_time,
+                'Liste des match du round': mm.serialize_matchs(match_list, tournament),
             }
             serialized_rounds.append(serialized_round)
         return serialized_rounds
