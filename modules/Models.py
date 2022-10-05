@@ -13,13 +13,14 @@ class CRUD:
 
 
 class Player(CRUD):
-    def __init__(self, lastname, firstname, birthday, genre, rank, score, ident=""):
+    def __init__(self, lastname, firstname, birthday, genre, rank, score, last_versus="", ident=""):
         self.lastname = lastname
         self.firstname = firstname
         self.birthday = birthday
         self.genre = genre
         self.rank = rank
         self.score = score
+        self.last_versus = last_versus
         self.ident = ident
 
 

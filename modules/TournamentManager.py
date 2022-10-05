@@ -32,12 +32,18 @@ class TournamentManager:
         while i < 8:
             i = i + 1
             menu.display_players_from_db(all_player_available)
-            choice = menu.get_input("\n Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
+            while True:
+                try:
+                    choice = menu.get_input("\n Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
+                    int(choice)
+                    break
+                except ValueError:
+                    print("Entrez un nombre entier !")
             players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
             del all_player_available[int(choice)]
-        """Tri la liste des instances de joueurs par rang"""
-        players_list_per_rank = pm.sort_players_per_rank(players_list)
-        return players_list_per_rank
+        # """Tri la liste des instances de joueurs par rang"""
+        # players_list_per_rank = pm.sort_players_per_rank(players_list)
+        return players_list
 
     @staticmethod
     def input_round_checker(choice):
@@ -62,6 +68,7 @@ class TournamentManager:
             'Lieu': tournament.place,
             'Date': tournament.date,
             'Nb de rounds': tournament.rounds,
+            'Liste des rounds': tournament.round_list,
             'Nature du chronométrage': tournament.timecontrol,
         }
         return serialized_tournament

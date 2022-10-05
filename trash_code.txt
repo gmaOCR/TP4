@@ -50,3 +50,7 @@ menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
             else:
                 odd_list.append(type_num)
         return even_list, odd_list
+
+#   elif choice == "5":
+#      self.clear_player_table()
+#     choice = menu.get_input(menu.main_menu())

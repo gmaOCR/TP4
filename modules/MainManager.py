@@ -1,4 +1,5 @@
 from tinydb import TinyDB
+import json
 
 import modules.View
 from modules.View import Menus
@@ -10,7 +11,7 @@ from modules.MatchManager import MatchManager
 TIME_CONTROL = modules.View.TIME_CONTROL
 """Liste des types de chronomètres standardisés"""
 
-db = TinyDB("db.json")
+db = TinyDB("db.json", sort_keys=True, indent=4, separators=(',', ': '))
 players_table = db.table("players")
 tournaments_table = db.table("tournaments")
 rounds_table = db.table('rounds')
@@ -63,19 +64,22 @@ class MainManager:
                 """Boucle pour les N round suivant le premier"""
                 if len(round_list) > 1:
                     i = 1
-                    while i  < len(round_list):
+                    while i < len(round_list):
                         match_list = mm.create_matches_next_round(players_list)
                         match_list_result = mm.run_match(match_list)
                         round_list[i].match_list = match_list_result
                         menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                         round_list[i].end_time = rm.timestamp()
                         i = i + 1
-                """Ajoute le tournoi terminé à la table tournament"""
-                self.add_data_to_db(tm.serialize_tournament(tournament),tournaments_table)
-                """Ajoute les rounds du tournoi terminé à la table rounds"""
-                for round in round_list:
-                    rm.serialize_round(round,tournament)
 
+
+                for match in match_list_result:
+                    menu.display_match_with_results(match, tournament)
+                """Sérialise les rounds et les ajoutent en paramètre du tournoi en cours"""
+                tournament.round_list = rm.serialize_rounds(round_list, tournament)
+
+                """Ajoute le tournoi terminé à la table tournament"""
+                self.add_data_to_db(tm.serialize_tournament(tournament), tournaments_table)
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
                 self.menu_show_players()
@@ -87,9 +91,6 @@ class MainManager:
                 """ Consulter des informations """
                 choice = menu.get_input(menu.main_menu())
                 pass
-         #   elif choice == "5":
-          #      self.clear_player_table()
-           #     choice = menu.get_input(menu.main_menu())
             elif choice == "9":
                 exit("Fin")
         """ Quitter le programme """

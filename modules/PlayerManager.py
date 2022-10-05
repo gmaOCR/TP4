@@ -17,8 +17,9 @@ class PlayerManager:
         p_rank = menu.get_input("Entrez le classement du joueur:")
         p_ident = str(uuid.uuid4())
         p_ident = p_ident[0:4]
+        p_last_versus = ""
         p_score = 0
-        player = Player(p_name, p_firstname, p_birthday, p_genre, p_rank, p_score, p_ident)
+        player = Player(p_name, p_firstname, p_birthday, p_genre, p_rank, p_score, p_last_versus, p_ident)
         return player
 
     @staticmethod
@@ -30,7 +31,8 @@ class PlayerManager:
             'Date de naissance': player.birthday,
             'Sexe': player.genre,
             'Rang': player.rank,
-            'Score' : player.score,
+            'Score': player.score,
+            'VS': player.last_versus,
             'Identifiant unique': str(player.ident)
         }
         return serialized_player
