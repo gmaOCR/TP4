@@ -1,9 +1,11 @@
 import random
 import time
+from modules.PlayerManager import PlayerManager
 from modules.Models import Match
 from modules.View import Menus
 
 menu = Menus()
+pm = PlayerManager()
 
 
 class MatchManager:
@@ -89,8 +91,9 @@ class MatchManager:
         serialized_matchs = []
         for match in matchs_list:
             serialized_round = {
-                'Tournoi' : tournament.name,
-                'Score': match.score,
-            }
+                'Tournoi': tournament.name,
+                'Score': (pm.serialize_player(match.score[0][0]), match.score[0][1],
+                          pm.serialize_player(match.score[1][0]), match.score[1][1])
+                                }
             serialized_matchs.append(serialized_round)
         return serialized_matchs
