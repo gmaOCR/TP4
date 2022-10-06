@@ -1,4 +1,3 @@
-
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
 
@@ -20,6 +19,16 @@ class Menus:
     def get_input(menu):
         choice = input(menu)
         return choice
+
+    @staticmethod
+    def get_integer(menu):
+        while menu.isnumeric() is False:
+            print("La saisie doit être un nombre entier")
+            try:
+                menu = input()
+            except ValueError:
+                print("Erreur: la saisie doit être un nombre entier")
+        return menu
 
     @staticmethod
     def get_result(menu):

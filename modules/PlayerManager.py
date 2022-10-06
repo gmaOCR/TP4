@@ -61,4 +61,6 @@ class PlayerManager:
         sorted_list = sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         return sorted_list
 
-
+    @staticmethod
+    def edit_player_rank(player):
+        player.rank = menu.get_input()
