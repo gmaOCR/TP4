@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from modules.MatchManager import MatchManager
-from Models import Round
-from View import Menus
+from modules.Models import Round
+from modules.View import Menus
 
 """Instancie le menu"""
 menu = Menus()

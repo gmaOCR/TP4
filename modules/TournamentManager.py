@@ -65,14 +65,14 @@ class TournamentManager:
             return "Contactez l'administrateur"
 
     @staticmethod
-    def serialize_tournament(tournament):
+    def serialize_tournament(tournament, round_list, match_list):
         """Sérialise le tournoi pour TinyDB"""
         serialized_tournament = {
             'Nom du tournoi': tournament.name,
             'Lieu': tournament.place,
             'Date': tournament.date,
             'Nb de rounds': tournament.rounds,
-            'Liste des rounds': tournament.round_list,
+            'Liste des rounds': rm.serialize_rounds(round_list, match_list, tournament),
             'Nature du chronométrage': tournament.timecontrol,
         }
         return serialized_tournament

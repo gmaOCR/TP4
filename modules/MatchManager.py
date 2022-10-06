@@ -1,7 +1,7 @@
 import random
 import time
 from modules.Models import Match
-from View import Menus
+from modules.View import Menus
 
 menu = Menus()
 
@@ -12,18 +12,18 @@ class MatchManager:
     def add_result(result, match):
         """Ajoute les resultats aux matchs"""
         if result in ["a", "A"]:
-            match.result_p_a = 1
-            match.result_p_b = 0
-            match.player_a.score += 1
+            match.score[0][1] = 1
+            match.score[1][1] = 0
+            match.score.score[0][0] += 1
         elif result in ["b", "B"]:
-            match.result_p_b = 1
-            match.result_p_a = 0
-            match.player_b.score += 1
+            match.score[1][1] = 1
+            match.score[0][1] = 0
+            match.score.score[1][0] += 1
         elif result in ["N", "n"]:
-            match.result_p_b = 0.5
-            match.result_p_a = 0.5
-            match.player_a.score += 0.5
-            match.player_a.score += 0.5
+            match.score[1][1] = 0.5
+            match.score[0][1] = 0.5
+            match.score.score[0][0] += 0.5
+            match.score.score[1][0] += 0.5
 
     @staticmethod
     def create_matches_first_round(players_list):
@@ -31,7 +31,7 @@ class MatchManager:
         sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         match_list = []
         for i, match in enumerate(players_list):
-            match = Match("", "", players_list[int(i)], players_list[int(i + 4)], ())
+            match = Match("", "", players_list[int(i)], players_list[int(i + 4)])
             match_list.append(match)
             if i == 3:
                 break
@@ -44,7 +44,7 @@ class MatchManager:
         match_list = []
         i = 0
         for j, match in enumerate(sorted_list):
-            match = Match("", "", sorted_list[int(i)], sorted_list[int(i + 1)], ())
+            match = Match("", "", sorted_list[int(i)], sorted_list[int(i + 1)])
             match_list.append(match)
             i = i + 2
             if j == 3:
