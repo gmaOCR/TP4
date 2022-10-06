@@ -72,11 +72,11 @@ class MainManager:
 
                 for match in match_list_result:
                     menu.display_match_with_results(match, tournament)
-                """Sérialise les rounds et les ajoutent en paramètre du tournoi en cours"""
-                tournament.round_list = rm.serialize_rounds(round_list, tournament)
+                #  """Sérialise les rounds et les ajoutent en paramètre du tournoi en cours"""
+                #  tournament.round_list = rm.serialize_rounds(round_list, match_list, tournament)
 
                 """Ajoute le tournoi terminé à la table tournament"""
-                self.add_data_to_db(tm.serialize_tournament(tournament), tournaments_table)
+                self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list), tournaments_table)
                 choice = menu.get_input(menu.main_menu())
             elif choice == "2":
                 self.menu_show_players()

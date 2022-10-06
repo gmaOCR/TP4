@@ -90,10 +90,7 @@ class MatchManager:
         for match in matchs_list:
             serialized_round = {
                 'Tournoi' : tournament.name,
-                'Joueur A': match.player_a,
-                'Résultat A': match.result_a,
-                'Joueur B': match.player_b,
-                'Résultat B': match.result_b,
+                'Score': match.score,
             }
             serialized_matchs.append(serialized_round)
         return serialized_matchs
