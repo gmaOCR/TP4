@@ -14,7 +14,7 @@ class PlayerManager:
         p_firstname = menu.get_input("Entrez le prénom du joueur:")
         p_birthday = menu.get_input("Entrez la date de naissance du joueur:")
         p_genre = menu.get_input("Entrez le sexe du joueur:")
-        p_rank = menu.get_input("Entrez le classement du joueur:")
+        p_rank = menu.get_int("Entrez le classement du joueur:")
         p_ident = str(uuid.uuid4())
         p_ident = p_ident[0:4]
         p_last_versus = ""
@@ -56,10 +56,10 @@ class PlayerManager:
         player = Player(lastname, firstname, birthday, genre, rank, score, ident)
         return player
 
-    @staticmethod
-    def sort_players_per_rank(players_list):
-        sorted_list = sorted(players_list, key=lambda player: int(player.rank), reverse=True)
-        return sorted_list
+    # @staticmethod
+    # def sort_players_per_rank(players_list):
+    #     sorted_list = sorted(players_list, key=lambda player: int(player.rank), reverse=True)
+    #     return sorted_list
 
     @staticmethod
     def edit_player_rank(player):

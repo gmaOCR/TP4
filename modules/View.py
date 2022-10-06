@@ -1,3 +1,5 @@
+import sys
+
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
 
@@ -21,14 +23,16 @@ class Menus:
         return choice
 
     @staticmethod
-    def get_integer(menu):
-        while menu.isnumeric() is False:
+    def get_int(menu):
+        print(menu)
+        is_int = input()
+        while is_int.isnumeric() is False:
             print("La saisie doit être un nombre entier")
             try:
-                menu = input()
+                is_int = input()
             except ValueError:
                 print("Erreur: la saisie doit être un nombre entier")
-        return menu
+        return is_int
 
     @staticmethod
     def get_result(menu):
@@ -112,3 +116,25 @@ class Menus:
         while menu not in ["O", "o"]:
             print("Merci de saisir O ou o  pour le TP !")
             menu = input("Valider la fin du round en cours ? O/N")
+
+    @staticmethod
+    def yes_or_no(menu, default=None):
+        valid = {"oui": True, "o": True, "O": True, "non": False, "n": False}
+        if default is None:
+            prompt = " [o/n] "
+        elif default == "oui":
+            prompt = " [O/n] "
+        elif default == "non":
+            prompt = " [y/N] "
+        else:
+            raise ValueError("Saisie incorrecte: '%s'" % default)
+
+        while True:
+            sys.stdout.write(menu + prompt)
+            choice = input().lower()
+            if default is not None and choice == "":
+                return valid[default]
+            elif choice in valid:
+                return valid[choice]
+            else:
+                sys.stdout.write("Saisissez 'oui' ou 'non' " "(sinon 'o' ou 'n').\n")

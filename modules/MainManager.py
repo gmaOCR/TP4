@@ -68,13 +68,6 @@ class MainManager:
                     menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                     round_list[i].end_time = rm.timestamp()
                     i = i + 1
-
-
-                for match in match_list_result:
-                    menu.display_match_with_results(match, tournament)
-                #  """Sérialise les rounds et les ajoutent en paramètre du tournoi en cours"""
-                #  tournament.round_list = rm.serialize_rounds(round_list, match_list, tournament)
-
                 """Ajoute le tournoi terminé à la table tournament"""
                 self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list), tournaments_table)
                 choice = menu.get_input(menu.main_menu())
@@ -82,7 +75,7 @@ class MainManager:
                 self.menu_show_players()
                 choice = menu.get_input(menu.main_menu())
             elif choice == "3":
-                self.menu_add_data_to_db(choice)
+                self.menu_add_players_to_db()
                 choice = menu.get_input(menu.main_menu())
             elif choice == "4":
                 """ Consulter des informations """
@@ -93,23 +86,29 @@ class MainManager:
         """ Quitter le programme """
         exit("Fin")
 
-    def menu_add_data_to_db(self, choice):
+
+    def menu_add_players_to_db(self):
         """ Ajoute des joueurs à la database"""
-        while choice in ["O", "o", "3"]:
-            if choice == "O" or "o" or "3":
-                player = pm.create_player_to_db()
-                menu.display_player(player)
-                choice = menu.get_input(menu="Verifier la saisie, ajouter à la base ? (O/N)")
-                if choice in ["O", "o"]:
-                    serialized_player = pm.serialize_player(player)
-                    self.add_data_to_db(serialized_player, players_table)
-                    print("\nJoueur ajouté avec succès !\n")
-                else:
-                    print("\nRetour au menu principal\n")
-            if choice in ["N", "n"]:
-                print("\nRetour au menu principal\n")
-            choice = menu.get_input("Ajouter un autre joueur ? (O/N)\n")
+        choice = True
+        while choice is True:
+            player = pm.create_player_to_db()
+            menu.display_player(player)
+            choice = menu.yes_or_no(menu="Verifier la saisie, ajouter à la base ?")
+            if choice is True:
+                serialized_player = pm.serialize_player(player)
+                self.add_data_to_db(serialized_player, players_table)
+                print("\nJoueur ajouté avec succès !\n")
+                choice = menu.yes_or_no("Ajouter un autre joueur ?")
+                if choice is False:
+                    break
+            elif choice is False:
+                choice = menu.yes_or_no("Ajouter un autre joueur ?")
+                if choice is False:
+                    break
+        else:
             print("\nRetour au menu principal\n")
+
+
 
     @staticmethod
     def menu_show_players():
