@@ -14,11 +14,11 @@ class MatchManager:
         if result in ["a", "A"]:
             match.score[0][1] = 1
             match.score[1][1] = 0
-            match.score.score[0][0] += 1
+            match.score[0][0] += 1
         elif result in ["b", "B"]:
             match.score[1][1] = 1
             match.score[0][1] = 0
-            match.score.score[1][0] += 1
+            match.score[1][0] += 1
         elif result in ["N", "n"]:
             match.score[1][1] = 0.5
             match.score[0][1] = 0.5
