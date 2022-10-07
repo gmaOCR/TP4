@@ -36,6 +36,8 @@ class Menus:
             if choice == 2:
                 players_list = sorted(players_list, key=lambda players: int(players['Rang']), reverse=True)
                 self.display_players_from_db(players_list)
+
+                """En cours de developpement"""
             else:
                 print("\nSaisie incorrecte, retour au menu principal")
         elif selection == 3:
