@@ -57,7 +57,7 @@ class MainManager:
                 """Ajoute la liste des match avec resultats au round """
                 round_list[0].match_list = match_list_result
                 """"Cloture le round par ajout de l'heure de fin"""
-                menu.display_round_validation(menu.get_int("Valider la fin du round en cours ?) O/N"))
+                menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                 round_list[0].end_time = rm.timestamp()
                 """Boucle pour les N round suivant le premier"""
                 i = 1
@@ -65,7 +65,7 @@ class MainManager:
                     match_list = mm.create_matches_next_round(players_list)
                     match_list_result = mm.run_match(match_list)
                     round_list[i].match_list = match_list_result
-                    menu.display_round_validation(menu.get_int("Valider la fin du round en cours ?) O/N"))
+                    menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                     round_list[i].end_time = rm.timestamp()
                     i = i + 1
                 """Ajoute le tournoi terminé à la table tournament"""
