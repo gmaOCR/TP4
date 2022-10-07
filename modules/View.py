@@ -18,6 +18,34 @@ class Menus:
                 "9.Quitter \n")
 
     @staticmethod
+    def data_menu():
+        return ("\n1.Consulter la liste des joueurs disponibles\n"
+                "2.Consulter la liste des joueurs d'un tournoi spécifique\n"
+                "3.Consulter la liste des tournois terminés\n"
+                "4.Consulter la liste des rounds d'un tournoi spécifique\n"
+                "5.Consulter la liste des matchs d'un tournoi spécifique\n"
+                "9.Quitter \n")
+
+    def to_rename(self, selection, players_list, tournaments_table):
+        if selection == 1:
+            choice = self.get_int(self.menu_sort_by())
+            if choice == 1:
+                players_list = sorted(players_list, key=lambda players: players['Nom'], reverse=False)
+                self.display_players_from_db(players_list)
+            if choice == 2:
+                self.display_players_from_db(sorted(players_list, key=lambda player: int(player.rank), reverse=True))
+            else:
+                print("\nSaisie incorrecte, retour au menu principal")
+        elif selection == 3:
+            return
+
+
+    @staticmethod
+    def menu_sort_by():
+        return ("\n1.Par ordre alphabétique\n"
+                "2.Par classement\n")
+
+    @staticmethod
     def get_input(menu):
         choice = input(menu)
         return choice
@@ -32,7 +60,7 @@ class Menus:
                 is_int = input()
             except ValueError:
                 print("Erreur: la saisie doit être un nombre entier")
-        return is_int
+        return int(is_int)
 
     @staticmethod
     def get_result(menu):
@@ -65,6 +93,16 @@ class Menus:
                      f"Information complémentaire: {tournament.description}\n")
 
     @staticmethod
+    def display_tournament_from_db(tournaments_table):
+        tournaments_list = []
+        j = - 1
+        for i in tournaments_table:
+            j = j + 1
+            tournaments_list.append(i)
+            print("N°", str(j), i)
+        return tournaments_list
+
+    @staticmethod
     def display_player(player):
         return print(f"\nNom: {player.lastname}\n"
                      f"Prénom: {player.firstname}\n"
@@ -75,14 +113,15 @@ class Menus:
                      f"Identifiant: {player.ident}\n")
 
     @staticmethod
-    def display_players_from_db(players):
-        list_players = []
+    def display_players_from_db(players_table):
+        players_list = []
         j = - 1
-        for i in players:
+        for _ in players_table:
             j = j + 1
-            list_players.append(i)
-            print("N°", str(j), i)
-        return list_players
+            result = ' '.join(f'{key}: {value}' for key, value in players_table[j].items())
+            players_list.append(result)
+            print("N°:", str(j), " ", result)
+        return players_list
 
     @staticmethod
     def display_match_without_results(match, tournament):

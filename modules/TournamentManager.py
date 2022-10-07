@@ -76,3 +76,9 @@ class TournamentManager:
             'Nature du chronométrage': tournament.timecontrol,
         }
         return serialized_tournament
+
+    @staticmethod
+    def unserialize_all_tournaments(tournament_table):
+        """Déserialise la table complète des joueurs"""
+        unserialized_tournaments = tournament_table.all()
+        return unserialized_tournaments

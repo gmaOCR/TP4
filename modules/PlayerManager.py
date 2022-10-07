@@ -63,4 +63,4 @@ class PlayerManager:
 
     @staticmethod
     def edit_player_rank(player):
-        player.rank = menu.get_input()
+        player.rank = menu.get_int("Saisir le nouveau classement du joueur:")
