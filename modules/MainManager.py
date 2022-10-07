@@ -83,7 +83,7 @@ class MainManager:
                 selection = menu.get_int(menu.data_menu())
 
                 """En cours de developpement"""
-                menu.to_rename(selection, pm.unserialize_all_players(players_table), tournaments_table)
+                menu.display_datas(selection, pm.unserialize_all_players(players_table), tournaments_table)
                 choice = menu.get_int(menu.main_menu())
             elif choice == 9:
                 exit("Fin")

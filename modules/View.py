@@ -26,14 +26,16 @@ class Menus:
                 "5.Consulter la liste des matchs d'un tournoi spécifique\n"
                 "9.Quitter \n")
 
-    def to_rename(self, selection, players_list, tournaments_table):
+    def display_datas(self, selection, players_list, tournaments_table):
+
         if selection == 1:
             choice = self.get_int(self.menu_sort_by())
             if choice == 1:
                 players_list = sorted(players_list, key=lambda players: players['Nom'], reverse=False)
                 self.display_players_from_db(players_list)
             if choice == 2:
-                self.display_players_from_db(sorted(players_list, key=lambda player: int(player.rank), reverse=True))
+                players_list = sorted(players_list, key=lambda players: int(players['Rang']), reverse=True)
+                self.display_players_from_db(players_list)
             else:
                 print("\nSaisie incorrecte, retour au menu principal")
         elif selection == 3:
