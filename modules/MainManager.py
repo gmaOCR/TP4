@@ -82,8 +82,10 @@ class MainManager:
                 """Affiche les choix disponibles de consultation"""
                 selection = menu.get_int(menu.data_menu())
 
+
                 """En cours de developpement"""
-                menu.display_datas(selection, pm.unserialize_all_players(players_table), tournaments_table)
+                menu.display_datas(selection, pm.unserialize_all_players(players_table),
+                                   tm.unserialize_all_tournaments(tournaments_table))
                 choice = menu.get_int(menu.main_menu())
             elif choice == 9:
                 exit("Fin")
@@ -97,7 +99,7 @@ class MainManager:
         while choice is True:
             player = pm.create_player_to_db()
             menu.display_player(player)
-            choice = menu.yes_or_no(menu="Verifier la saisie, ajouter à la base ?")
+            choice = menu.yes_or_no("Verifier la saisie, ajouter à la base ?")
             if choice is True:
                 serialized_player = pm.serialize_player(player)
                 self.add_data_to_db(serialized_player, players_table)

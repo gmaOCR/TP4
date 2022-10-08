@@ -47,3 +47,7 @@ class Tournament(CRUD):
         self.round_list = round_list
         self.timecontrol = timecontrol
         self.description = description
+
+        self.__dict__.update()
+
+

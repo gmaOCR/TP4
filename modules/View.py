@@ -24,23 +24,25 @@ class Menus:
                 "3.Consulter la liste des tournois terminés\n"
                 "4.Consulter la liste des rounds d'un tournoi spécifique\n"
                 "5.Consulter la liste des matchs d'un tournoi spécifique\n"
-                "9.Quitter \n")
+                "9.Retour \n")
 
     def display_datas(self, selection, players_list, tournaments_table):
 
         if selection == 1:
             choice = self.get_int(self.menu_sort_by())
             if choice == 1:
+                """Affiche la liste des joueurs par Nom"""
                 players_list = sorted(players_list, key=lambda players: players['Nom'], reverse=False)
-                self.display_players_from_db(players_list)
+                return self.display_players_from_db(players_list)
             if choice == 2:
+                """Affiche la liste des joueurs par Rang"""
                 players_list = sorted(players_list, key=lambda players: int(players['Rang']), reverse=True)
-                self.display_players_from_db(players_list)
-
-                """En cours de developpement"""
+                return self.display_players_from_db(players_list)
             else:
                 print("\nSaisie incorrecte, retour au menu principal")
-        elif selection == 3:
+        elif selection == 2:
+            self.display_tournament_from_db(tournaments_table)
+            self.get_int("Entrer le numéro de ligne du tournoi:")
             return
 
 
@@ -99,11 +101,14 @@ class Menus:
     @staticmethod
     def display_tournament_from_db(tournaments_table):
         tournaments_list = []
+        excluded_keys = ["Liste des rounds"]
         j = - 1
-        for i in tournaments_table:
+        for _ in tournaments_table:
             j = j + 1
-            tournaments_list.append(i)
-            print("N°", str(j), i)
+            result = ' '.join(f'{key}: {value}' for key, value in tournaments_table[j].items()
+                              if key not in excluded_keys)
+            tournaments_list.append(result)
+            print("N°:", str(j), " ", result)
         return tournaments_list
 
     @staticmethod

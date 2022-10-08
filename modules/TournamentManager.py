@@ -43,7 +43,7 @@ class TournamentManager:
                     int(choice)
                     break
                 except ValueError:
-                    print("Entrez un nombre entier !")
+                    print("Entrez un nombre entier et de la liste !")
             players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
             del all_player_available[int(choice)]
         return players_list
@@ -78,7 +78,7 @@ class TournamentManager:
         return serialized_tournament
 
     @staticmethod
-    def unserialize_all_tournaments(tournament_table):
+    def unserialize_all_tournaments(tournaments_table):
         """Déserialise la table complète des joueurs"""
-        unserialized_tournaments = tournament_table.all()
+        unserialized_tournaments = tournaments_table.all()
         return unserialized_tournaments
