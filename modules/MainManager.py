@@ -32,8 +32,6 @@ rm = RoundManager()
 """Déclare l'objet "Matchmanager" from matchmanager.py """
 mm = MatchManager()
 
-menu.display_players_from_list(players_list=pm.unserialize_all_players(players_table))
-
 class MainManager:
 
     def start(self):

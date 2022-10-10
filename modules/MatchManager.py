@@ -92,8 +92,8 @@ class MatchManager:
         for match in matchs_list:
             serialized_round = {
                 'Tournoi': tournament.name,
-                'Score': (pm.serialize_player(str(match.score[0][0])), str(match.score[0][1]),
-                          pm.serialize_player(str(match.score[1][0])), str(match.score[1][1]))
+                'Score': (pm.serialize_player(match.score[0][0]), str(match.score[0][1]),
+                          pm.serialize_player(match.score[1][0]), str(match.score[1][1]))
                                 }
             serialized_matchs.append(serialized_round)
         return serialized_matchs

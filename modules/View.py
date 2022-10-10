@@ -127,9 +127,9 @@ class Menus:
     def display_players_from_list(players_list):
         i = 0
         for p in players_list:
-            for key, val in p.items():
-                print("{0} : {1}".format(key, val))
-                i = i + 1
+            result = " ".join(str(key) + ": " + str(value) for key, value in p.items())
+            print("N° " + str(i) + " " + result)
+            i = i + 1
 
     @staticmethod
     def display_match_without_results(match, tournament):
