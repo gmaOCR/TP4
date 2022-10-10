@@ -5,6 +5,7 @@ from modules.RoundManager import RoundManager
 from modules.TournamentManager import TournamentManager
 from modules.View import Menus
 from tinydb import TinyDB
+import pandas as pd
 
 """Liste des types de chronomètres standardisés"""
 TIME_CONTROL = modules.View.TIME_CONTROL
@@ -15,6 +16,10 @@ players_table = db.table("players")
 tournaments_table = db.table("tournaments")
 rounds_table = db.table('rounds')
 match_table = db.table("matchs")
+
+"""Creation de la variable dataset pour les rapports"""
+datas = pd.read_json('db.json')
+pd.set_option('display.max_columns', None)
 
 """Déclare l'objet "Menus" from View.py """
 menu = Menus()
@@ -37,7 +42,7 @@ class MainManager:
         """Menu principal"""
         choice = menu.get_int(menu.main_menu())
         while choice != 9:
-            while choice not in [1, 2, 3, 4, 9]:
+            while choice not in [1, 2, 3, 9]:
                 print("\n Choix incorrect !\n")
                 choice = menu.get_int(menu.main_menu())
             if choice == 1:
@@ -72,26 +77,20 @@ class MainManager:
                 self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list), tournaments_table)
                 choice = menu.get_int(menu.main_menu())
             elif choice == 2:
-                self.menu_display_players()
-                choice = menu.get_int(menu.main_menu())
-            elif choice == 3:
                 self.menu_add_players_to_db()
                 choice = menu.get_int(menu.main_menu())
-            elif choice == 4:
+            elif choice == 3:
                 """ Consulter des informations """
                 """Affiche les choix disponibles de consultation"""
                 selection = menu.get_int(menu.data_menu())
 
-
                 """En cours de developpement"""
-                menu.display_datas(selection, pm.unserialize_all_players(players_table),
-                                   tm.unserialize_all_tournaments(tournaments_table))
+                menu.display_datas_menu(selection, datas)
                 choice = menu.get_int(menu.main_menu())
             elif choice == 9:
                 exit("Fin")
         """ Quitter le programme """
         exit("Fin")
-        
 
     def menu_add_players_to_db(self):
         """ Ajoute des joueurs à la database"""

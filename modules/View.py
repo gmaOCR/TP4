@@ -1,4 +1,5 @@
 import sys
+import pandas as pd
 
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
@@ -12,9 +13,8 @@ class Menus:
     @staticmethod
     def main_menu():
         return ("\n1.Créer et lancer un tournoi\n"
-                "2.Consulter la base de joueurs\n"
-                "3.Ajouter des joueurs à la base de données\n"
-                "4.Consulter des informations\n"
+                "2.Ajouter des joueurs à la base de données\n"
+                "3.Consulter des informations\n"
                 "9.Quitter \n")
 
     @staticmethod
@@ -26,22 +26,17 @@ class Menus:
                 "5.Consulter la liste des matchs d'un tournoi spécifique\n"
                 "9.Retour \n")
 
-    def display_datas(self, selection, players_list, tournaments_table):
+    def display_datas_menu(self, selection, datas):
 
         if selection == 1:
             choice = self.get_int(self.menu_sort_by())
-            if choice == 1:
-                """Affiche la liste des joueurs par Nom"""
-                players_list = sorted(players_list, key=lambda players: players['Nom'], reverse=False)
-                return self.display_players_from_db(players_list)
-            if choice == 2:
-                """Affiche la liste des joueurs par Rang"""
-                players_list = sorted(players_list, key=lambda players: int(players['Rang']), reverse=True)
-                return self.display_players_from_db(players_list)
+            if choice in [1, 2]:
+                """Affiche la liste des joueurs classés"""
+                return self.display_players_from_db(datas, choice)
             else:
                 print("\nSaisie incorrecte, retour au menu principal")
         elif selection == 2:
-            self.display_tournament_from_db(tournaments_table)
+            self.display_tournament_from_db(datas)
             self.get_int("Entrer le numéro de ligne du tournoi:")
             return
 
@@ -99,17 +94,9 @@ class Menus:
                      f"Information complémentaire: {tournament.description}\n")
 
     @staticmethod
-    def display_tournament_from_db(tournaments_table):
-        tournaments_list = []
-        excluded_keys = ["Liste des rounds"]
-        j = - 1
-        for _ in tournaments_table:
-            j = j + 1
-            result = ' '.join(f'{key}: {value}' for key, value in tournaments_table[j].items()
-                              if key not in excluded_keys)
-            tournaments_list.append(result)
-            print("N°:", str(j), " ", result)
-        return tournaments_list
+    def display_tournament_from_db(datas):
+        datas["Nom"] = datas["tournaments"].apply(lambda row: row["Nom"])
+
 
     @staticmethod
     def display_player(player):
@@ -122,15 +109,18 @@ class Menus:
                      f"Identifiant: {player.ident}\n")
 
     @staticmethod
-    def display_players_from_db(players_table):
-        players_list = []
-        j = - 1
-        for _ in players_table:
-            j = j + 1
-            result = ' '.join(f'{key}: {value}' for key, value in players_table[j].items())
-            players_list.append(result)
-            print("N°:", str(j), " ", result)
-        return players_list
+    def display_players_from_db(datas, choice):
+        datas["Nom"] = datas["players"].apply(lambda row: row["Nom"])
+        datas["Prénom"] = datas["players"].apply(lambda row: row["Prénom"])
+        datas["Date de naissance"] = datas["players"].apply(lambda row: row["Date de naissance"])
+        datas["Sexe"] = datas["players"].apply(lambda row: row["Sexe"])
+        datas["Classement"] = datas["players"].apply(lambda row: row["Rang"])
+        datas = datas.drop("players", axis=1)
+        datas = datas.drop("tournaments", axis=1)
+        if choice == 1:
+            return print(datas.sort_values(["Nom"], axis=0))
+        elif choice == 2:
+            return print(datas.sort_values(["Classement"], axis=0, ascending=False))
 
     @staticmethod
     def display_match_without_results(match, tournament):

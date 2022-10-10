@@ -5,7 +5,7 @@
             "Identifiant unique": "9304",
             "Nom": "A",
             "Pr\u00e9nom": "A",
-            "Rang": "1029",
+            "Rang": 1029,
             "Score": 0,
             "Sexe": "M"
         },
@@ -14,7 +14,7 @@
             "Identifiant unique": "48e2",
             "Nom": "I",
             "Pr\u00e9nom": "I",
-            "Rang": "098",
+            "Rang": 98,
             "Score": 0,
             "Sexe": "/"
         },
@@ -23,7 +23,7 @@
             "Identifiant unique": "37e8",
             "Nom": "Z",
             "Pr\u00e9nom": "Z",
-            "Rang": "533",
+            "Rang": 533,
             "Score": 0,
             "Sexe": "NA"
         },
@@ -32,7 +32,7 @@
             "Identifiant unique": "5f63",
             "Nom": "Adam",
             "Pr\u00e9nom": "Eve",
-            "Rang": "123441",
+            "Rang": 123441,
             "Score": 0,
             "Sexe": "A",
             "VS": ""
@@ -42,9 +42,29 @@
             "Identifiant unique": "7bb5",
             "Nom": "SDFSDF",
             "Pr\u00e9nom": "SFQSDF",
-            "Rang": "12441212",
+            "Rang": 12441212,
             "Score": 0,
             "Sexe": "A",
+            "VS": ""
+        },
+        "14": {
+            "Date de naissance": "121231",
+            "Identifiant unique": "9a31",
+            "Nom": "AB",
+            "Pr\u00e9nom": "BA",
+            "Rang": 9301,
+            "Score": 0,
+            "Sexe": "NA",
+            "VS": ""
+        },
+        "15": {
+            "Date de naissance": "122132",
+            "Identifiant unique": "e718",
+            "Nom": "AB",
+            "Pr\u00e9nom": "BA",
+            "Rang": 31234,
+            "Score": 0,
+            "Sexe": "F",
             "VS": ""
         },
         "2": {
@@ -52,7 +72,7 @@
             "Identifiant unique": "4423",
             "Nom": "B",
             "Pr\u00e9nom": "B",
-            "Rang": "1242",
+            "Rang": 1242,
             "Score": 0,
             "Sexe": "F"
         },
@@ -61,7 +81,7 @@
             "Identifiant unique": "2981",
             "Nom": "C",
             "Pr\u00e9nom": "C",
-            "Rang": "123",
+            "Rang": 123,
             "Score": 0,
             "Sexe": "F"
         },
@@ -70,7 +90,7 @@
             "Identifiant unique": "4c26",
             "Nom": "D",
             "Pr\u00e9nom": "D",
-            "Rang": "0329",
+            "Rang": 329,
             "Score": 0,
             "Sexe": "M"
         },
@@ -79,7 +99,7 @@
             "Identifiant unique": "0cf8",
             "Nom": "E",
             "Pr\u00e9nom": "E",
-            "Rang": "343",
+            "Rang": 343,
             "Score": 0,
             "Sexe": "M"
         },
@@ -88,7 +108,7 @@
             "Identifiant unique": "089c",
             "Nom": "F",
             "Pr\u00e9nom": "F",
-            "Rang": "234",
+            "Rang": 234,
             "Score": 0,
             "Sexe": "F"
         },
@@ -97,7 +117,7 @@
             "Identifiant unique": "1644",
             "Nom": "G",
             "Pr\u00e9nom": "G",
-            "Rang": "1256",
+            "Rang": 1256,
             "Score": 0,
             "Sexe": "F"
         },
@@ -106,7 +126,7 @@
             "Identifiant unique": "27e2",
             "Nom": "G",
             "Pr\u00e9nom": "G",
-            "Rang": "424",
+            "Rang": 424,
             "Score": 0,
             "Sexe": "M"
         },
@@ -115,7 +135,7 @@
             "Identifiant unique": "745a",
             "Nom": "H",
             "Pr\u00e9nom": "H",
-            "Rang": "53",
+            "Rang": 53,
             "Score": 0,
             "Sexe": "M"
         }

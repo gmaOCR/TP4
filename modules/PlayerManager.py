@@ -30,7 +30,7 @@ class PlayerManager:
             'Prénom': player.firstname,
             'Date de naissance': player.birthday,
             'Sexe': player.genre,
-            'Rang': player.rank,
+            'Rang': int(player.rank),
             'Score': player.score,
             'VS': player.last_versus,
             'Identifiant unique': str(player.ident)
