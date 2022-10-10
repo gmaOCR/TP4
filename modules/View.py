@@ -126,12 +126,10 @@ class Menus:
     @staticmethod
     def display_players_from_list(players_list):
         i = 0
-        for k, v in players_list[i:]:
-            print(k, v)
-
-        # for p in players_list:
-        #     print("N° " + str(i) + str(players_list[i]))
-        #     i = i + 1
+        for p in players_list:
+            for key, val in p.items():
+                print("{0} : {1}".format(key, val))
+                i = i + 1
 
     @staticmethod
     def display_match_without_results(match, tournament):
