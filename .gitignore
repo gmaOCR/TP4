@@ -853,3 +853,8 @@ modules/__pycache__/View.cpython-310.pyc
 /Lib/site-packages/
 /.idea/shelf/
 /share/man/man1/
+/Scripts/f2py.exe
+/Scripts/fonttools.exe
+/Scripts/pyftmerge.exe
+/Scripts/pyftsubset.exe
+/Scripts/ttx.exe
