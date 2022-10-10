@@ -31,7 +31,7 @@ class PlayerManager:
             'Date de naissance': player.birthday,
             'Sexe': player.genre,
             'Rang': int(player.rank),
-            'Score': player.score,
+            'Score': str(player.score),
             'VS': player.last_versus,
             'Identifiant unique': str(player.ident)
         }
@@ -59,3 +59,5 @@ class PlayerManager:
     @staticmethod
     def edit_player_rank(player):
         player.rank = menu.get_int("Saisir le nouveau classement du joueur:")
+
+

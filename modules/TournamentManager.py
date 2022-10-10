@@ -29,14 +29,13 @@ class TournamentManager:
     def select_8_players(players_table):
         """ Fais choisir 8 joueurs à l'opérateur depuis la DB """
         """" Génère la liste des joueurs présent en DB"""
-        players_list_full = pm.unserialize_all_players(players_table)
+        all_player_available = pm.unserialize_all_players(players_table)
         players_list = []
-        all_player_available = players_list_full
         i = 0
         """" Boucle selectionnant 8 joueurs par choix opérateur"""
         while i < 8:
             i = i + 1
-            menu.display_players_from_db(all_player_available)
+            menu.display_players_from_list(all_player_available)
             while True:
                 try:
                     choice = menu.get_input("\n Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
@@ -82,3 +81,4 @@ class TournamentManager:
         """Déserialise la table complète des joueurs"""
         unserialized_tournaments = tournaments_table.all()
         return unserialized_tournaments
+

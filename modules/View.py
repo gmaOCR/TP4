@@ -95,8 +95,9 @@ class Menus:
 
     @staticmethod
     def display_tournament_from_db(datas):
-        datas["Nom"] = datas["tournaments"].apply(lambda row: row["Nom"])
+        datas["Nom du tournoi"] = datas["tournaments"].apply(lambda row: row["Nom du tournoi"])
 
+        return print(datas)
 
     @staticmethod
     def display_player(player):
@@ -116,11 +117,21 @@ class Menus:
         datas["Sexe"] = datas["players"].apply(lambda row: row["Sexe"])
         datas["Classement"] = datas["players"].apply(lambda row: row["Rang"])
         datas = datas.drop("players", axis=1)
-        datas = datas.drop("tournaments", axis=1)
+        #datas = datas.drop("tournaments", axis=1)
         if choice == 1:
             return print(datas.sort_values(["Nom"], axis=0))
         elif choice == 2:
             return print(datas.sort_values(["Classement"], axis=0, ascending=False))
+
+    @staticmethod
+    def display_players_from_list(players_list):
+        i = 0
+        for k, v in players_list[i:]:
+            print(k, v)
+
+        # for p in players_list:
+        #     print("N° " + str(i) + str(players_list[i]))
+        #     i = i + 1
 
     @staticmethod
     def display_match_without_results(match, tournament):
@@ -176,3 +187,4 @@ class Menus:
                 return valid[choice]
             else:
                 sys.stdout.write("Saisissez 'oui' ou 'non' " "(sinon 'o' ou 'n').\n")
+
