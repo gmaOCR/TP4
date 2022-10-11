@@ -53,7 +53,8 @@ class PlayerManager:
         rank = serialized_player["Rang"]
         score = serialized_player["Score"]
         ident = serialized_player["Identifiant unique"]
-        player = Player(lastname, firstname, birthday, genre, rank, score, ident)
+        last_versus = serialized_player["VS"]
+        player = Player(lastname, firstname, birthday, genre, rank, score, ident, last_versus)
         return player
 
     @staticmethod

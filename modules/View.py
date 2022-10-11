@@ -76,15 +76,8 @@ class Menus:
         menu = input(menu + str("\n".join(TIME_CONTROL)))
         return menu
 
-    @staticmethod
-    def display_tournament(tournament):
-        tc = ""
-        if tournament.timecontrol == "1":
-            tc = str(TIME_CONTROL[0])
-        elif tournament.timecontrol == "2":
-            tc = TIME_CONTROL[1]
-        elif tournament.timecontrol == "3":
-            tc = TIME_CONTROL[2]
+    def display_tournament(self, tournament):
+        tc = self.tc_selection(tournament)
         return print(f"\nNom du tournoi: {tournament.name}\n"
                      f"Lieu: {tournament.place}\n"
                      f"Jour:  {tournament.date}\n"
@@ -92,10 +85,22 @@ class Menus:
                      f"Type de chrono: {tc[3:]}\n"
                      # f"Liste de rounds: {tournament.round_list}\n"
                      f"Information complémentaire: {tournament.description}\n")
+    @staticmethod
+    def tc_selection(tournament):
+        tc = ""
+        if tournament.timecontrol == "1":
+            tc = str(TIME_CONTROL[0])
+        elif tournament.timecontrol == "2":
+            tc = str(TIME_CONTROL[1])
+        elif tournament.timecontrol == "3":
+            tc = str(TIME_CONTROL[2])
+        return tc
+
 
     @staticmethod
     def display_tournament_from_db(datas):
-        datas["Nom du tournoi"] = datas["tournaments"].apply(lambda row: row["Nom du tournoi"])
+        datas = datas.drop("players", axis=1)
+        datas["Date"] = datas["tournaments"]
 
         return print(datas)
 
@@ -117,7 +122,7 @@ class Menus:
         datas["Sexe"] = datas["players"].apply(lambda row: row["Sexe"])
         datas["Classement"] = datas["players"].apply(lambda row: row["Rang"])
         datas = datas.drop("players", axis=1)
-        #datas = datas.drop("tournaments", axis=1)
+        datas = datas.drop("tournaments", axis=1)
         if choice == 1:
             return print(datas.sort_values(["Nom"], axis=0))
         elif choice == 2:

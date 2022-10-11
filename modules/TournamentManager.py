@@ -72,7 +72,7 @@ class TournamentManager:
             'Date': tournament.date,
             'Nb de rounds': tournament.rounds,
             'Liste des rounds': rm.serialize_rounds(round_list, match_list, tournament),
-            'Nature du chronométrage': tournament.timecontrol,
+            'Nature du chronométrage': menu.tc_selection(tournament)[3:],
         }
         return serialized_tournament
 
