@@ -100,9 +100,8 @@ class Menus:
     @staticmethod
     def display_tournament_from_db(datas):
         datas = datas.drop("players", axis=1)
-        datas["Date"] = datas["tournaments"]
-
-        return print(datas)
+        datas["Date"] = datas["tournaments"].apply(lambda row: row["Date"])
+        return print(type(datas))
 
     @staticmethod
     def display_player(player):
