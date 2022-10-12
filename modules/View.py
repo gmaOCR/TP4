@@ -96,12 +96,16 @@ class Menus:
             tc = str(TIME_CONTROL[2])
         return tc
 
-
     @staticmethod
     def display_tournament_from_db(datas):
-        datas = datas.drop("players", axis=1)
+        datas = datas.dropna()
+        datas["Nom du tournoi"] = datas["tournaments"].apply(lambda row: row["Nom du tournoi"])
         datas["Date"] = datas["tournaments"].apply(lambda row: row["Date"])
-        return print(type(datas))
+        datas["Lieu"] = datas["tournaments"].apply(lambda row: row["Lieu"])
+        datas["Nombre de rounds"] = datas["tournaments"].apply(lambda row: row["Nb de rounds"])
+        datas["Chrono"] = datas["tournaments"].apply(lambda row: row["Nature du chronométrage"])
+        datas = datas.drop("players", axis=1)
+        print(datas)
 
     @staticmethod
     def display_player(player):
