@@ -858,3 +858,7 @@ modules/__pycache__/View.cpython-310.pyc
 /Scripts/pyftmerge.exe
 /Scripts/pyftsubset.exe
 /Scripts/ttx.exe
+/modules/Test.py
+/modules/db.json
+
+!/modules/Test.py
