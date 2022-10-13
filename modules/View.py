@@ -85,6 +85,7 @@ class Menus:
                      f"Type de chrono: {tc[3:]}\n"
                      # f"Liste de rounds: {tournament.round_list}\n"
                      f"Information complémentaire: {tournament.description}\n")
+
     @staticmethod
     def tc_selection(tournament):
         tc = ""

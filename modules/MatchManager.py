@@ -55,23 +55,10 @@ class MatchManager:
 
     def run_match(self, match_list):
         match_list_result = []
-        # Prepare sequence for random results
         j = 1
         for match in match_list:
-            print("Lancement du match N°" + str(j) + " !")
-            self.countdown()
-            print("\nMatch terminé !\n")
-            sequence = [i for i in [0, 0.5, 1]]
-            # Random match result and points
-            select = float
-            for _ in range(1):
-                select = random.choice(sequence)
-            if select == 0:
-                print("Joueur B gagnant !\n")
-            elif select == 0.5:
-                print("Match Nul !\n")
-            elif select == 1:
-                print("Joueur A gagnant !\n")
+            print(f"Quel est le joueur gagnant match N°" + str(j) + f" opposant {(match.score[0][0]).lastname} "
+                  f"{(match.score[0][0]).firstname} à {(match.score[1][0]).lastname} {(match.score[1][0]).firstname} !\n")
             result = menu.get_result(input("Saisissez le résultat du match: A, B ou (N)ul"))
             self.add_result(result, match)
             """Ajoute les resultats au match ET aux joueurs"""

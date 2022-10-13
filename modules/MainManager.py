@@ -22,10 +22,9 @@ rounds_table = db.table('rounds')
 match_table = db.table("matchs")
 
 """Creation de la variable dataset pour les rapports"""
-with open("db.json", "r") as j:
-    data = json.load(j)
-data_tournament = pd.DataFrame(data["tournaments"].values())
-print(data_tournament)
+# with open("db.json", "r") as j:
+#     data = json.load(j)
+# data_tournament = pd.DataFrame(data["tournaments"].values())
 datas = pd.read_json('db.json')
 pd.set_option('display.max_columns', None)
 
