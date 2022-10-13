@@ -1,4 +1,6 @@
 import json
+from tinydb import TinyDB
+import pandas as pd
 
 import modules.View
 from modules.MatchManager import MatchManager
@@ -6,9 +8,8 @@ from modules.PlayerManager import PlayerManager
 from modules.RoundManager import RoundManager
 from modules.TournamentManager import TournamentManager
 from modules.View import Menus
-from tinydb import TinyDB
-import pandas as pd
-import json as js
+
+
 
 """Liste des types de chronomètres standardisés"""
 TIME_CONTROL = modules.View.TIME_CONTROL
@@ -21,11 +22,13 @@ rounds_table = db.table('rounds')
 match_table = db.table("matchs")
 
 """Creation de la variable dataset pour les rapports"""
-datas = json.loads('db.json')
-print(datas)
+with open("db.json", "r") as j:
+    data = json.load(j)
+data_tournament = pd.DataFrame(data["tournaments"].values())
+print(data_tournament)
 datas = pd.read_json('db.json')
 pd.set_option('display.max_columns', None)
-print(datas["tournaments"])
+
 
 """Déclare l'objet "Menus" from View.py """
 menu = Menus()
@@ -78,6 +81,7 @@ class MainManager:
                     menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                     round_list[i].end_time = rm.timestamp()
                     i = i + 1
+                    round_list[i].start_time = rm.timestamp()
                 """Ajoute le tournoi terminé à la table tournament"""
                 self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list), tournaments_table)
                 choice = menu.get_int(menu.main_menu())
