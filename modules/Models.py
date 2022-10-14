@@ -39,7 +39,7 @@ class Round(CRUD):
 
 
 class Tournament(CRUD):
-    def __init__(self, name, place, date, timecontrol, rounds=4, round_list=None, description=None):
+    def __init__(self, name, place, date, timecontrol, rounds=None, round_list=None, description=None):
         self.name = name
         self.place = place
         self.date = date

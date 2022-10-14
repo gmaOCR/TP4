@@ -69,7 +69,7 @@ class MainManager:
                 """Ajoute la liste des match avec resultats au round """
                 round_list[0].match_list = match_list_result
                 """"Cloture le round par ajout de l'heure de fin"""
-                menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
+                menu.display_round_validation(menu.get_input("Valider la fin du round en cours ? O/N"))
                 round_list[0].end_time = rm.timestamp()
                 """Boucle pour les N round suivant le premier"""
                 i = 1
@@ -79,8 +79,9 @@ class MainManager:
                     round_list[i].match_list = match_list_result
                     menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                     round_list[i].end_time = rm.timestamp()
+                    if i + 1 < len(round_list):
+                        round_list[i+1].start_time = rm.timestamp()
                     i = i + 1
-                    round_list[i].start_time = rm.timestamp()
                 """Ajoute le tournoi terminé à la table tournament"""
                 self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list), tournaments_table)
                 choice = menu.get_int(menu.main_menu())
@@ -125,11 +126,6 @@ class MainManager:
     def menu_display_players():
         """Appelle la liste des joueurs depuis la DB"""
         return menu.display_players_from_db(pm.unserialize_all_players(players_table))
-
-    # @staticmethod
-    # def clear_player_table():
-    #     players_table.truncate()  # clear the table
-    #     return print("\nTable Players effacée !\n")
 
     @staticmethod
     def add_data_to_db(serialized_data, table):

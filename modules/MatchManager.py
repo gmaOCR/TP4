@@ -1,5 +1,3 @@
-import random
-import time
 from modules.PlayerManager import PlayerManager
 from modules.Models import Match
 from modules.View import Menus
@@ -13,11 +11,11 @@ class MatchManager:
     @staticmethod
     def add_result(result, match):
         """Ajoute les resultats aux matchs"""
-        if result in ["a", "A"]:
+        if result in ["1", 1]:
             match.score[0][1] = 1
             match.score[1][1] = 0
             (match.score[0][0]).score += 1
-        elif result in ["b", "B"]:
+        elif result in ["2", 2]:
             match.score[1][1] = 1
             match.score[0][1] = 0
             (match.score[1][0]).score += 1
@@ -57,20 +55,15 @@ class MatchManager:
         match_list_result = []
         j = 1
         for match in match_list:
-            print(f"Quel est le joueur gagnant match N°" + str(j) + f" opposant {(match.score[0][0]).lastname} "
+            print(f"\nQuel est le joueur gagnant match N°" + str(j) + f" opposant {(match.score[0][0]).lastname} "
                   f"{(match.score[0][0]).firstname} à {(match.score[1][0]).lastname} {(match.score[1][0]).firstname} !\n")
-            result = menu.get_result(input("Saisissez le résultat du match: A, B ou (N)ul"))
+            result = menu.get_result(input("Saisissez le résultat du match: (1) pour le premier joueur"
+                                           " gagnant, (2) pour le second joueur gagnant ou (N)ul"))
             self.add_result(result, match)
             """Ajoute les resultats au match ET aux joueurs"""
             match_list_result.append(match)
             j = j + 1
         return match_list_result
-
-    @staticmethod
-    def countdown():
-        for i in range(2, 0, -1):
-            time.sleep(1)
-            print(i)
 
     @staticmethod
     def serialize_matchs(matchs_list, tournament):

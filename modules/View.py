@@ -1,5 +1,4 @@
 import sys
-import pandas as pd
 
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
@@ -65,8 +64,8 @@ class Menus:
 
     @staticmethod
     def get_result(menu):
-        while menu not in ["A", "a", "B", "b", "N", "n"]:
-            print("Choix incorrect: A pour joueur A gagnant, B pour joueur B gagnant, N pour match nul ")
+        while menu not in ["1", 1, "2", 2, "N", "n"]:
+            print("Choix incorrect: 1 pour joueur 1 gagnant, 2 pour joueur 2 gagnant, N pour match nul ")
             menu = input(menu)
         return menu
 
@@ -83,7 +82,6 @@ class Menus:
                      f"Jour:  {tournament.date}\n"
                      f"Nombre de tour: {tournament.rounds}\n"
                      f"Type de chrono: {tc[3:]}\n"
-                     # f"Liste de rounds: {tournament.round_list}\n"
                      f"Information complémentaire: {tournament.description}\n")
 
     @staticmethod
@@ -159,11 +157,11 @@ class Menus:
     @staticmethod
     def display_match_with_results(match, tournament):
         return print(f"\nTournoi: {tournament.name}"
-                     f"\nJoueur a: {(match.score[0][0]).lastname} rang: {(match.score[0][0]).rank}\n"
+                     f"\nJoueur 1: {(match.score[0][0]).lastname} rang: {(match.score[0][0]).rank}\n"
                      f"VS\n"
-                     f"Joueur b: {(match.score[1][0]).lastname} rang: {(match.score[1][0]).rank}\n"
-                     f"\nResultat joueur a: {match.score[0][1]}"
-                     f"\nResultat joueur b: {match.score[1][1]}"
+                     f"Joueur 2: {(match.score[1][0]).lastname} rang: {(match.score[1][0]).rank}\n"
+                     f"\nResultat joueur 1: {match.score[0][1]}"
+                     f"\nResultat joueur 2: {match.score[1][1]}"
                      f"\nTuple de TP: {match.score}"
                      )
 

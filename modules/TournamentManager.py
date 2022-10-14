@@ -17,12 +17,12 @@ class TournamentManager:
         t_name = menu.get_input("Entrez le nom du tournoi:")
         t_place = menu.get_input("Entrez le lieu du tournoi:")
         t_date = menu.get_input("Entrez la date du tournoi: (JJ/MM/AAAA)")
-        t_rounds = menu.get_input("Entrez le nombre de rondes: (défaut 4)")
-        self.input_round_checker(t_rounds)
+        t_rounds = self.input_round_checker("Entrez le nombre de rondes: (défaut 4)")
         t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
         t_round_list = []
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
         tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, t_round_list, t_desc)
+        print("Le tournoi suivant a été créée avec succès !\n")
         return tournament
 
     @staticmethod
@@ -49,19 +49,13 @@ class TournamentManager:
 
     @staticmethod
     def input_round_checker(choice):
-        if choice == "":
-            return 4
-        elif choice.isnumeric() is False:
-            while choice.isnumeric() is False:
-                print("La saisie doit être un nombre entier")
-                try:
-                    choice = menu.get_input("")
-                except ValueError:
-                    print("Erreur: la saisie doit être un nombre entier")
-        elif choice.isnumeric() is True:
+        choice = input(choice)
+        if choice is "":
+            choice = 4
             return choice
-        else:
-            return "Contactez l'administrateur"
+        elif menu.get_int(choice) is True:
+            return choice
+
 
     @staticmethod
     def serialize_tournament(tournament, round_list, match_list):
