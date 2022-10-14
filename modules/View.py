@@ -25,9 +25,10 @@ class Menus:
                 "5.Consulter la liste des matchs d'un tournoi spécifique\n"
                 "9.Retour \n")
 
-    def display_datas_menu(self, selection, datas):
-
+    def display_reports_menu(self, selection, datas, tournament):
+        """"Sous-menu des rapports"""
         if selection == 1:
+            """Sous menu des joueurs de la DB"""
             choice = self.get_int(self.menu_sort_by())
             if choice in [1, 2]:
                 """Affiche la liste des joueurs classés"""
@@ -35,8 +36,9 @@ class Menus:
             else:
                 print("\nSaisie incorrecte, retour au menu principal")
         elif selection == 2:
-            self.display_tournament_from_db(datas)
-            self.get_int("Entrer le numéro de ligne du tournoi:")
+            """Sous menu des joueurs d'un tournoi"""
+            self.display_tournament_from_db(tournament)
+            self.get_int("\nEntrer le numéro du tournoi:")
             return
 
 
@@ -52,8 +54,7 @@ class Menus:
 
     @staticmethod
     def get_int(menu):
-        print(menu)
-        is_int = input()
+        is_int = input(menu)
         while is_int.isnumeric() is False:
             print("La saisie doit être un nombre entier")
             try:
@@ -77,7 +78,7 @@ class Menus:
 
     def display_tournament(self, tournament):
         tc = self.tc_selection(tournament)
-        return print(f"\nNom du tournoi: {tournament.name}\n"
+        return print(f"Nom du tournoi: {tournament.name}\n"
                      f"Lieu: {tournament.place}\n"
                      f"Jour:  {tournament.date}\n"
                      f"Nombre de tour: {tournament.rounds}\n"
@@ -96,15 +97,18 @@ class Menus:
         return tc
 
     @staticmethod
-    def display_tournament_from_db(datas):
-        datas = datas.dropna()
-        datas["Nom du tournoi"] = datas["tournaments"].apply(lambda row: row["Nom du tournoi"])
-        datas["Date"] = datas["tournaments"].apply(lambda row: row["Date"])
-        datas["Lieu"] = datas["tournaments"].apply(lambda row: row["Lieu"])
-        datas["Nombre de rounds"] = datas["tournaments"].apply(lambda row: row["Nb de rounds"])
-        datas["Chrono"] = datas["tournaments"].apply(lambda row: row["Nature du chronométrage"])
-        datas = datas.drop("players", axis=1)
-        print(datas)
+    def display_tournament_from_db(tournament):
+        i = 0
+        exclude = {"Liste des rounds"}
+        for j in tournament:
+            print("\nTournoi N°" + str(i + 1) + ":")
+            dict_key_exclude = ({k: (tournament[i])[k] for k in tournament[i] if k not in exclude})
+            dict_as_list = sorted(dict_key_exclude.items())
+            new_index = [4, 1, 0, 2, 3]
+            dict_sorted = dict([dict_as_list[ind] for ind in new_index])
+            for t in dict_sorted.items():
+                print(t[0], ":", t[1])
+            i = i + 1
 
     @staticmethod
     def display_player(player):
@@ -138,13 +142,13 @@ class Menus:
             print("N° " + str(i) + " " + result)
             i = i + 1
 
-    @staticmethod
-    def display_match_without_results(match, tournament):
-        return print(f"\nTournoi: {tournament.name}"
-                     f"\nJoueur a: {match.score[0][0].lastname} rang: {match.player_a.rank}\n"
-                     f"VS\n"
-                     f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"
-                     )
+    # @staticmethod
+    # def display_match_without_results(match, tournament):
+    #     return print(f"\nTournoi: {tournament.name}"
+    #                  f"\nJoueur a: {match.score[0][0].lastname} rang: {match.player_a.rank}\n"
+    #                  f"VS\n"
+    #                  f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"
+    #                  )
 
     @staticmethod
     def display_round(one_round, tournament):

@@ -25,7 +25,7 @@ match_table = db.table("matchs")
 # with open("db.json", "r") as j:
 #     data = json.load(j)
 # data_tournament = pd.DataFrame(data["tournaments"].values())
-datas = pd.read_json('db.json')
+players_datas = pd.read_json('db.json')
 pd.set_option('display.max_columns', None)
 
 
@@ -55,7 +55,6 @@ class MainManager:
             if choice == 1:
                 """instancie et affiche un tournoi"""
                 tournament = tm.create_tournament()
-                menu.display_tournament(tournament)
                 """instancie et affiche une liste de 8 joueurs instanciés triée par rang"""
                 players_list = tm.select_8_players(players_table)
                 """ Instancie les rounds"""
@@ -94,7 +93,7 @@ class MainManager:
                 selection = menu.get_int(menu.data_menu())
 
                 """En cours de developpement"""
-                menu.display_datas_menu(selection, datas)
+                menu.display_reports_menu(selection, players_datas, tm.unserialize_all_tournaments(tournaments_table))
                 choice = menu.get_int(menu.main_menu())
             elif choice == 9:
                 exit("Fin")

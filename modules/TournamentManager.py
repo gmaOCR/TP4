@@ -22,7 +22,8 @@ class TournamentManager:
         t_round_list = []
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
         tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, t_round_list, t_desc)
-        print("Le tournoi suivant a été créée avec succès !\n")
+        print("\nLe tournoi a été créée avec succès !\n")
+        menu.display_tournament(tournament)
         return tournament
 
     @staticmethod
@@ -35,27 +36,28 @@ class TournamentManager:
         """" Boucle selectionnant 8 joueurs par choix opérateur"""
         while i < 8:
             i = i + 1
+            print("LISTE DES JOUEURS DISPONIBLES EN BASE DE DONNEES")
             menu.display_players_from_list(all_player_available)
             while True:
                 try:
                     choice = menu.get_input("\n Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
                     int(choice)
+                    players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
+                    del all_player_available[int(choice)]
                     break
-                except ValueError:
-                    print("Entrez un nombre entier et de la liste !")
-            players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
-            del all_player_available[int(choice)]
+                except (ValueError, IndexError):
+                    print("Entrez un numero de ligne  de la liste !\n")
+                    menu.display_players_from_list(all_player_available)
         return players_list
 
     @staticmethod
     def input_round_checker(choice):
         choice = input(choice)
-        if choice is "":
+        if choice == "":
             choice = 4
             return choice
-        elif menu.get_int(choice) is True:
-            return choice
-
+        else:
+            menu.get_int("Entrez un nombre entier:")
 
     @staticmethod
     def serialize_tournament(tournament, round_list, match_list):
@@ -75,4 +77,3 @@ class TournamentManager:
         """Déserialise la table complète des joueurs"""
         unserialized_tournaments = tournaments_table.all()
         return unserialized_tournaments
-
