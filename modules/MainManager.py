@@ -57,6 +57,8 @@ class MainManager:
                 tournament = tm.create_tournament()
                 """instancie et affiche une liste de 8 joueurs instanciés triée par rang"""
                 players_list = tm.select_8_players(players_table)
+                """Ajout la list des joueurs au tournoi"""
+                tournament.players_list = players_list
                 """ Instancie les rounds"""
                 round_list = rm.create_round(tournament, tournament.rounds)
                 """Ajoute les rounds à la liste de round du tournoi"""
@@ -82,7 +84,7 @@ class MainManager:
                         round_list[i+1].start_time = rm.timestamp()
                     i = i + 1
                 """Ajoute le tournoi terminé à la table tournament"""
-                self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list), tournaments_table)
+                self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list, players_list), tournaments_table)
                 choice = menu.get_int(menu.main_menu())
             elif choice == 2:
                 self.menu_add_players_to_db()

@@ -39,7 +39,8 @@ class Round(CRUD):
 
 
 class Tournament(CRUD):
-    def __init__(self, name, place, date, timecontrol, rounds=None, round_list=None, description=None):
+    def __init__(self, name, place, date, timecontrol, rounds=None, round_list=None, description=None,
+                 players_list=None):
         self.name = name
         self.place = place
         self.date = date
@@ -47,7 +48,7 @@ class Tournament(CRUD):
         self.round_list = round_list
         self.timecontrol = timecontrol
         self.description = description
+        self.players_list = players_list
 
-        self.__dict__.update()
 
 

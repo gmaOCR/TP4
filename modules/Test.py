@@ -47,7 +47,8 @@ for j in tm_unser:
         print(t[0], ":", t[1])
     i = i + 1
 
-c = input("Choisir un round par num de ligne")
+#c = input("Choisir un round par num de tournoi")
+c = 2
 
 #BoUcle des rondes
 exclude_match = {"Liste des match du round"}
@@ -63,23 +64,22 @@ for r in rounds:
     for n in dict_sorted.items():
         print(n[0], ":", n[1])
 
-k = input("Choisir un round par num de match")
+#k = input("Choisir un round par num de round")
+k = 1
 
 #Boucle des matchs
+exclude_key = {"Tournoi"}
 matchs = (rounds[int(k) - 1])["Liste des match du round"]
 i = 0
-print(matchs)
-for m in matchs[i].items():
-    print(m)
-    print(m[0], ":", m[1])
+# print(matchs)
+# print("\n")
+for m in matchs:
+    dict_match = ({k: matchs[i][k] for k in matchs[i] if k not in exclude_key})
+    dict_as_list =  sorted(dict_match.items())
+    print(dict_as_list[0][1])
     i = i + 1
-print(i)
-
-
-    #dict_as_list = sorted(dict_key_exclude.items())
-    #new_index = [3, 2, 0, 1]
-    #dict_sorted = dict([dict_as_list[ind] for ind in new_index])
-    # for n in dict_sorted.items():
+    # for n in dict_match.items():
     #     print(n[0], ":", n[1])
+
 
 

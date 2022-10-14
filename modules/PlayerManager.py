@@ -38,6 +38,24 @@ class PlayerManager:
         return serialized_player
 
     @staticmethod
+    def serialize_players(players_list):
+        """Sérialise le joueur pour TinyDB"""
+        serialized_players_list = []
+        for player in players_list:
+            serialized_player = {
+                'Nom': player.lastname,
+                'Prénom': player.firstname,
+                'Date de naissance': player.birthday,
+                'Sexe': player.genre,
+                'Rang': int(player.rank),
+                'Score': float(player.score),
+                'VS': player.last_versus,
+                'Identifiant unique': str(player.ident)
+            }
+            serialized_players_list.append(serialized_player)
+        return serialized_players_list
+
+    @staticmethod
     def unserialize_all_players(players_table):
         """Déserialise la table complète des joueurs"""
         unserialized_players = players_table.all()

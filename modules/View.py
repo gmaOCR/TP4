@@ -36,7 +36,7 @@ class Menus:
             else:
                 print("\nSaisie incorrecte, retour au menu principal")
         elif selection == 2:
-            """Sous menu des joueurs d'un tournoi"""
+            """Sous menu des joueurs d'un tournoi selectionné"""
             self.display_tournament_from_db(tournament)
             self.get_int("\nEntrer le numéro du tournoi:")
             return

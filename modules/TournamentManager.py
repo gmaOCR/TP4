@@ -20,8 +20,9 @@ class TournamentManager:
         t_rounds = self.input_round_checker("Entrez le nombre de rondes: (défaut 4)")
         t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
         t_round_list = []
+        t_p_list = []
         t_desc = menu.get_input("Entrez un commentaire (facultatif):")
-        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, t_round_list, t_desc)
+        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, t_round_list, t_desc, t_p_list)
         print("\nLe tournoi a été créée avec succès !\n")
         menu.display_tournament(tournament)
         return tournament
@@ -46,8 +47,8 @@ class TournamentManager:
                     del all_player_available[int(choice)]
                     break
                 except (ValueError, IndexError):
-                    print("Entrez un numero de ligne  de la liste !\n")
                     menu.display_players_from_list(all_player_available)
+                    print("Entrez un numero de ligne de la liste !\n")
         return players_list
 
     @staticmethod
@@ -56,11 +57,13 @@ class TournamentManager:
         if choice == "":
             choice = 4
             return choice
+        elif choice.isnumeric() is True:
+            return choice
         else:
             menu.get_int("Entrez un nombre entier:")
 
     @staticmethod
-    def serialize_tournament(tournament, round_list, match_list):
+    def serialize_tournament(tournament, round_list, match_list, players_list):
         """Sérialise le tournoi pour TinyDB"""
         serialized_tournament = {
             'Nom du tournoi': tournament.name,
@@ -69,6 +72,7 @@ class TournamentManager:
             'Nb de rounds': tournament.rounds,
             'Liste des rounds': rm.serialize_rounds(round_list, match_list, tournament),
             'Nature du chronométrage': menu.tc_selection(tournament)[3:],
+            'Liste des joueurs': pm.serialize_players(players_list)
         }
         return serialized_tournament
 
