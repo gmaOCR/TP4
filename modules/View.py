@@ -18,7 +18,7 @@ class Menus:
                 "9.Quitter \n")
 
     @staticmethod
-    def data_menu():
+    def reports_menu():
         return ("\n1.Consulter la liste des joueurs disponibles\n"
                 "2.Consulter la liste des joueurs d'un tournoi spécifique\n"
                 "3.Consulter la liste des tournois terminés\n"
@@ -39,7 +39,8 @@ class Menus:
         elif selection == 2:
             """Sous menu des joueurs d'un tournoi selectionné"""
             self.display_tournament_from_db(tournament)
-            self.get_int("\nEntrer le numéro du tournoi:")
+            choice = self.get_int("\nEntrer le numéro du tournoi:")
+            self.display_players_from_tournament(choice, tournament)
             return
 
     @staticmethod
@@ -99,8 +100,8 @@ class Menus:
     @staticmethod
     def display_tournament_from_db(tournament):
         i = 0
-        exclude = {"Liste des rounds"}
-        for j in tournament:
+        exclude = {"Liste des rounds", "Liste des joueurs"}
+        for _ in tournament:
             print("\nTournoi N°" + str(i + 1) + ":")
             dict_key_exclude = ({k: (tournament[i])[k] for k in tournament[i] if k not in exclude})
             dict_as_list = sorted(dict_key_exclude.items())
@@ -207,3 +208,10 @@ class Menus:
         firstname = attrgetter("firstname")(winner)
         print("\nLe gagnant du tournoi est: [" + str(lastname) + "] [" + str(firstname) + "] avec un score de: ["
               + str(winner.score) + "] points" )
+
+    def display_players_from_tournament(self, choice, tournament):
+        liste = tournament[choice]["Liste des joueurs"]
+        print(liste)
+        dict_players = {k: (tournament[choice-1])[k] for k in tournament[choice-1] if k in ["Liste des joueurs"]}
+        # for t in dict_players.items():
+        #     print(t[0], ":", t[1])

@@ -15,7 +15,6 @@ match_table = db.table("matchs")
 tm_unser = tm.unserialize_all_tournaments(tournaments_table)
 unserialized_players = players_table.all()
 
-pprint.pprint(unserialized_players)
 
 # for date in tm_unser:
 #     print(tm_unser[i]["Date"])
@@ -39,7 +38,7 @@ pprint.pprint(unserialized_players)
 
 #Boucle des tournois
 i = 0
-exclude = {"Liste des rounds"}
+exclude = {"Liste des rounds", "Liste des joueurs"}
 for j in tm_unser:
     print("\nTournoi N°" + str(i + 1) + ":")
     dict_key_exclude = ({k: (tm_unser[i])[k] for k in tm_unser[i] if k not in exclude})
@@ -78,7 +77,7 @@ i = 0
 # print("\n")
 for m in matchs:
     dict_match = ({k: matchs[i][k] for k in matchs[i] if k not in exclude_key})
-    dict_as_list =  sorted(dict_match.items())
+    dict_as_list = sorted(dict_match.items())
     print(dict_as_list[0][1])
     i = i + 1
     # for n in dict_match.items():

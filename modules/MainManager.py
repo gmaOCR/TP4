@@ -89,7 +89,7 @@ class MainManager:
             elif choice == 3:
                 """ Consulter des informations """
                 """Affiche les choix disponibles de consultation"""
-                selection = menu.get_int(menu.data_menu())
+                selection = menu.get_int(menu.reports_menu())
 
                 """En cours de developpement"""
                 menu.display_reports_menu(selection, players_datas, tm.unserialize_all_tournaments(tournaments_table))
