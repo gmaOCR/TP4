@@ -1,4 +1,3 @@
-import json
 from tinydb import TinyDB
 import pandas as pd
 
@@ -8,8 +7,6 @@ from modules.PlayerManager import PlayerManager
 from modules.RoundManager import RoundManager
 from modules.TournamentManager import TournamentManager
 from modules.View import Menus
-
-
 
 """Liste des types de chronomètres standardisés"""
 TIME_CONTROL = modules.View.TIME_CONTROL
@@ -21,13 +18,9 @@ tournaments_table = db.table("tournaments")
 rounds_table = db.table('rounds')
 match_table = db.table("matchs")
 
-"""Creation de la variable dataset pour les rapports"""
-# with open("db.json", "r") as j:
-#     data = json.load(j)
-# data_tournament = pd.DataFrame(data["tournaments"].values())
+"""Creation de la variable dataset pour les rapports de joueurs"""
 players_datas = pd.read_json('db.json')
 pd.set_option('display.max_columns', None)
-
 
 """Déclare l'objet "Menus" from View.py """
 menu = Menus()
@@ -40,10 +33,11 @@ rm = RoundManager()
 """Déclare l'objet "Matchmanager" from matchmanager.py """
 mm = MatchManager()
 
+
 class MainManager:
 
     def start(self):
-        "Lance le menu de départ"
+        """Lance le menu de départ"""
         """Message de bienvenue"""
         menu.hello()
         """Menu principal"""
@@ -57,8 +51,6 @@ class MainManager:
                 tournament = tm.create_tournament()
                 """instancie et affiche une liste de 8 joueurs instanciés triée par rang"""
                 players_list = tm.select_8_players(players_table)
-                """Ajout la list des joueurs au tournoi"""
-                tournament.players_list = players_list
                 """ Instancie les rounds"""
                 round_list = rm.create_round(tournament, tournament.rounds)
                 """Ajoute les rounds à la liste de round du tournoi"""
@@ -81,10 +73,15 @@ class MainManager:
                     menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
                     round_list[i].end_time = rm.timestamp()
                     if i + 1 < len(round_list):
-                        round_list[i+1].start_time = rm.timestamp()
+                        round_list[i + 1].start_time = rm.timestamp()
                     i = i + 1
+                """Ajout la liste des joueurs au tournoi"""
+                tournament.players_list = players_list
+                """Affiche le gagnant du tournoi"""
+                menu.display_winner(players_list)
                 """Ajoute le tournoi terminé à la table tournament"""
-                self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list, players_list), tournaments_table)
+                self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list, players_list),
+                                    tournaments_table)
                 choice = menu.get_int(menu.main_menu())
             elif choice == 2:
                 self.menu_add_players_to_db()
@@ -123,10 +120,10 @@ class MainManager:
         else:
             print("\nRetour au menu principal\n")
 
-    @staticmethod
-    def menu_display_players():
-        """Appelle la liste des joueurs depuis la DB"""
-        return menu.display_players_from_db(pm.unserialize_all_players(players_table))
+    # @staticmethod
+    # def menu_display_players():
+    #     """Appelle la liste des joueurs depuis la DB"""
+    #     return menu.display_players_from_db(pm.unserialize_all_players(players_table))
 
     @staticmethod
     def add_data_to_db(serialized_data, table):

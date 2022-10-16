@@ -1,6 +1,6 @@
 from tinydb import TinyDB
 from modules.TournamentManager import TournamentManager
-from operator import itemgetter
+import pprint
 
 tm = TournamentManager()
 
@@ -13,6 +13,9 @@ match_table = db.table("matchs")
 
 """Tournoi deserialisé"""
 tm_unser = tm.unserialize_all_tournaments(tournaments_table)
+unserialized_players = players_table.all()
+
+pprint.pprint(unserialized_players)
 
 # for date in tm_unser:
 #     print(tm_unser[i]["Date"])

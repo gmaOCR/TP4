@@ -41,14 +41,16 @@ class TournamentManager:
             menu.display_players_from_list(all_player_available)
             while True:
                 try:
-                    choice = menu.get_input("\n Choisir le joueur " + str(i) + ": (saisir le numéro de ligne): \n")
+                    choice = menu.get_input("\nChoisir le joueur " + str(i) + " du tournoi en cours: "
+                                                                               "(saisir le numéro): \n")
                     int(choice)
                     players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
                     del all_player_available[int(choice)]
                     break
                 except (ValueError, IndexError):
                     menu.display_players_from_list(all_player_available)
-                    print("Entrez un numero de ligne de la liste !\n")
+                    print("\n")
+                    print("\nEntrez un numero de ligne de la liste !\n")
         return players_list
 
     @staticmethod

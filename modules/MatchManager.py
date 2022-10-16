@@ -11,6 +11,8 @@ class MatchManager:
     @staticmethod
     def add_result(result, match):
         """Ajoute les resultats aux matchs"""
+        (match.score[0][0]).score = int((match.score[0][0]).score)
+        (match.score[1][0]).score = int((match.score[1][0]).score)
         if result in ["1", 1]:
             match.score[0][1] = 1
             match.score[1][1] = 0
@@ -44,7 +46,7 @@ class MatchManager:
         match_list = []
         i = 0
         for j, match in enumerate(sorted_list):
-            match = Match("", "", sorted_list[int(i)], sorted_list[int(i + 1)])
+            match = Match(float, float, sorted_list[int(i)], sorted_list[int(i + 1)])
             match_list.append(match)
             i = i + 2
             if j == 3:

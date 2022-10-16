@@ -1,4 +1,5 @@
 import sys
+from operator import attrgetter
 
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
@@ -40,7 +41,6 @@ class Menus:
             self.display_tournament_from_db(tournament)
             self.get_int("\nEntrer le numéro du tournoi:")
             return
-
 
     @staticmethod
     def menu_sort_by():
@@ -137,9 +137,12 @@ class Menus:
     @staticmethod
     def display_players_from_list(players_list):
         i = 0
-        for p in players_list:
-            result = " ".join(str(key) + ": " + str(value) for key, value in p.items())
-            print("N° " + str(i) + " " + result)
+        invalid_dict_key = {"Date de naissance", "Identifiant unique", "Score", "VS"}
+        for _ in players_list:
+            dict_filtered = ({k: (players_list[i])[k] for k in players_list[i] if k not in invalid_dict_key})
+            print("\nJoueur N°" + str(i) + ":")
+            for t in dict_filtered.items():
+                print(t[0], ":", t[1], end=" | ")
             i = i + 1
 
     # @staticmethod
@@ -197,3 +200,10 @@ class Menus:
             else:
                 sys.stdout.write("Saisissez 'oui' ou 'non' " "(sinon 'o' ou 'n').\n")
 
+    @staticmethod
+    def display_winner(player_list):
+        winner = max(player_list, key=attrgetter("score"))
+        lastname = attrgetter("lastname")(winner)
+        firstname = attrgetter("firstname")(winner)
+        print("\nLe gagnant du tournoi est: [" + str(lastname) + "] [" + str(firstname) + "] avec un score de: ["
+              + str(winner.score) + "] points" )
