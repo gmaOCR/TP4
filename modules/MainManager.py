@@ -41,11 +41,11 @@ class MainManager:
         """Message de bienvenue"""
         menu.hello()
         """Menu principal"""
-        choice = menu.get_int(menu.main_menu())
+        choice = menu.get_int(menu.display_main_menu())
         while choice != 9:
             while choice not in [1, 2, 3, 9]:
                 print("\n Choix incorrect !\n")
-                choice = menu.get_int(menu.main_menu())
+                choice = menu.get_int(menu.display_main_menu())
             if choice == 1:
                 """instancie et affiche un tournoi"""
                 tournament = tm.create_tournament()
@@ -82,18 +82,18 @@ class MainManager:
                 """Ajoute le tournoi terminé à la table tournament"""
                 self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list, players_list),
                                     tournaments_table)
-                choice = menu.get_int(menu.main_menu())
+                choice = menu.get_int(menu.display_main_menu())
             elif choice == 2:
                 self.menu_add_players_to_db()
-                choice = menu.get_int(menu.main_menu())
+                choice = menu.get_int(menu.display_main_menu())
             elif choice == 3:
                 """ Consulter des informations """
                 """Affiche les choix disponibles de consultation"""
-                selection = menu.get_int(menu.reports_menu())
+                selection = menu.get_int(menu.display_main_reports_menu())
 
                 """En cours de developpement"""
                 menu.display_reports_menu(selection, players_datas, tm.unserialize_all_tournaments(tournaments_table))
-                choice = menu.get_int(menu.main_menu())
+                choice = menu.get_int(menu.display_main_menu())
             elif choice == 9:
                 exit("Fin")
         """ Quitter le programme """

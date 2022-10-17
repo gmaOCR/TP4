@@ -1,6 +1,9 @@
 import sys
 from operator import attrgetter
 
+
+
+
 TIME_CONTROL = ["1. bullet", "2. blitz", "3. coup rapide"]
 
 
@@ -11,14 +14,14 @@ class Menus:
         print("\nBienvenue sur votre outil de gestion de tournois d'échecs:")
 
     @staticmethod
-    def main_menu():
+    def display_main_menu():
         return ("\n1.Créer et lancer un tournoi\n"
                 "2.Ajouter des joueurs à la base de données\n"
                 "3.Consulter des informations\n"
                 "9.Quitter \n")
 
     @staticmethod
-    def reports_menu():
+    def display_main_reports_menu():
         return ("\n1.Consulter la liste des joueurs disponibles\n"
                 "2.Consulter la liste des joueurs d'un tournoi spécifique\n"
                 "3.Consulter la liste des tournois terminés\n"
@@ -136,7 +139,7 @@ class Menus:
             return print(datas.sort_values(["Classement"], axis=0, ascending=False))
 
     @staticmethod
-    def display_players_from_list(players_list):
+    def display_players_to_select(players_list):
         i = 0
         invalid_dict_key = {"Date de naissance", "Identifiant unique", "Score", "VS"}
         for _ in players_list:
@@ -146,6 +149,21 @@ class Menus:
                 print(t[0], ":", t[1], end=" | ")
             i = i + 1
 
+    @staticmethod
+    def display_players_to_report(players_list):
+        i = 0
+        invalid_dict_key = {"Identifiant unique", "VS"}
+        print("Voici la liste des 8 joueurs du tournoi sélectionné:\n")
+        for _ in players_list:
+            dict_filtered = ({k: (players_list[i])[k] for k in players_list[i] if k not in invalid_dict_key})
+            dict_as_list = sorted(dict_filtered.items())
+            new_index = [1, 2, 0, 3, 4, 5]
+            dict_sorted = dict(dict_as_list[ind] for ind in new_index)
+            for t in dict_sorted.items():
+                print(t[0], ":", t[1], end=" | ")
+            i = i + 1
+            print("\n")
+
     # @staticmethod
     # def display_match_without_results(match, tournament):
     #     return print(f"\nTournoi: {tournament.name}"
@@ -154,24 +172,24 @@ class Menus:
     #                  f"Joueur b: {match.player_b.lastname} rang: {match.player_b.rank}\n"
     #                  )
 
-    @staticmethod
-    def display_round(one_round, tournament):
-        return print(f"\nN° du tour: {one_round.name}"
-                     f"\nNom du tournoi: {tournament.name}"
-                     f"\nHeure de début: {one_round.start_time}"
-                     f"\nHeure de fin: {one_round.end_time}"
-                     )
+    # @staticmethod
+    # def display_round(one_round, tournament):
+    #     return print(f"\nN° du tour: {one_round.name}"
+    #                  f"\nNom du tournoi: {tournament.name}"
+    #                  f"\nHeure de début: {one_round.start_time}"
+    #                  f"\nHeure de fin: {one_round.end_time}"
+    #                  )
 
-    @staticmethod
-    def display_match_with_results(match, tournament):
-        return print(f"\nTournoi: {tournament.name}"
-                     f"\nJoueur 1: {(match.score[0][0]).lastname} rang: {(match.score[0][0]).rank}\n"
-                     f"VS\n"
-                     f"Joueur 2: {(match.score[1][0]).lastname} rang: {(match.score[1][0]).rank}\n"
-                     f"\nResultat joueur 1: {match.score[0][1]}"
-                     f"\nResultat joueur 2: {match.score[1][1]}"
-                     f"\nTuple de TP: {match.score}"
-                     )
+    # @staticmethod
+    # def display_match_with_results(match, tournament):
+    #     return print(f"\nTournoi: {tournament.name}"
+    #                  f"\nJoueur 1: {(match.score[0][0]).lastname} rang: {(match.score[0][0]).rank}\n"
+    #                  f"VS\n"
+    #                  f"Joueur 2: {(match.score[1][0]).lastname} rang: {(match.score[1][0]).rank}\n"
+    #                  f"\nResultat joueur 1: {match.score[0][1]}"
+    #                  f"\nResultat joueur 2: {match.score[1][1]}"
+    #                  f"\nTuple de TP: {match.score}"
+    #                  )
 
     @staticmethod
     def display_round_validation(menu):
@@ -210,8 +228,6 @@ class Menus:
               + str(winner.score) + "] points" )
 
     def display_players_from_tournament(self, choice, tournament):
-        liste = tournament[choice]["Liste des joueurs"]
-        print(liste)
-        dict_players = {k: (tournament[choice-1])[k] for k in tournament[choice-1] if k in ["Liste des joueurs"]}
-        # for t in dict_players.items():
-        #     print(t[0], ":", t[1])
+        players_list = tournament[choice-1]["Liste des joueurs"]
+        return self.display_players_to_report(players_list)
+

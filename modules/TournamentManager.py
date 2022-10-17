@@ -38,7 +38,7 @@ class TournamentManager:
         while i < 8:
             i = i + 1
             print("LISTE DES JOUEURS DISPONIBLES EN BASE DE DONNEES")
-            menu.display_players_from_list(all_player_available)
+            menu.display_players_to_select(all_player_available)
             while True:
                 try:
                     choice = menu.get_input("\nChoisir le joueur " + str(i) + " du tournoi en cours: "
@@ -48,7 +48,7 @@ class TournamentManager:
                     del all_player_available[int(choice)]
                     break
                 except (ValueError, IndexError):
-                    menu.display_players_from_list(all_player_available)
+                    menu.display_players_to_select(all_player_available)
                     print("\n")
                     print("\nEntrez un numero de ligne de la liste !\n")
         return players_list
