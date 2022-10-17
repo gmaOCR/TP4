@@ -1,89 +1,85 @@
-import modules.View
-from modules.Models import Tournament, Player
+from modules.PlayerManager import PlayerManager
+from modules.RoundManager import RoundManager
 from modules.View import Menus
+from modules.Models import Tournament
 
-TIME_CONTROL = modules.View.TIME_CONTROL
-
+"""Déclare l'objet "Menus" from View.py """
 menu = Menus()
+"""Déclare l'objet "PlayerManager"""
+pm = PlayerManager()
+"""Déclare l'objet "PlayerManager"""
+rm = RoundManager()
+
 
 class TournamentManager:
-
-
-    def get_info(self):
-        """Déclare l'objet "Menus" """
-        menu.hello()
-        """Message de bienvenue"""
-        choice = menu.get_input_str(menu.main_menu())
-        """Menu principal"""
-        while choice not in ["1","2","3","4"]:
-            print("\n Choix incorrect\n")
-            choice = menu.get_input_str(menu.main_menu())
-        if choice == "1":
-            """ Créer un tournoi et récupère ses propriétés"""
-            self.create_tournament()
-        elif choice == "2":
-            """ Ajouter des joueurs à la database"""
-            pass
-        elif choice == "3":
-            """ Consulter des informations """
-            pass
-        elif choice == "4":
-            """ Quitter le programme """
-            exit
-
-
     def create_tournament(self):
-        t_name = menu.get_input_str("Entrez le nom du tournoi:")
-        t_place = menu.get_input_str("Entrez le lieu du tournoi:")
-        t_date = menu.get_input_str("Entrez la date du tournoi: (JJ/MM/AAAA)")
-        t_rounds = menu.get_input_int("Entrez le nombre de rondes: (défaut 4)")
-        # t_rounds.input_int_checker(t_rounds)
-        if t_rounds is None:
-            t_rounds = 4
-        t_time_control = menu.get_time_control("Entrez le type de chrono: (1. bullet 2. blitz 3. coup rapide)")
-        while t_time_control > len(TIME_CONTROL):
-            print("\n Choix incorrect\n")
-            t_time_control = menu.get_time_control(menu.tc_out_of_range())
-        """Vérifier et récupère le type de chrono dans la constante TIME_CONTROL"""
-        if t_time_control == 1:
-            t_time_control = TIME_CONTROL[0]
-        if t_time_control == 2:
-            t_time_control = TIME_CONTROL[1]
-        if t_time_control == 3:
-            t_time_control = TIME_CONTROL[2]
+        "Instancie un tournoi"
+        t_name = menu.get_input("Entrez le nom du tournoi:")
+        t_place = menu.get_input("Entrez le lieu du tournoi:")
+        t_date = menu.get_input("Entrez la date du tournoi: (JJ/MM/AAAA)")
+        t_rounds = self.input_round_checker("Entrez le nombre de rondes: (défaut 4)")
+        t_time_control = menu.tc_menu("Sélectionner le chiffre du type de chronométrage:\n")
+        t_round_list = []
+        t_p_list = []
+        t_desc = menu.get_input("Entrez un commentaire (facultatif):")
+        tournament = Tournament(t_name, t_place, t_date, t_time_control, t_rounds, t_round_list, t_desc, t_p_list)
+        print("\nLe tournoi a été créée avec succès !\n")
+        menu.display_tournament(tournament)
+        return tournament
+
+    @staticmethod
+    def select_8_players(players_table):
+        """ Fais choisir 8 joueurs à l'opérateur depuis la DB """
+        """" Génère la liste des joueurs présent en DB"""
+        all_player_available = pm.unserialize_all_players(players_table)
+        players_list = []
+        i = 0
+        """" Boucle selectionnant 8 joueurs par choix opérateur"""
+        while i < 8:
+            i = i + 1
+            print("LISTE DES JOUEURS DISPONIBLES EN BASE DE DONNEES")
+            menu.display_players_to_select(all_player_available)
+            while True:
+                try:
+                    choice = menu.get_input("\nChoisir le joueur " + str(i) + " du tournoi en cours: "
+                                                                               "(saisir le numéro): \n")
+                    int(choice)
+                    players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
+                    del all_player_available[int(choice)]
+                    break
+                except (ValueError, IndexError):
+                    menu.display_players_to_select(all_player_available)
+                    print("\n")
+                    print("\nEntrez un numero de ligne de la liste !\n")
+        return players_list
+
+    @staticmethod
+    def input_round_checker(choice):
+        choice = input(choice)
+        if choice == "":
+            choice = 4
+            return choice
+        elif choice.isnumeric() is True:
+            return choice
         else:
-            menu.get_time_control(menu.tc_out_of_range())
-        t_desc = menu.get_input_str("Entrez un commentaire (facultatif):")
-        #tournament = Tournament()
+            menu.get_int("Entrez un nombre entier:")
 
+    @staticmethod
+    def serialize_tournament(tournament, round_list, match_list, players_list):
+        """Sérialise le tournoi pour TinyDB"""
+        serialized_tournament = {
+            'Nom du tournoi': tournament.name,
+            'Lieu': tournament.place,
+            'Date': tournament.date,
+            'Nb de rounds': tournament.rounds,
+            'Liste des rounds': rm.serialize_rounds(round_list, match_list, tournament),
+            'Nature du chronométrage': menu.tc_selection(tournament)[3:],
+            'Liste des joueurs': pm.serialize_players(players_list)
+        }
+        return serialized_tournament
 
-    # def input_int_checker(self,choice):
-    #     if choice == "":
-    #         return 4
-    #     elif choice.isnumeric() is True:
-    #         return choice
-    #     elif choice.isnumeric() is False:
-    #         print("La saisie doit être un nombre entier")
-    #         while ValueError is not None:
-    #             try:
-    #                 choice = input(menu)
-    #                 return int(choice)
-    #             except ValueError:
-    #                 print("La saisie doit être un nombre entier")
-    #     else:
-    #         return "Contactez l'administrateur"
-
-    def display_tournament(self):
-        return (f"Nom du tournoi: {self.name}\n"
-                f"Lieu: {self.place}\n"
-                f"Jour:  {self.date}\n"
-                f"Nombre de tour: {self.rounds}\n"
-                f"Type de chrono: {self.timecontrol}\n"
-                f"Joueurs: {self.players_list}\n"
-                f"Information complémentaire: {self.description}\n")
-
-
-    def add_player_tournament(self, player):
-        self.players_list.append(player)
-
-
+    @staticmethod
+    def unserialize_all_tournaments(tournaments_table):
+        """Déserialise la table complète des joueurs"""
+        unserialized_tournaments = tournaments_table.all()
+        return unserialized_tournaments

@@ -1,11 +1,12 @@
-from modules.TournamentManager import TournamentManager
+from modules.MainManager import MainManager
 
 
 class App:
 
-    def run(self):
-        start = TournamentManager()
-        start.get_info()
+    @staticmethod
+    def run():
+        main = MainManager()
+        main.start()
 
 
 if __name__ == "__main__":

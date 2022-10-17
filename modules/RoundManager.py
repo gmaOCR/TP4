@@ -1,28 +1,44 @@
-from .Models import Round
+from datetime import datetime
 
-def add_player_to_round(self, player):
-    """Ajout des joueurs au round"""
-    Round.match_list.append(player)
+from modules.MatchManager import MatchManager
+from modules.Models import Round
+from modules.View import Menus
 
-def generate_match(self, playerA, playerB):
-    """A coder"""
-    """Stocker sous forme de tuple en 2 listes chaque match"""
-    """Liste 1 ref à une instance de Player"""
-    """Liste 2 score du match"""
-    pass
+"""Instancie le menu"""
+menu = Menus()
+"""Instancie le MatchManager"""
+mm = MatchManager()
 
-def run_first_round(self, playerA, playerB):
-    """A coder"""
-    """Premier tour en fonction du Player rank soit:"""
-    """N1 vs N5 et N2 vs N6 et N3 vs N7 et N4 vs N8"""
-    pass
 
-def run_next_round(self):
-    """A coder"""
-    """A partir du tour 2 - Fonction du score total et (rank si nécessaire)"""
-    """Puis N1 vs N2 etc.. sauf si VS a déjà eu lieu"""
-    pass
+class RoundManager:
 
-def save_current_round(self):
-    """A coder"""
-    pass   
+    def create_round(self, tournament, max_round):
+        i = 0
+        round_list = []
+        while i < int(max_round):
+            round_number = f"Round n°{i + 1}"
+            round = Round(f"Round {round_number}", tournament.name, self.timestamp(), "")
+            round_list.append(round)
+            i = i + 1
+        return round_list
+
+    @staticmethod
+    def timestamp():
+        now = datetime.now()
+        dt_string = now.strftime("%H:%M:%S")
+        return dt_string
+
+    @staticmethod
+    def serialize_rounds(rounds_list, match_list, tournament):
+        """Sérialise un round pour TinyDB"""
+        serialized_rounds = []
+        for round_unit in rounds_list:
+            serialized_round = {
+                'Nom du round': round_unit.name,
+                'Tournoi': tournament.name,
+                'Heure de début': round_unit.start_time,
+                'Heure de fin': round_unit.end_time,
+                'Liste des match du round': mm.serialize_matchs(match_list, tournament),
+            }
+            serialized_rounds.append(serialized_round)
+        return serialized_rounds

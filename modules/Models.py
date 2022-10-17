@@ -1,46 +1,41 @@
+
 class Player:
-    def __init__(self, lastname, surname, birthday, genre, rank, ident=int):
+    def __init__(self, lastname, firstname, birthday, genre, rank, score, last_versus="", ident=""):
         self.lastname = lastname
-        self.surname = surname
+        self.firstname = firstname
         self.birthday = birthday
         self.genre = genre
         self.rank = rank
+        self.score = score
+        self.last_versus = last_versus
         self.ident = ident
 
 
-class Score:
-    def __init__(self, tournament, points, player):
-        self.player = player
-        self.tournament = tournament
-        self.points = points
-
-
 class Match:
-    def __init__(self, result, player_a, player_b, tournament):
-        self.result = result
-        self.player_a = player_a
-        self.player_b = player_b
-        self.tournament = tournament
+    def __init__(self, result_p_a, result_p_b, player_a, player_b):
+        self.score = tuple([[player_a, result_p_a], [player_b, result_p_b]])
 
 
 class Round:
-    def __init__(self, name, tournament, match_list=[], start_time=0, end_time=0):
-
+    def __init__(self, name, tournament, start_time=0, end_time=0, match_list=None):
         self.name = name
         self.match_list = match_list
         self.tournament = tournament
-        self.player_list = tournament.player_list
-        self.start_time = start_time  # Automatiquement rempli à l'instanciation
-        self.end_time = end_time  # Automatiquement rempli à la fin du tour (fin de TOUR et non de MATCH donc après le match N°4)
+        self.start_time = start_time
+        self.end_time = end_time
 
 
 class Tournament:
-    def __init__(self, name, place, date, timecontrol, rounds=4, round_list=[], player_list=[], description=None):
+    def __init__(self, name, place, date, timecontrol, rounds=None, round_list=None, description=None,
+                 players_list=None):
         self.name = name
         self.place = place
         self.date = date
         self.rounds = rounds
         self.round_list = round_list
-        self.player_list = player_list
         self.timecontrol = timecontrol
         self.description = description
+        self.players_list = players_list
+
+
+
