@@ -483,7 +483,8 @@
             ],
             "Nature du chronom\u00e9trage": "bullet",
             "Nb de rounds": "2",
-            "Nom du tournoi": "Tournoi 6"
+            "Nom du tournoi": "Tournoi 6",
+            "Commentaires": "Aucun"
         },
         "2": {
             "Date": "123123",
@@ -922,7 +923,8 @@
             ],
             "Nature du chronom\u00e9trage": "bullet",
             "Nb de rounds": "3",
-            "Nom du tournoi": "    SERFSEDR"
+            "Nom du tournoi": "ERFSEDR",
+            "Commentaires": "Aucun"
         },
         "3": {
             "Date": "213312312",
@@ -1361,7 +1363,8 @@
             ],
             "Nature du chronom\u00e9trage": "bullet",
             "Nb de rounds": "3",
-            "Nom du tournoi": "SDFSDFES"
+            "Nom du tournoi": "SDFSDFES",
+            "Commentaires": "Aucun"
         },
         "4": {
             "Date": "31241234",
@@ -1800,7 +1803,8 @@
             ],
             "Nature du chronom\u00e9trage": "bullet",
             "Nb de rounds": "3",
-            "Nom du tournoi": "ZEREZARZ"
+            "Nom du tournoi": "ZEREZARZ",
+            "Commentaires": "Aucun"
         }
     }
 }

@@ -87,12 +87,12 @@ class MainManager:
                 self.menu_add_players_to_db()
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 3:
-                """ Consulter des informations """
+                """ Menu: Consulter des informations """
                 """Affiche les choix disponibles de consultation"""
                 selection = menu.get_int(menu.display_main_reports_menu())
 
                 """En cours de developpement"""
-                menu.display_reports_menu(selection, players_datas, tm.unserialize_all_tournaments(tournaments_table))
+                menu.display_reports_menus(selection, players_datas, tm.unserialize_all_tournaments(tournaments_table))
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 9:
                 exit("Fin")

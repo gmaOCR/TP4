@@ -74,9 +74,20 @@ class TournamentManager:
             'Nb de rounds': tournament.rounds,
             'Liste des rounds': rm.serialize_rounds(round_list, match_list, tournament),
             'Nature du chronométrage': menu.tc_selection(tournament)[3:],
-            'Liste des joueurs': pm.serialize_players(players_list)
+            'Liste des joueurs': pm.serialize_players(players_list),
+            'Commentaires': tournament.description
         }
         return serialized_tournament
+
+    # def unserialize_tournament_from_db(self, tournament, choice):
+    #     print(tournament[choice-1])
+    #     serialized_tournament = tournament[choice-1]
+    #     name = serialized_tournament['Nom du tournoi']
+    #     place = serialized_tournament['Lieu']
+    #     rounds = serialized_tournament['Nb de rounds']
+    #     tc_selection = serialized_tournament['Nature du chonométrage']
+    #     description = serialized_tournament['Commentaires']
+    #     return [name, place, rounds, tc_selection, description]
 
     @staticmethod
     def unserialize_all_tournaments(tournaments_table):
