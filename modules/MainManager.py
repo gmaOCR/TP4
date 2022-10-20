@@ -49,39 +49,50 @@ class MainManager:
             if choice == 1:
                 """instancie et affiche un tournoi"""
                 tournament = tm.create_tournament()
-                """instancie et affiche une liste de 8 joueurs instanciés triée par rang"""
-                players_list = tm.select_8_players(players_table)
+                """Affiche et instancie une liste de 8 joueurs instanciés triée par rang"""
+                tournament.players_list = tm.select_8_players(players_table)
                 """ Instancie les rounds"""
                 round_list = rm.create_round(tournament, tournament.rounds)
                 """Ajoute les rounds à la liste de round du tournoi"""
                 tournament.round_list = round_list
                 """Génère la liste des 4 match du 1er Round"""
-                match_list = mm.create_matches_first_round(players_list)
+                match_list = mm.create_matches_first_round(tournament.players_list)
                 """Run les 4 matchs du Round """
                 match_list_result = mm.run_match(match_list)
                 """Ajoute la liste des match avec resultats au round """
-                round_list[0].match_list = match_list_result
+                round_list[0].match_list = match_list_result[0]
+                """Mets à jour liste des joueurs du tournoi avec score"""
+                tournament.players_list = match_list_result[1]
                 """"Cloture le round par ajout de l'heure de fin"""
                 menu.display_round_validation(menu.get_input("Valider la fin du round en cours ? O/N"))
                 round_list[0].end_time = rm.timestamp()
                 """Boucle pour les N round suivant le premier"""
                 i = 1
                 while i < len(round_list):
-                    match_list = mm.create_matches_next_round(players_list)
+                    """Ajoute l'heure de debut du round"""
+                    round_list[i].start_time = rm.timestamp()
+                    """Genere la liste de match des rounds"""
+                    match_list = mm.create_matches_next_round(tournament.players_list)
+                    """Recupere les resultats des matchs et la nouvelle liste de joueurs avec scores"""
                     match_list_result = mm.run_match(match_list)
-                    round_list[i].match_list = match_list_result
-                    menu.display_round_validation(menu.get_input("Valider la fin du round en cours ?) O/N"))
+                    """Ajouter la liste de match du round en cours"""
+                    round_list[i].match_list = match_list_result[0]
+                    """Renvoie la liste de joueurs avec scores sur le tournoi"""
+                    tournament.players_list = match_list_result[1]
+                    menu.display_round_validation(menu.get_input("Valider la fin du round en cours ? O/N"))
+                    """Ajoute l'heure de fin du round"""
                     round_list[i].end_time = rm.timestamp()
                     if i + 1 < len(round_list):
                         round_list[i + 1].start_time = rm.timestamp()
                     i = i + 1
-                """Ajout la liste des joueurs au tournoi"""
-                tournament.players_list = players_list
+                    tournament.round_list = round_list
                 """Affiche le gagnant du tournoi"""
-                menu.display_winner(players_list)
+                menu.display_winner(tournament.players_list)
                 """Ajoute le tournoi terminé à la table tournament"""
-                self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list, players_list),
-                                    tournaments_table)
+                self.add_data_to_db(tm.serialize_tournament_dev(tournament, tournament.round_list, tournament.players_list)
+                                    ,tournaments_table)
+                # self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list, tournament.players_list)
+                #                     ,tournaments_table)
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 2:
                 self.menu_add_players_to_db()
@@ -90,8 +101,6 @@ class MainManager:
                 """ Menu: Consulter des informations """
                 """Affiche les choix disponibles de consultation"""
                 selection = menu.get_int(menu.display_main_reports_menu())
-
-                """En cours de developpement"""
                 menu.display_reports_menus(selection, players_datas, tm.unserialize_all_tournaments(tournaments_table))
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 9:
@@ -120,10 +129,6 @@ class MainManager:
         else:
             print("\nRetour au menu principal\n")
 
-    # @staticmethod
-    # def menu_display_players():
-    #     """Appelle la liste des joueurs depuis la DB"""
-    #     return menu.display_players_from_db(pm.unserialize_all_players(players_table))
 
     @staticmethod
     def add_data_to_db(serialized_data, table):

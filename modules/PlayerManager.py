@@ -49,8 +49,8 @@ class PlayerManager:
                 'Sexe': player.genre,
                 'Rang': int(player.rank),
                 'Score': float(player.score),
-                'VS': player.last_versus,
-                'Identifiant unique': str(player.ident)
+                'Identifiant unique': str(player.ident),
+                'VS': player.last_versus
             }
             serialized_players_list.append(serialized_player)
         return serialized_players_list
