@@ -82,10 +82,10 @@ class MainManager:
                     menu.display_round_validation(menu.get_input("Valider la fin du round en cours ? O/N"))
                     """Ajoute l'heure de fin du round"""
                     round_list[i].end_time = rm.timestamp()
-                    if i + 1 < len(round_list):
-                        round_list[i + 1].start_time = rm.timestamp()
-                    i = i + 1
+                    # if i + 1 < len(round_list):
+                    #     round_list[i + 1].start_time = rm.timestamp()
                     tournament.round_list = round_list
+                    i = i + 1
                 """Affiche le gagnant du tournoi"""
                 menu.display_winner(tournament.players_list)
                 """Ajoute le tournoi terminé à la table tournament"""

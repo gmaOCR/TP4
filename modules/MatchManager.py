@@ -43,8 +43,6 @@ class MatchManager:
     @staticmethod
     def create_matches_next_round(players_list):
         """Créé la liste des matchs pour les rounds suivants les scores du round précédent"""
-        # for j in players_list:
-        #     print(j.score, j.lastname)
         sorted_list = sorted(players_list, key=lambda player: (int(player.score), int(player.rank)))
         match_list = []
         i = 0
@@ -80,25 +78,28 @@ class MatchManager:
         """Sérialise un match pour TinyDB"""
         serialized_matchs = []
         for match in matchs_list:
-            serialized_round = {
+            serialized_match = {
                 'Tournoi': tournament.name,
                 'Score': (pm.serialize_player(match.score[0][0]), str(match.score[0][1]),
                           pm.serialize_player(match.score[1][0]), str(match.score[1][1]))
             }
-            serialized_matchs.append(serialized_round)
+            serialized_matchs.append(serialized_match)
         return serialized_matchs
 
     @staticmethod
     def serialize_matchs_dev(rounds_list, tournament):
         """Sérialise un match pour TinyDB"""
         serialized_matchs = []
+        print(rounds_list)
         for round in rounds_list:
+            print(round)
             for match in round.match_list:
-                serialized_round = {
+                print(match.score[0][0], match.score[1][0])
+                serialized_match = {
                     'Tournoi': tournament.name,
-                    'Score': (pm.serialize_player(match.score[0][0]), str(match.score[0][1]),
-                              pm.serialize_player(match.score[1][0]), str(match.score[1][1]))
+                    'Score': (pm.serialize_player(match.score[0][0]), match.score[0][1],
+                              pm.serialize_player(match.score[1][0]), match.score[1][1])
                 }
-                serialized_matchs.append(serialized_round)
+                serialized_matchs.append(serialized_match)
         return serialized_matchs
 

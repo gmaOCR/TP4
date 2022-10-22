@@ -226,7 +226,7 @@ class Menus:
                     if k not in ex_key:
                         print(k, ": ", v)
 
-                print("Le score du joueur pour ce match est: " + p[1][1] + "\nPour rappel 1 est un victoire, 0 une "
+                print("Le score du joueur pour ce match est: " + str(p[1][1]) + "\nPour rappel 1 est un victoire, 0 une "
                                                                           "défaite et 0.5 un match nul")
                 print("\n")
 
