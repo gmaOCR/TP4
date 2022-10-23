@@ -13,6 +13,7 @@ mm = MatchManager()
 class RoundManager:
 
     def create_round(self, tournament, max_round):
+        """Instance un round"""
         i = 0
         round_list = []
         while i < int(max_round):
@@ -24,6 +25,7 @@ class RoundManager:
 
     @staticmethod
     def timestamp():
+        """"Methode renvoyant l'heure du moment présent"""
         now = datetime.now()
         dt_string = now.strftime("%H:%M:%S")
         return dt_string
@@ -38,22 +40,7 @@ class RoundManager:
                 'Tournoi': tournament.name,
                 'Heure de début': round_unit.start_time,
                 'Heure de fin': round_unit.end_time,
-                'Liste des match du round': mm.serialize_matchs(match_list, tournament),
-            }
-            serialized_rounds.append(serialized_round)
-        return serialized_rounds
-
-    @staticmethod
-    def serialize_rounds_dev(rounds_list, tournament):
-        """Sérialise un round pour TinyDB"""
-        serialized_rounds = []
-        for round_unit in rounds_list:
-            serialized_round = {
-                'Nom du round': round_unit.name,
-                'Tournoi': tournament.name,
-                'Heure de début': round_unit.start_time,
-                'Heure de fin': round_unit.end_time,
-                'Liste des match du round': mm.serialize_matchs_dev(rounds_list, tournament),
+                'Liste des match du round': mm.serialize_matchs(rounds_list, tournament),
             }
             serialized_rounds.append(serialized_round)
         return serialized_rounds

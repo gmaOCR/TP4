@@ -43,7 +43,7 @@ class MainManager:
         """Menu principal"""
         choice = menu.get_int(menu.display_main_menu())
         while choice != 9:
-            while choice not in [1, 2, 3, 9]:
+            while choice not in [1, 2, 3, 4, 9]:
                 print("\n Choix incorrect !\n")
                 choice = menu.get_int(menu.display_main_menu())
             if choice == 1:
@@ -82,54 +82,49 @@ class MainManager:
                     menu.display_round_validation(menu.get_input("Valider la fin du round en cours ? O/N"))
                     """Ajoute l'heure de fin du round"""
                     round_list[i].end_time = rm.timestamp()
-                    # if i + 1 < len(round_list):
-                    #     round_list[i + 1].start_time = rm.timestamp()
                     tournament.round_list = round_list
                     i = i + 1
                 """Affiche le gagnant du tournoi"""
                 menu.display_winner(tournament.players_list)
                 """Ajoute le tournoi terminé à la table tournament"""
-                self.add_data_to_db(tm.serialize_tournament_dev(tournament, tournament.round_list, tournament.players_list)
-                                    ,tournaments_table)
-                # self.add_data_to_db(tm.serialize_tournament(tournament, round_list, match_list, tournament.players_list)
-                #                     ,tournaments_table)
+                self.add_data_to_db(tm.serialize_tournament(tournament, tournament.round_list, tournament.players_list)
+                                    , tournaments_table)
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 2:
-                self.menu_add_players_to_db()
+                pm.menu_add_players_to_db()
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 3:
                 """ Menu: Consulter des informations """
                 """Affiche les choix disponibles de consultation"""
                 selection = menu.get_int(menu.display_main_reports_menu())
-                menu.display_reports_menus(selection, players_datas, tm.unserialize_all_tournaments(tournaments_table))
+                menu.display_reports_menus(selection, players_datas, tm.serialize_all_tournaments(tournaments_table))
+                choice = menu.get_int(menu.display_main_menu())
+            elif choice == 4:
+                """Génère la liste des joueurs depuis la table des joueurs"""
+                players_list = pm.serialize_all_players_from_db(players_table)
+                """"Affiche les joueurs de la liste"""
+                menu.display_players_to_select(players_list)
+                """Selection un index de joueur de la liste"""
+                index_player = menu.get_int("\n\nSaisir le N° du joueur à éditer:")
+                """Envoi le joueur au manager pour édition du rang"""
+                player = pm.edit_player_rank(players_list[index_player])
+                """Remplace le joueur édité dans la liste de joueur"""
+                players_list[index_player] = player
+                """Ajoute la table à jour dans TinyDB"""
+                players_table.update(players_list[index_player])
+                """"Affiche les joueurs de la nouvelle liste"""
+                menu.display_players_to_select(players_list)
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 9:
                 exit("Fin")
         """ Quitter le programme """
         exit("Fin")
 
-    def menu_add_players_to_db(self):
-        """ Ajoute des joueurs à la database"""
-        choice = True
-        while choice is True:
-            player = pm.create_player_to_db()
-            menu.display_player(player)
-            choice = menu.yes_or_no("Verifier la saisie, ajouter à la base ?")
-            if choice is True:
-                serialized_player = pm.serialize_player(player)
-                self.add_data_to_db(serialized_player, players_table)
-                print("\nJoueur ajouté avec succès !\n")
-                choice = menu.yes_or_no("Ajouter un autre joueur ?")
-                if choice is False:
-                    break
-            elif choice is False:
-                choice = menu.yes_or_no("Ajouter un autre joueur ?")
-                if choice is False:
-                    break
-        else:
-            print("\nRetour au menu principal\n")
-
 
     @staticmethod
     def add_data_to_db(serialized_data, table):
+        """Ajoute des données à une table de tinyDB (en unitaire, pas en liste)"""
         return table.insert(serialized_data)
+
+
+

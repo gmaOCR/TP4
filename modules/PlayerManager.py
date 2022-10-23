@@ -8,7 +8,7 @@ menu = Menus()
 
 class PlayerManager:
     @staticmethod
-    def create_player_to_db():
+    def create_player():
         """Instancie un joueur"""
         p_name = menu.get_input("Entrez le nom du joueur:")
         p_firstname = menu.get_input("Entrez le prénom du joueur:")
@@ -22,9 +22,30 @@ class PlayerManager:
         player = Player(p_name, p_firstname, p_birthday, p_genre, p_rank, p_score, p_last_versus, p_ident)
         return player
 
+    def menu_add_players_to_db(self):
+        """ Ajoute des joueurs à la database"""
+        choice = True
+        while choice is True:
+            player = self.create_player()
+            menu.display_player(player)
+            choice = menu.yes_or_no("Verifier la saisie, ajouter à la base ?")
+            if choice is True:
+                serialized_player = self.serialize_player(player)
+                self.add_data_to_db(serialized_player, players_table)
+                print("\nJoueur ajouté avec succès !\n")
+                choice = menu.yes_or_no("Ajouter un autre joueur ?")
+                if choice is False:
+                    break
+            elif choice is False:
+                choice = menu.yes_or_no("Ajouter un autre joueur ?")
+                if choice is False:
+                    break
+        else:
+            print("\nRetour au menu principal\n")
+
     @staticmethod
     def serialize_player(player):
-        """Sérialise le joueur pour TinyDB"""
+        """Sérialise un joueur unitaire pour TinyDB"""
         serialized_player = {
             'Nom': player.lastname,
             'Prénom': player.firstname,
@@ -39,7 +60,7 @@ class PlayerManager:
 
     @staticmethod
     def serialize_players(players_list):
-        """Sérialise le joueur pour TinyDB"""
+        """Sérialise une liste de  joueurs pour TinyDB"""
         serialized_players_list = []
         for player in players_list:
             serialized_player = {
@@ -56,14 +77,14 @@ class PlayerManager:
         return serialized_players_list
 
     @staticmethod
-    def unserialize_all_players(players_table):
-        """Déserialise la table complète des joueurs"""
-        unserialized_players = players_table.all()
-        return unserialized_players
+    def serialize_all_players_from_db(players_table):
+        """Serialise les joueurs DEPUIS tinyDB"""
+        serialized_players = players_table.all()
+        return serialized_players
 
     @staticmethod
     def create_player_from_db(serialized_player):
-        """Déserialise un joueur et l'instancie"""
+        """Serialise un joueur depuis tinyDB et l'instancie"""
         lastname = serialized_player["Nom"]
         firstname = serialized_player["Prénom"]
         birthday = serialized_player["Date de naissance"]
@@ -75,8 +96,12 @@ class PlayerManager:
         player = Player(lastname, firstname, birthday, genre, rank, score, ident, last_versus)
         return player
 
-    @staticmethod
-    def edit_player_rank(player):
+    def edit_player_rank(self, player):
+        """Edite le rang d'un joueur serialisé"""
+        player = self.create_player_from_db(player)
         player.rank = menu.get_int("Saisir le nouveau classement du joueur:")
+        print(f"Le nouveau rang du joueur est {player.rank}")
+        player = self.serialize_player(player)
+        return player
 
 

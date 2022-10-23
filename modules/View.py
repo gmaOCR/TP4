@@ -16,6 +16,7 @@ class Menus:
         return ("\n1.Créer et lancer un tournoi\n"
                 "2.Ajouter des joueurs à la base de données\n"
                 "3.Consulter des informations\n"
+                "4.Modifier le rang d'un joueur\n"
                 "9.Quitter \n")
 
     @staticmethod
@@ -61,6 +62,7 @@ class Menus:
             self.display_rounds_from_db(choice_tournament, tournament)
             choice_round = self.get_int("\nEntrer le numéro du round:")
             self.display_match_from_db(choice_tournament, choice_round, tournament)
+
     @staticmethod
     def menu_sort_by():
         return ("\n1.Par ordre alphabétique\n"
@@ -210,7 +212,8 @@ class Menus:
             print("Merci de saisir O ou o  pour le TP !")
             menu = input("Valider la fin du round en cours ? O/N")
 
-    def display_match_from_db(self, choice_t, choice_r, tournament):
+    @staticmethod
+    def display_match_from_db(choice_t, choice_r, tournament):
         exclude_key = {"Tournoi", "Identifiant unique", "VS"}
         round_selected = (tournament[int(choice_t) - 1])["Liste des rounds"]
         matchs = (round_selected[int(choice_r) - 1])["Liste des match du round"]
@@ -218,22 +221,14 @@ class Menus:
         for _ in matchs:
             dict_match = ({k: matchs[i][k] for k in matchs[i] if k not in exclude_key})
             for p in dict_match.items():
-                # print(p)
-                # print(p[1][0].items(), p[1][2].items())
                 for k, v in p[1][0].items():
-                    # p[1][0].items()
                     ex_key = {"Tournoi", "Identifiant unique", "VS", "Score"}
                     if k not in ex_key:
                         print(k, ": ", v)
-
                 print("Le score du joueur pour ce match est: " + str(p[1][1]) + "\nPour rappel 1 est un victoire, 0 une "
                                                                           "défaite et 0.5 un match nul")
                 print("\n")
-
             i = i + 1
-
-
-
 
     @staticmethod
     def display_winner(player_list):
