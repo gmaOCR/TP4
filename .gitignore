@@ -976,3 +976,4 @@ modules/__pycache__/View.cpython-310.pyc
 /modules/View_testing.py
 /etc/
 /.flake8
+/flake-report/file.svg

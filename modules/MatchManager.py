@@ -60,7 +60,8 @@ class MatchManager:
         next_round_players_list = []
         j = 1
         for match in match_list:
-            print(f"\nQuel est le joueur gagnant match N°" + str(j) + f" opposant {(match.score[0][0]).lastname} "
+            print("\nQuel est le joueur gagnant match N°" + str(j) +
+                  f" opposant {(match.score[0][0]).lastname}"
                   f"{(match.score[0][0]).firstname} à "
                   f"{(match.score[1][0]).lastname} {(match.score[1][0]).firstname} !\n")
             result = menu.get_result(input("Saisissez le résultat du match: (1) pour le premier joueur"
