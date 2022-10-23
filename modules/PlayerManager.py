@@ -1,12 +1,15 @@
 import uuid
 
+from .MainManager import MainManager
 from .Models import Player
 from .View import Menus
 
+main = MainManager()
 menu = Menus()
 
 
 class PlayerManager:
+
     @staticmethod
     def create_player():
         """Instancie un joueur"""
@@ -22,7 +25,7 @@ class PlayerManager:
         player = Player(p_name, p_firstname, p_birthday, p_genre, p_rank, p_score, p_last_versus, p_ident)
         return player
 
-    def menu_add_players_to_db(self):
+    def menu_add_players_to_db(self, players_table):
         """ Ajoute des joueurs à la database"""
         choice = True
         while choice is True:
@@ -31,7 +34,7 @@ class PlayerManager:
             choice = menu.yes_or_no("Verifier la saisie, ajouter à la base ?")
             if choice is True:
                 serialized_player = self.serialize_player(player)
-                self.add_data_to_db(serialized_player, players_table)
+                main.add_data_to_db(serialized_player, players_table)
                 print("\nJoueur ajouté avec succès !\n")
                 choice = menu.yes_or_no("Ajouter un autre joueur ?")
                 if choice is False:

@@ -91,7 +91,7 @@ class MainManager:
                                     , tournaments_table)
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 2:
-                pm.menu_add_players_to_db()
+                pm.menu_add_players_to_db(players_table)
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 3:
                 """ Menu: Consulter des informations """

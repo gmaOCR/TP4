@@ -12,7 +12,7 @@ match_table = db.table("matchs")
 
 
 """Tournoi deserialisé"""
-tm_unser = tm.unserialize_all_tournaments(tournaments_table)
+tm_unser = tm.serialize_all_tournaments(tournaments_table)
 unserialized_players = players_table.all()
 
 
