@@ -7,7 +7,7 @@ from modules.Models import Tournament
 menu = Menus()
 """Déclare l'objet "PlayerManager"""
 pm = PlayerManager()
-"""Déclare l'objet "PlayerManager"""
+"""Déclare l'objet "RoundManager"""
 rm = RoundManager()
 
 

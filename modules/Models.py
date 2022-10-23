@@ -37,5 +37,3 @@ class Tournament:
         self.description = description
         self.players_list = players_list
 
-
-
