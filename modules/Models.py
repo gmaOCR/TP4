@@ -36,6 +36,3 @@ class Tournament:
         self.timecontrol = timecontrol
         self.description = description
         self.players_list = players_list
-
-
-

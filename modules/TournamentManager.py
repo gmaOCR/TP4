@@ -7,13 +7,13 @@ from modules.Models import Tournament
 menu = Menus()
 """Déclare l'objet "PlayerManager"""
 pm = PlayerManager()
-"""Déclare l'objet "PlayerManager"""
+"""Déclare l'objet "RoundManager"""
 rm = RoundManager()
 
 
 class TournamentManager:
     def create_tournament(self):
-        "Instancie un tournoi"
+        """Instancie un tournoi"""
         t_name = menu.get_input("Entrez le nom du tournoi:")
         t_place = menu.get_input("Entrez le lieu du tournoi:")
         t_date = menu.get_input("Entrez la date du tournoi: (JJ/MM/AAAA)")
@@ -31,7 +31,7 @@ class TournamentManager:
     def select_8_players(players_table):
         """ Fais choisir 8 joueurs à l'opérateur depuis la DB """
         """" Génère la liste des joueurs présent en DB"""
-        all_player_available = pm.unserialize_all_players(players_table)
+        all_player_available = pm.serialize_all_players_from_db(players_table)
         players_list = []
         i = 0
         """" Boucle selectionnant 8 joueurs par choix opérateur"""
@@ -42,7 +42,7 @@ class TournamentManager:
             while True:
                 try:
                     choice = menu.get_input("\nChoisir le joueur " + str(i) + " du tournoi en cours: "
-                                                                               "(saisir le numéro): \n")
+                                            "(saisir le numéro): \n")
                     int(choice)
                     players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
                     del all_player_available[int(choice)]
@@ -55,6 +55,7 @@ class TournamentManager:
 
     @staticmethod
     def input_round_checker(choice):
+        """Controle la saisie du nombre de rounds d'un tournoi"""
         choice = input(choice)
         if choice == "":
             choice = 4
@@ -65,21 +66,22 @@ class TournamentManager:
             menu.get_int("Entrez un nombre entier:")
 
     @staticmethod
-    def serialize_tournament(tournament, round_list, match_list, players_list):
+    def serialize_tournament(tournament, round_list, players_list):
         """Sérialise le tournoi pour TinyDB"""
         serialized_tournament = {
             'Nom du tournoi': tournament.name,
             'Lieu': tournament.place,
             'Date': tournament.date,
             'Nb de rounds': tournament.rounds,
-            'Liste des rounds': rm.serialize_rounds(round_list, match_list, tournament),
+            'Liste des rounds': rm.serialize_rounds(round_list, tournament),
             'Nature du chronométrage': menu.tc_selection(tournament)[3:],
-            'Liste des joueurs': pm.serialize_players(players_list)
+            'Liste des joueurs': pm.serialize_players(players_list),
+            'Commentaires': tournament.description
         }
         return serialized_tournament
 
     @staticmethod
-    def unserialize_all_tournaments(tournaments_table):
-        """Déserialise la table complète des joueurs"""
+    def serialize_all_tournaments(tournaments_table):
+        """Sserialise la table complète des tournois depuis tinyDB"""
         unserialized_tournaments = tournaments_table.all()
         return unserialized_tournaments
