@@ -8,6 +8,7 @@ class Menus:
 
     @staticmethod
     def hello():
+        """Message de bienvenue"""
         print("\nBienvenue sur votre outil de gestion de tournois d'échecs:")
 
     @staticmethod
@@ -21,7 +22,7 @@ class Menus:
 
     @staticmethod
     def display_main_reports_menu():
-        """Affiche le sous-menu des rapports"""
+        """Affiche le menu des rapports"""
         return ("\n1.Consulter la liste des joueurs disponibles\n"
                 "2.Consulter la liste des joueurs d'un tournoi spécifique\n"
                 "3.Consulter la liste des tournois terminés\n"
@@ -65,16 +66,19 @@ class Menus:
 
     @staticmethod
     def menu_sort_by():
+        """Menu de classement"""
         return ("\n1.Par ordre alphabétique\n"
                 "2.Par classement\n")
 
     @staticmethod
     def get_input(menu):
+        """Renvoi n'importe quelle valeur"""
         choice = input(menu)
         return choice
 
     @staticmethod
     def get_int(menu):
+        """Renvoie un entier"""
         is_int = input(menu)
         while is_int.isnumeric() is False:
             print("La saisie doit être un nombre entier")
@@ -86,6 +90,7 @@ class Menus:
 
     @staticmethod
     def get_result(menu):
+        """Menu de saisie du gagnant du match"""
         while menu not in ["1", 1, "2", 2, "N", "n"]:
             print("Choix incorrect: 1 pour joueur 1 gagnant, 2 pour joueur 2 gagnant, N pour match nul ")
             menu = input(menu)
@@ -98,6 +103,7 @@ class Menus:
         return menu
 
     def display_tournament(self, tournament_obj):
+        """Affiche un objet tournoi"""
         tc = self.tc_selection(tournament_obj)
         return print(f"Nom du tournoi: {tournament_obj.name}\n"
                      f"Lieu: {tournament_obj.place}\n"
@@ -108,6 +114,7 @@ class Menus:
 
     @staticmethod
     def tc_selection(tournament):
+        """Renvoi la selection du choix du tournoi"""
         tc = ""
         if tournament.timecontrol == "1":
             tc = str(TIME_CONTROL[0])
@@ -119,6 +126,7 @@ class Menus:
 
     @staticmethod
     def display_tournament_from_db_short(tournament):
+
         i = 0
         exclude = {"Liste des rounds", "Liste des joueurs", "Lieu", "Date", "Nb de rounds", "Nature du chronométrage",
                    "Commentaires"}
@@ -131,6 +139,7 @@ class Menus:
 
     @staticmethod
     def display_tournament_from_db_long(choice, tournament):
+        """Affiche une version longue d'un tournoi depuis la table tournoi"""
         exclude = {"Liste des rounds", "Liste des joueurs"}
         print("\nTournoi N°" + str(choice) + ":")
         dict_key_exclude = ({k: (tournament[choice-1])[k] for k in tournament[choice-1] if k not in exclude})
@@ -142,6 +151,7 @@ class Menus:
 
     @staticmethod
     def display_player(player):
+        """Affiche un joueur depuis une instance joueur"""
         return print(f"\nNom: {player.lastname}\n"
                      f"Prénom: {player.firstname}\n"
                      f"Date de naissance: {player.birthday}\n"
@@ -152,6 +162,7 @@ class Menus:
 
     @staticmethod
     def display_players_from_db(datas, choice):
+        """Affiche des joueurs depuis une dataframe Pandas"""
         datas["Nom"] = datas["players"].apply(lambda row: row["Nom"])
         datas["Prénom"] = datas["players"].apply(lambda row: row["Prénom"])
         datas["Date de naissance"] = datas["players"].apply(lambda row: row["Date de naissance"])
@@ -166,6 +177,7 @@ class Menus:
 
     @staticmethod
     def display_players_to_select(players_list):
+        """Affiche des joueurs pour selection"""
         i = 0
         invalid_dict_key = {"Date de naissance", "Identifiant unique", "Score", "VS"}
         for _ in players_list:
@@ -177,6 +189,7 @@ class Menus:
 
     @staticmethod
     def display_players_to_report(players_list):
+        """Affiche des joueurs pour des rappports"""
         i = 0
         invalid_dict_key = {"Identifiant unique", "VS"}
         print("Voici la liste des 8 joueurs du tournoi sélectionné:\n")
@@ -192,6 +205,7 @@ class Menus:
 
     @staticmethod
     def display_rounds_from_db(choice, tournament):
+        """Affiche des rounds pour raports"""
         exclude_match = {"Liste des match du round"}
         rounds = (tournament[int(choice) - 1])["Liste des rounds"]
         i = 0
@@ -208,12 +222,14 @@ class Menus:
 
     @staticmethod
     def display_round_validation(menu):
+        """Affiche la validation de fin de round"""
         while menu not in ["O", "o"]:
             print("Merci de saisir O ou o  pour le TP !")
             menu = input("Valider la fin du round en cours ? O/N")
 
     @staticmethod
     def display_match_from_db(choice_t, choice_r, tournament):
+        """Affiche les matchs depuis une table"""
         exclude_key = {"Tournoi", "Identifiant unique", "VS"}
         round_selected = (tournament[int(choice_t) - 1])["Liste des rounds"]
         matchs = (round_selected[int(choice_r) - 1])["Liste des match du round"]
@@ -232,6 +248,7 @@ class Menus:
 
     @staticmethod
     def display_winner(player_list):
+        """Affiche le gagnant du tournoi"""
         winner = max(player_list, key=attrgetter("score"))
         lastname = attrgetter("lastname")(winner)
         firstname = attrgetter("firstname")(winner)
@@ -239,11 +256,13 @@ class Menus:
               + str(winner.score) + "] points")
 
     def display_players_from_tournament(self, choice, tournament):
+        """Affiche les joueurs d'un tournoi spécifique"""
         players_list = tournament[choice - 1]["Liste des joueurs"]
         return self.display_players_to_report(players_list)
 
     @staticmethod
     def yes_or_no(menu, default=None):
+        """Méthode de gestion de la saisie Oui/Non"""
         valid = {"oui": True, "o": True, "O": True, "non": False, "n": False}
         if default is None:
             prompt = " [o/n] "

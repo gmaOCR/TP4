@@ -120,7 +120,6 @@ class MainManager:
         """ Quitter le programme """
         exit("Fin")
 
-
     @staticmethod
     def add_data_to_db(serialized_data, table):
         """Ajoute des données à une table de tinyDB (en unitaire, pas en liste)"""
