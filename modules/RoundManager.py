@@ -18,8 +18,8 @@ class RoundManager:
         round_list = []
         while i < int(max_round):
             round_number = f"Round n°{i + 1}"
-            round = Round(f"{round_number}", tournament.name, self.timestamp(), "")
-            round_list.append(round)
+            unit_round = Round(f"{round_number}", tournament.name, self.timestamp(), "")
+            round_list.append(unit_round)
             i = i + 1
         return round_list
 
@@ -44,4 +44,3 @@ class RoundManager:
             }
             serialized_rounds.append(serialized_round)
         return serialized_rounds
-

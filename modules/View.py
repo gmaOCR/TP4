@@ -49,7 +49,7 @@ class Menus:
             """Sous menu d'un tournoi selectionné"""
             self.display_tournament_from_db_short(tournament)
             choice = self.get_int("\nCi-dessus la liste des tournois enregistrés.\nEntrez le numéro d'un tournoi "
-                         "pour plus d'informations")
+                                  "pour plus d'informations")
             self.display_tournament_from_db_long(choice, tournament)
         elif selection == 4:
             """Sous menu des rounds d'un tournoi sélectionné"""
@@ -241,8 +241,8 @@ class Menus:
                     ex_key = {"Tournoi", "Identifiant unique", "VS", "Score"}
                     if k not in ex_key:
                         print(k, ": ", v)
-                print("Le score du joueur pour ce match est: " + str(p[1][1]) + "\nPour rappel 1 est un victoire, 0 une "
-                                                                          "défaite et 0.5 un match nul")
+                print("Le score du joueur pour ce match est: " + str(p[1][1]) + "\nPour rappel 1 est un victoire, 0 "
+                                                                                "une défaite et 0.5 un match nul")
                 print("\n")
             i = i + 1
 

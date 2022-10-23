@@ -79,9 +79,9 @@ class MatchManager:
         """Sérialise un match pour TinyDB"""
         serialized_matchs = []
         print(rounds_list)
-        for round in rounds_list:
+        for unit_round in rounds_list:
             print(round)
-            for match in round.match_list:
+            for match in unit_round.match_list:
                 print(match.score[0][0], match.score[1][0])
                 serialized_match = {
                     'Tournoi': tournament.name,
@@ -90,4 +90,3 @@ class MatchManager:
                 }
                 serialized_matchs.append(serialized_match)
         return serialized_matchs
-

@@ -104,5 +104,3 @@ class PlayerManager:
         print(f"Le nouveau rang du joueur est {player.rank}")
         player = self.serialize_player(player)
         return player
-
-

@@ -13,7 +13,7 @@ rm = RoundManager()
 
 class TournamentManager:
     def create_tournament(self):
-        "Instancie un tournoi"
+        """Instancie un tournoi"""
         t_name = menu.get_input("Entrez le nom du tournoi:")
         t_place = menu.get_input("Entrez le lieu du tournoi:")
         t_date = menu.get_input("Entrez la date du tournoi: (JJ/MM/AAAA)")
@@ -42,7 +42,7 @@ class TournamentManager:
             while True:
                 try:
                     choice = menu.get_input("\nChoisir le joueur " + str(i) + " du tournoi en cours: "
-                                                                               "(saisir le numéro): \n")
+                                            "(saisir le numéro): \n")
                     int(choice)
                     players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
                     del all_player_available[int(choice)]
@@ -65,7 +65,8 @@ class TournamentManager:
         else:
             menu.get_int("Entrez un nombre entier:")
 
-    def serialize_tournament(self, tournament, round_list, players_list):
+    @staticmethod
+    def serialize_tournament(tournament, round_list, players_list):
         """Sérialise le tournoi pour TinyDB"""
         serialized_tournament = {
             'Nom du tournoi': tournament.name,

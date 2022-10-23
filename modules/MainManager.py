@@ -87,8 +87,9 @@ class MainManager:
                 """Affiche le gagnant du tournoi"""
                 menu.display_winner(tournament.players_list)
                 """Ajoute le tournoi terminé à la table tournament"""
-                self.add_data_to_db(tm.serialize_tournament(tournament, tournament.round_list, tournament.players_list)
-                                    , tournaments_table)
+                self.add_data_to_db(tm.serialize_tournament(tournament, tournament.round_list,
+                                                            tournament.players_list),
+                                    tournaments_table)
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 2:
                 pm.menu_add_players_to_db(players_table)
@@ -124,6 +125,3 @@ class MainManager:
     def add_data_to_db(serialized_data, table):
         """Ajoute des données à une table de tinyDB (en unitaire, pas en liste)"""
         return table.insert(serialized_data)
-
-
-
