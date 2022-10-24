@@ -34,6 +34,10 @@ class MatchManager:
         sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         match_list = []
         for i, match in enumerate(players_list):
+            players_list[int(i)].last_versus.append(players_list[int(i + 4)])
+            players_list[int(i + 4)].last_versus.append(players_list[int(i)])
+            print(players_list[int(i + 4)].last_versus)
+            print(players_list[int(i + 4)].last_versus)
             match = Match("", "", players_list[int(i)], players_list[int(i + 4)])
             match_list.append(match)
             if i == 3:

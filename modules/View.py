@@ -186,6 +186,7 @@ class Menus:
             for t in dict_filtered.items():
                 print(t[0], ":", t[1], end=" | ")
             i = i + 1
+        print("\n")
 
     @staticmethod
     def display_players_to_report(players_list):

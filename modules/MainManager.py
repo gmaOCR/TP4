@@ -102,19 +102,24 @@ class MainManager:
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 4:
                 """Génère la liste des joueurs depuis la table des joueurs"""
-                players_list = pm.serialize_all_players_from_db(players_table)
+                p_list = pm.serialize_all_players_from_db(players_table)
                 """"Affiche les joueurs de la liste"""
-                menu.display_players_to_select(players_list)
+                menu.display_players_to_select(p_list)
                 """Selection un index de joueur de la liste"""
                 index_player = menu.get_int("\n\nSaisir le N° du joueur à éditer:")
                 """Envoi le joueur au manager pour édition du rang"""
-                player = pm.edit_player_rank(players_list[index_player])
+                print(p_list[index_player])
+                player = pm.edit_player_rank(p_list[index_player])
+                print(player)
                 """Remplace le joueur édité dans la liste de joueur"""
-                players_list[index_player] = player
-                """Ajoute la table à jour dans TinyDB"""
-                players_table.update(players_list[index_player])
+                p_list[index_player] = player
+                print(p_list[index_player], "\n")
+                print(p_list)
+                """Supprime et Re-insère la table players complète"""
+                players_table.truncate()
+                players_table.insert_multiple(p_list)
                 """"Affiche les joueurs de la nouvelle liste"""
-                menu.display_players_to_select(players_list)
+                menu.display_players_to_select(pm.serialize_all_players_from_db(players_table))
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 9:
                 exit("Fin")

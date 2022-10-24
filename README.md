@@ -21,4 +21,4 @@ python App.py
 ```
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[GNU](https://choosealicense.com/licenses/gpl-2.0/)

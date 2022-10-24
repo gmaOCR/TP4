@@ -48,14 +48,14 @@ class PlayerManager:
     def serialize_player(player):
         """Sérialise un joueur unitaire pour TinyDB"""
         serialized_player = {
+            'Date de naissance': player.birthday,
+            'Identifiant unique': str(player.ident),
             'Nom': player.lastname,
             'Prénom': player.firstname,
-            'Date de naissance': player.birthday,
-            'Sexe': player.genre,
             'Rang': int(player.rank),
-            'Score': str(player.score),
-            'VS': player.last_versus,
-            'Identifiant unique': str(player.ident)
+            'Score': player.score,
+            'Sexe': player.genre,
+            'VS': player.last_versus
         }
         return serialized_player
 
@@ -94,7 +94,7 @@ class PlayerManager:
         score = serialized_player["Score"]
         ident = serialized_player["Identifiant unique"]
         last_versus = serialized_player["VS"]
-        player = Player(lastname, firstname, birthday, genre, rank, score, ident, last_versus)
+        player = Player(lastname, firstname, birthday, genre, rank, score, last_versus, ident)
         return player
 
     def edit_player_rank(self, player):
