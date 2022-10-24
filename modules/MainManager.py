@@ -1,4 +1,4 @@
-from tinydb import TinyDB
+from tinydb import TinyDB, where, Query
 import pandas as pd
 
 import modules.View
@@ -107,17 +107,10 @@ class MainManager:
                 menu.display_players_to_select(p_list)
                 """Selection un index de joueur de la liste"""
                 index_player = menu.get_int("\n\nSaisir le N° du joueur à éditer:")
-                """Envoi le joueur au manager pour édition du rang"""
-                print(p_list[index_player])
+                """Envoi le joueur au PlayerManager pour édition du rang"""
                 player = pm.edit_player_rank(p_list[index_player])
-                print(player)
-                """Remplace le joueur édité dans la liste de joueur"""
-                p_list[index_player] = player
-                print(p_list[index_player], "\n")
-                print(p_list)
-                """Supprime et Re-insère la table players complète"""
-                players_table.truncate()
-                players_table.insert_multiple(p_list)
+                """Update la table players"""
+                players_table.update(player, where("Identifiant unique") == player["Identifiant unique"])
                 """"Affiche les joueurs de la nouvelle liste"""
                 menu.display_players_to_select(pm.serialize_all_players_from_db(players_table))
                 choice = menu.get_int(menu.display_main_menu())

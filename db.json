@@ -2,13 +2,13 @@
     "players": {
         "1": {
             "Date de naissance": "04/05/06",
-            "Identifiant unique": "",
+            "Identifiant unique": "27f8",
             "Nom": "Joueur 16",
             "Pr\u00e9nom": "Numero 16",
             "Rang": 55,
             "Score": "0",
             "Sexe": "M",
-            "VS": "745a"
+            "VS": ""
         },
         "10": {
             "Date de naissance": "02/02/02",
@@ -61,13 +61,13 @@
             "VS": ""
         },
         "15": {
-            "Date de naissance": "07/07/07",
-            "Identifiant unique": "e718",
-            "Nom": "Joueur 7",
-            "Pr\u00e9nom": "Numero 7",
-            "Rang": 3134,
+            "Date de naissance": "03/04/05",
+            "Identifiant unique": "27f2",
+            "Nom": "Joueur 15",
+            "Pr\u00e9nom": "Numero 15",
+            "Rang": 400,
             "Score": 0,
-            "Sexe": "F",
+            "Sexe": "M",
             "VS": ""
         },
         "16": {
@@ -155,7 +155,7 @@
             "Identifiant unique": "27e2",
             "Nom": "Joueur 15",
             "Pr\u00e9nom": "Numero 15",
-            "Rang": 424,
+            "Rang": 423,
             "Score": 0,
             "Sexe": "M",
             "VS": ""
