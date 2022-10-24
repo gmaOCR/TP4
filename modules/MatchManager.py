@@ -34,10 +34,13 @@ class MatchManager:
         sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         match_list = []
         for i, match in enumerate(players_list):
+            """Ajout du joueur à sa propre liste d'exclusion"""
+            players_list[int(i)].last_versus.append(players_list[int(i)])
+            players_list[int(i + 4)].last_versus.append(players_list[int(i + 4)])
+            """Constitue la liste des VS dans chaque Player"""
             players_list[int(i)].last_versus.append(players_list[int(i + 4)])
             players_list[int(i + 4)].last_versus.append(players_list[int(i)])
-            print(players_list[int(i + 4)].last_versus)
-            print(players_list[int(i + 4)].last_versus)
+            """Instancie les match et les paires"""
             match = Match("", "", players_list[int(i)], players_list[int(i + 4)])
             match_list.append(match)
             if i == 3:
@@ -45,7 +48,7 @@ class MatchManager:
         return match_list
 
     @staticmethod
-    def create_matches_next_round(players_list):
+    def create_matches_next_round_back(players_list):
         """Créé la liste des matchs pour les rounds suivants avec les scores du round précédent"""
         sorted_list = sorted(players_list, key=lambda player: (int(player.score), int(player.rank)))
         match_list = []
@@ -58,6 +61,29 @@ class MatchManager:
                 break
         return match_list
 
+    @staticmethod
+    def create_matches_next_round(players_list):
+        """Créé la liste des matchs pour les rounds suivants avec les scores du round précédent"""
+        sorted_list = sorted(players_list, key=lambda player: (int(player.score), int(player.rank)))
+        match_list = []
+        i = 0
+        # for _ in enumerate(sorted_list):
+        # while True:
+        #     print(sorted_list)
+        while sorted_list[i].last_versus not in sorted_list[i + 1].last_versus:
+                """Constitue la liste des VS dans chaque Player"""
+                sorted_list[int(i)].last_versus.append(sorted_list[int(i + 1)])
+                sorted_list[int(i + 1)].last_versus.append(sorted_list[int(i)])
+                """Instancie le match"""
+                match = Match(float, float, sorted_list[i], sorted_list[i + 1])
+                match_list.append(match)
+                if len(match_list) == 4:
+                    break
+                elif len(sorted_list) > 1:
+                    del sorted_list[i]
+                    del sorted_list[i]
+        return match_list
+
     def run_match(self, match_list):
         """Demande la saisie des resultats à l'operateur et les envois aux joueurs + match"""
         match_list_result = []
@@ -65,7 +91,7 @@ class MatchManager:
         j = 1
         for match in match_list:
             print("\nQuel est le joueur gagnant match N°" + str(j) +
-                  f" opposant {(match.score[0][0]).lastname}"
+                  f" opposant {(match.score[0][0]).lastname} "
                   f"{(match.score[0][0]).firstname} à "
                   f"{(match.score[1][0]).lastname} {(match.score[1][0]).firstname} !\n")
             result = menu.get_result(input("Saisissez le résultat du match: (1) pour le premier joueur"

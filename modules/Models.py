@@ -1,6 +1,6 @@
 
 class Player:
-    def __init__(self, lastname, firstname, birthday, genre, rank, score, last_versus="", ident=""):
+    def __init__(self, lastname, firstname, birthday, genre, rank, score, last_versus=None, ident=""):
         self.lastname = lastname
         self.firstname = firstname
         self.birthday = birthday

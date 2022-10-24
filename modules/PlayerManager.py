@@ -18,7 +18,7 @@ class PlayerManager:
         p_rank = menu.get_int("Entrez le classement du joueur:")
         p_ident = str(uuid.uuid4())
         p_ident = p_ident[0:4]
-        p_last_versus = ""
+        p_last_versus = []
         p_score = 0
         player = Player(p_name, p_firstname, p_birthday, p_genre, p_rank, p_score, p_last_versus, p_ident)
         return player
@@ -55,7 +55,7 @@ class PlayerManager:
             'Rang': int(player.rank),
             'Score': player.score,
             'Sexe': player.genre,
-            'VS': player.last_versus
+            #'VS': player.last_versus
         }
         return serialized_player
 
@@ -72,7 +72,7 @@ class PlayerManager:
                 'Rang': int(player.rank),
                 'Score': float(player.score),
                 'Identifiant unique': str(player.ident),
-                'VS': player.last_versus
+                # 'VS': player.last_versus
             }
             serialized_players_list.append(serialized_player)
         return serialized_players_list
@@ -93,7 +93,7 @@ class PlayerManager:
         rank = serialized_player["Rang"]
         score = serialized_player["Score"]
         ident = serialized_player["Identifiant unique"]
-        last_versus = serialized_player["VS"]
+        last_versus = []
         player = Player(lastname, firstname, birthday, genre, rank, score, last_versus, ident)
         return player
 
