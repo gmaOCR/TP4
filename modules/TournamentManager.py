@@ -50,7 +50,7 @@ class TournamentManager:
                 except (ValueError, IndexError):
                     menu.display_players_to_select(all_player_available)
                     print("\n")
-                    print("\nEntrez un numero de ligne de la liste !\n")
+                    print("\nEntrez un numero de joueur de la liste !\n")
         return players_list
 
     @staticmethod

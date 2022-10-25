@@ -87,8 +87,7 @@ class MainManager:
                 """Affiche le gagnant du tournoi"""
                 menu.display_winner(tournament.players_list)
                 """Ajoute le tournoi terminé à la table tournament"""
-                self.add_data_to_db(tm.serialize_tournament(tournament, tournament.round_list,
-                                                            tournament.players_list),
+                self.add_data_to_db(tm.serialize_tournament(tournament, tournament.round_list, tournament.players_list),
                                     tournaments_table)
                 choice = menu.get_int(menu.display_main_menu())
             elif choice == 2:
