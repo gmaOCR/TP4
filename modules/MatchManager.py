@@ -67,21 +67,18 @@ class MatchManager:
         sorted_list = sorted(players_list, key=lambda player: (int(player.score), int(player.rank)))
         match_list = []
         i = 0
-        # for _ in enumerate(sorted_list):
-        # while True:
-        #     print(sorted_list)
         while sorted_list[i].last_versus not in sorted_list[i + 1].last_versus:
-                """Constitue la liste des VS dans chaque Player"""
-                sorted_list[int(i)].last_versus.append(sorted_list[int(i + 1)])
-                sorted_list[int(i + 1)].last_versus.append(sorted_list[int(i)])
-                """Instancie le match"""
-                match = Match(float, float, sorted_list[i], sorted_list[i + 1])
-                match_list.append(match)
-                if len(match_list) == 4:
-                    break
-                elif len(sorted_list) > 1:
-                    del sorted_list[i]
-                    del sorted_list[i]
+            """Constitue la liste des VS dans chaque Player"""
+            sorted_list[int(i)].last_versus.append(sorted_list[int(i + 1)])
+            sorted_list[int(i + 1)].last_versus.append(sorted_list[int(i)])
+            """Instancie le match"""
+            match = Match(float, float, sorted_list[i], sorted_list[i + 1])
+            match_list.append(match)
+            if len(match_list) == 4:
+                break
+            elif len(sorted_list) > 1:
+                del sorted_list[i]
+                del sorted_list[i]
         return match_list
 
     def run_match(self, match_list):
@@ -106,18 +103,16 @@ class MatchManager:
         return [match_list_result, next_round_players_list]
 
     @staticmethod
-    def serialize_matchs(rounds_list, tournament):
+    def serialize_matchs(match_list, tournament):
         """Sérialise un match pour TinyDB"""
         serialized_matchs = []
-        print(rounds_list)
-        for unit_round in rounds_list:
-            print(round)
-            for match in unit_round.match_list:
-                print(match.score[0][0], match.score[1][0])
-                serialized_match = {
-                    'Tournoi': tournament.name,
-                    'Score': (pm.serialize_player(match.score[0][0]), match.score[0][1],
-                              pm.serialize_player(match.score[1][0]), match.score[1][1])
-                }
-                serialized_matchs.append(serialized_match)
+        print(match_list)
+        for match in match_list:
+            serialized_match = {
+                'Tournoi': tournament.name,
+                'Score': (pm.serialize_player(match.score[0][0]), match.score[0][1],
+                          pm.serialize_player(match.score[1][0]), match.score[1][1])
+            }
+            serialized_matchs.append(serialized_match)
         return serialized_matchs
+

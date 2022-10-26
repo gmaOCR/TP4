@@ -235,16 +235,28 @@ class Menus:
         round_selected = (tournament[int(choice_t) - 1])["Liste des rounds"]
         matchs = (round_selected[int(choice_r) - 1])["Liste des match du round"]
         i = 0
-        for _ in matchs:
+        # print(round_selected)
+        # print(len(round_selected))
+        """Définition des index de la liste des matchs"""
+        ind_1 = int
+        ind_2 = (choice_r * 4) - 1
+        if choice_r == 1:
+            ind_1 = 0
+        # else:
+        #     ind_1 =
+        print(matchs[ind_1:ind_2])
+        print("\nRESULTATS DES MATCHS DU ROUND: \n")
+        for _ in matchs[choice_r - 1:(choice_r * 4)-1]:
             dict_match = ({k: matchs[i][k] for k in matchs[i] if k not in exclude_key})
-            for p in dict_match.items():
-                for k, v in p[1][0].items():
-                    ex_key = {"Tournoi", "Identifiant unique", "VS", "Score"}
-                    if k not in ex_key:
-                        print(k, ": ", v)
-                print("Le score du joueur pour ce match est: " + str(p[1][1]) + "\nPour rappel 1 est un victoire, 0 "
-                                                                                "une défaite et 0.5 un match nul")
-                print("\n")
+            players_1 = dict_match["Score"][0]
+            player_1_score_for_match = dict_match["Score"][1]
+            players_2 = dict_match["Score"][2]
+            player_2_score_for_match = dict_match["Score"][3]
+            print(f"Le score du joueur pour le match n°{i+1}: [" + str(players_1["Nom"]) + "] [" + str(players_1["Prénom"]) +
+                  "] pour ce match est de: [" + str(player_1_score_for_match) + "]")
+            print(f"Le score du joueur pour le match n°{i+1}: [" + str(players_2["Nom"]) + "] [" + str(players_2["Prénom"]) +
+                  "] pour ce match est de: [" + str(player_2_score_for_match) + "]")
+            print("Pour rappel 1 = gagnant, 0 = perdant et 0.5 = nul.\n")
             i = i + 1
 
     @staticmethod

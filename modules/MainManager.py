@@ -69,14 +69,15 @@ class MainManager:
                 """Boucle pour les N round suivant le premier"""
                 i = 1
                 while i < len(round_list):
-                    """Ajoute l'heure de debut du round"""
                     round_list[i].start_time = rm.timestamp()
                     """Genere la liste de match des rounds"""
+                    """Ajoute l'heure de debut du round"""
                     match_list = mm.create_matches_next_round(tournament.players_list)
                     """Recupere les resultats des matchs et la nouvelle liste de joueurs avec scores"""
                     match_list_result = mm.run_match(match_list)
                     """Ajouter la liste de match du round en cours"""
                     round_list[i].match_list = match_list_result[0]
+                    match_list_result[0] = []
                     """Renvoie la liste de joueurs avec scores sur le tournoi"""
                     tournament.players_list = match_list_result[1]
                     menu.display_round_validation(menu.get_input("Valider la fin du round en cours ? O/N"))

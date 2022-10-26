@@ -82,6 +82,6 @@ class TournamentManager:
 
     @staticmethod
     def serialize_all_tournaments(tournaments_table):
-        """Sserialise la table complète des tournois depuis tinyDB"""
+        """Serialise la table complète des tournois depuis tinyDB"""
         unserialized_tournaments = tournaments_table.all()
         return unserialized_tournaments

@@ -40,7 +40,7 @@ class RoundManager:
                 'Tournoi': tournament.name,
                 'Heure de début': round_unit.start_time,
                 'Heure de fin': round_unit.end_time,
-                'Liste des match du round': mm.serialize_matchs(rounds_list, tournament),
+                'Liste des match du round': mm.serialize_matchs(round_unit.match_list, tournament),
             }
             serialized_rounds.append(serialized_round)
         return serialized_rounds
