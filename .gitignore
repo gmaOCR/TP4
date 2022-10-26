@@ -977,3 +977,5 @@ modules/__pycache__/View.cpython-310.pyc
 /etc/
 /.flake8
 /flake-report/file.svg
+/.config/
+/Include/
