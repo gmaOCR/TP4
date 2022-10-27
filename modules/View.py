@@ -235,7 +235,6 @@ class Menus:
         round_selected = (tournament[int(choice_t) - 1])["Liste des rounds"]
         matchs = (round_selected[int(choice_r) - 1])["Liste des match du round"]
         i = 0
-        print(matchs)
         print("\nRESULTATS DES MATCHS DU ROUND: \n")
         for _ in matchs[0]["Score"]:
             dict_match = ({k: matchs[i][k] for k in matchs[i] if k not in exclude_key})
