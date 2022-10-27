@@ -11,7 +11,7 @@ Ici l'application permet de:
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dependencies.
+Utiliser [pip](https://pip.pypa.io/en/stable/) pour isntaller les dépendances.
 
 ```bash
 git clone https://github.com/gmaOCR/TP4.git
@@ -19,6 +19,10 @@ pip install -r requirements.txt
 python App.py
 
 ```
-
+## Flake8
+Pour générer un nouveau rapport de conformité PEP8 dans "flake-report"
+```bash
+flake8 --format=html --htmldir=flake-report
+```
 ## License
 [GNU](https://choosealicense.com/licenses/gpl-2.0/)
