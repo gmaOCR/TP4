@@ -27,7 +27,7 @@ class Round:
 
 class Tournament:
     def __init__(self, name, place, date, timecontrol, rounds=None, round_list=None, description=None,
-                 players_list=None):
+                 players_list=None, done=False):
         self.name = name
         self.place = place
         self.date = date
@@ -36,3 +36,4 @@ class Tournament:
         self.timecontrol = timecontrol
         self.description = description
         self.players_list = players_list
+        self.done = done

@@ -18,6 +18,7 @@ class Menus:
                 "2.Ajouter des joueurs à la base de données\n"
                 "3.Consulter des informations\n"
                 "4.Modifier le rang d'un joueur\n"
+                "5.Ajouter des joueurs à un tournoi inachevé\n"
                 "9.Quitter \n")
 
     @staticmethod
@@ -71,15 +72,15 @@ class Menus:
                 "2.Par classement\n")
 
     @staticmethod
-    def get_input(menu):
+    def get_input(message):
         """Renvoi n'importe quelle valeur"""
-        choice = input(menu)
+        choice = input(message)
         return choice
 
     @staticmethod
-    def get_int(menu):
+    def get_int(message):
         """Renvoie un entier"""
-        is_int = input(menu)
+        is_int = input(message)
         while is_int.isnumeric() is False:
             print("La saisie doit être un nombre entier")
             try:
@@ -89,12 +90,12 @@ class Menus:
         return int(is_int)
 
     @staticmethod
-    def get_result(menu):
+    def get_result(message):
         """Menu de saisie du gagnant du match"""
-        while menu not in ["1", 1, "2", 2, "N", "n"]:
+        while message not in ["1", 1, "2", 2, "N", "n"]:
             print("Choix incorrect: 1 pour joueur 1 gagnant, 2 pour joueur 2 gagnant, N pour match nul ")
-            menu = input(menu)
-        return menu
+            message = input(message)
+        return message
 
     @staticmethod
     def tc_menu(menu):
@@ -129,7 +130,7 @@ class Menus:
         """Affiche une version courte d'un tournoi depuis la table tournoi"""
         i = 0
         exclude = {"Liste des rounds", "Liste des joueurs", "Lieu", "Date", "Nb de rounds", "Nature du chronométrage",
-                   "Commentaires"}
+                   "Commentaires", "Terminé"}
         for _ in tournament:
             print("\nTournoi N°" + str(i + 1) + ":")
             dict_key_exclude = ({k: (tournament[i])[k] for k in tournament[i] if k not in exclude})
@@ -287,3 +288,4 @@ class Menus:
                 return valid[choice]
             else:
                 sys.stdout.write("Saisissez 'oui' ou 'non' " "(sinon 'o' ou 'n').\n")
+

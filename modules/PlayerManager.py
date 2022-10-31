@@ -76,7 +76,7 @@ class PlayerManager:
         return serialized_players_list
 
     @staticmethod
-    def serialize_all_players_from_db(players_table):
+    def unserialize_all_players_from_db(players_table):
         """Serialise les joueurs DEPUIS tinyDB"""
         serialized_players = players_table.all()
         return serialized_players
@@ -94,6 +94,23 @@ class PlayerManager:
         last_versus = []
         player = Player(lastname, firstname, birthday, genre, rank, score, last_versus, ident)
         return player
+    
+    @staticmethod
+    def create_players_from_db(serialized_players):
+        """Instancie une liste de joueurs depuis tinyDB"""
+        players_list = []
+        for _ in serialized_players:
+            lastname = serialized_players["Nom"]
+            firstname = serialized_players["Prénom"]
+            birthday = serialized_players["Date de naissance"]
+            genre = serialized_players["Sexe"]
+            rank = serialized_players["Rang"]
+            score = serialized_players["Score"]
+            ident = serialized_players["Identifiant unique"]
+            last_versus = []
+            player = Player(lastname, firstname, birthday, genre, rank, score, last_versus, ident)
+            players_list.append(player)
+        return players_list
 
     def edit_player_rank(self, player):
         """Edite le rang d'un joueur serialisé"""
@@ -102,3 +119,4 @@ class PlayerManager:
         print(f"Le nouveau rang du joueur est {player.rank}")
         player = self.serialize_player(player)
         return player
+

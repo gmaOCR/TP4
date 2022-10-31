@@ -95,7 +95,7 @@ class MatchManager:
                                            " gagnant, (2) pour le second joueur gagnant ou (N)ul"))
             """Ajoute les resultats au match ET recupere les joueurs"""
             players = self.add_result(result, match)
-            """Extendla liste des joueurs du tour suivant"""
+            """Extend la liste des joueurs du tour suivant"""
             next_round_players_list.extend(players)
             """Append les match pour les renvoyer vers le round en cours"""
             match_list_result.append(match)
@@ -106,11 +106,14 @@ class MatchManager:
     def serialize_matchs(match_list, tournament):
         """Sérialise un match pour TinyDB"""
         serialized_matchs = []
-        for match in match_list:
-            serialized_match = {
-                'Tournoi': tournament.name,
-                'Score': (pm.serialize_player(match.score[0][0]), match.score[0][1],
-                          pm.serialize_player(match.score[1][0]), match.score[1][1])
-            }
-            serialized_matchs.append(serialized_match)
-        return serialized_matchs
+        if match_list is None:
+            return serialized_matchs
+        else:
+            for match in match_list:
+                serialized_match = {
+                    'Tournoi': tournament.name,
+                    'Score': (pm.serialize_player(match.score[0][0]), match.score[0][1],
+                              pm.serialize_player(match.score[1][0]), match.score[1][1])
+                }
+                serialized_matchs.append(serialized_match)
+            return serialized_matchs
