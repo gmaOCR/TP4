@@ -14,7 +14,7 @@ class Menus:
     @staticmethod
     def display_main_menu():
         """Affiche le menu principal"""
-        return ("\n1.Créer et lancer un tournoi\n"
+        return ("\n1.Créer un tournoi\n"
                 "2.Ajouter des joueurs à la base de données\n"
                 "3.Consulter des informations\n"
                 "4.Modifier le rang d'un joueur\n"
@@ -207,7 +207,7 @@ class Menus:
 
     @staticmethod
     def display_rounds_from_db(choice, tournament):
-        """Affiche des rounds pour raports"""
+        """Affiche des rounds pour rapports"""
         exclude_match = {"Liste des match du round"}
         rounds = (tournament[int(choice) - 1])["Liste des rounds"]
         i = 0
@@ -223,11 +223,10 @@ class Menus:
         print("\nCi-dessus la liste des rounds du tournoi sélectionné.")
 
     @staticmethod
-    def display_round_validation(menu):
+    def display_round_validation():
         """Affiche la validation de fin de round"""
-        while menu not in ["O", "o"]:
-            print("Merci de saisir O ou o  pour le TP !")
-            menu = input("Valider la fin du round en cours ? O/N")
+        print("\nCe round est à présent clôturé !\n")
+
 
     @staticmethod
     def display_match_from_db(choice_t, choice_r, tournament):
@@ -289,3 +288,12 @@ class Menus:
             else:
                 sys.stdout.write("Saisissez 'oui' ou 'non' " "(sinon 'o' ou 'n').\n")
 
+    @staticmethod
+    def players_list_not_empty():
+        print("\nLa liste de joueurs est déjà remplie pour ce tournoi.\n"
+              "Retour au menu principal.")
+
+    @staticmethod
+    def round_already_played():
+        print("\nCe round est dèjà terminé.\n"
+              "Retour au menu principal.")

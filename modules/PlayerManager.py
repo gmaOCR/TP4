@@ -62,18 +62,21 @@ class PlayerManager:
     def serialize_players(players_list):
         """Sérialise une liste de  joueurs pour TinyDB"""
         serialized_players_list = []
-        for player in players_list:
-            serialized_player = {
-                'Nom': player.lastname,
-                'Prénom': player.firstname,
-                'Date de naissance': player.birthday,
-                'Sexe': player.genre,
-                'Rang': int(player.rank),
-                'Score': float(player.score),
-                'Identifiant unique': str(player.ident)
-            }
-            serialized_players_list.append(serialized_player)
-        return serialized_players_list
+        if players_list is None:
+            return
+        else:
+            for player in players_list:
+                serialized_player = {
+                    'Nom': player.lastname,
+                    'Prénom': player.firstname,
+                    'Date de naissance': player.birthday,
+                    'Sexe': player.genre,
+                    'Rang': int(player.rank),
+                    'Score': float(player.score),
+                    'Identifiant unique': str(player.ident)
+                }
+                serialized_players_list.append(serialized_player)
+            return serialized_players_list
 
     @staticmethod
     def unserialize_all_players_from_db(players_table):
@@ -94,7 +97,7 @@ class PlayerManager:
         last_versus = []
         player = Player(lastname, firstname, birthday, genre, rank, score, last_versus, ident)
         return player
-    
+
     @staticmethod
     def create_players_from_db(serialized_players):
         """Instancie une liste de joueurs depuis tinyDB"""

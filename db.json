@@ -585,7 +585,8 @@
             ],
             "Nature du chronom\u00e9trage": "bullet",
             "Nb de rounds": "3",
-            "Nom du tournoi": "Tournoi de Paris Vincennes"
+            "Nom du tournoi": "Tournoi de Paris Vincennes",
+            "Termin\u00e9": false
         },
         "2": {
             "Commentaires": "aucun commentaire",
@@ -1101,40 +1102,14 @@
             ],
             "Nature du chronom\u00e9trage": "bullet",
             "Nb de rounds": 4,
-            "Nom du tournoi": "Tournoi d\u00e9mo"
+            "Nom du tournoi": "Tournoi d\u00e9mo",
+            "Termin\u00e9": false
         },
         "3": {
-            "Commentaires": "sdsd",
-            "Date": "2123123",
-            "Lieu": "tzert",
+            "Commentaires": "SDQS",
+            "Date": "121321",
+            "Lieu": "SDFQSDFS",
             "Liste des joueurs": [
-                {
-                    "Date de naissance": "01/02/03",
-                    "Identifiant unique": "089c",
-                    "Nom": "Joueur 13",
-                    "Pr\u00e9nom": "Marion",
-                    "Rang": 234,
-                    "Score": 0.5,
-                    "Sexe": "F"
-                },
-                {
-                    "Date de naissance": "02/02/02",
-                    "Identifiant unique": "48e2",
-                    "Nom": "Rika",
-                    "Pr\u00e9nom": "Zarai",
-                    "Rang": 98,
-                    "Score": 0.5,
-                    "Sexe": "F"
-                },
-                {
-                    "Date de naissance": "03/04/05",
-                    "Identifiant unique": "27e2",
-                    "Nom": "Joueur X",
-                    "Pr\u00e9nom": "Dernier joueur de la liste",
-                    "Rang": 400,
-                    "Score": 1.0,
-                    "Sexe": "M"
-                },
                 {
                     "Date de naissance": "03/03/03",
                     "Identifiant unique": "37e8",
@@ -1144,162 +1119,6 @@
                     "Score": 0.0,
                     "Sexe": "NA"
                 },
-                {
-                    "Date de naissance": "12/12/12",
-                    "Identifiant unique": "0cf8",
-                    "Nom": "Joueur 12",
-                    "Pr\u00e9nom": "Delphine",
-                    "Rang": 345,
-                    "Score": 0.0,
-                    "Sexe": "M"
-                },
-                {
-                    "Date de naissance": "04/04/04",
-                    "Identifiant unique": "5f63",
-                    "Nom": "Adam",
-                    "Pr\u00e9nom": "Eve",
-                    "Rang": 1241,
-                    "Score": 1.0,
-                    "Sexe": "A"
-                },
-                {
-                    "Date de naissance": "11/11/11",
-                    "Identifiant unique": "4c26",
-                    "Nom": "Joueur 11",
-                    "Pr\u00e9nom": "Huber",
-                    "Rang": 329,
-                    "Score": 0.5,
-                    "Sexe": "M"
-                },
-                {
-                    "Date de naissance": "05/05/05",
-                    "Identifiant unique": "7bb5",
-                    "Nom": "Joueur 5",
-                    "Pr\u00e9nom": "Prime",
-                    "Rang": 1212,
-                    "Score": 0.5,
-                    "Sexe": "A"
-                }
-            ],
-            "Liste des rounds": [
-                {
-                    "Heure de d\u00e9but": "19:00:13",
-                    "Heure de fin": "19:01:15",
-                    "Liste des match du round": [
-                        {
-                            "Score": [
-                                {
-                                    "Date de naissance": "01/02/03",
-                                    "Identifiant unique": "089c",
-                                    "Nom": "Joueur 13",
-                                    "Pr\u00e9nom": "Marion",
-                                    "Rang": 234,
-                                    "Score": 0.5,
-                                    "Sexe": "F"
-                                },
-                                0.5,
-                                {
-                                    "Date de naissance": "02/02/02",
-                                    "Identifiant unique": "48e2",
-                                    "Nom": "Rika",
-                                    "Pr\u00e9nom": "Zarai",
-                                    "Rang": 98,
-                                    "Score": 0.5,
-                                    "Sexe": "F"
-                                },
-                                0.5
-                            ],
-                            "Tournoi": "ezrze"
-                        },
-                        {
-                            "Score": [
-                                {
-                                    "Date de naissance": "03/04/05",
-                                    "Identifiant unique": "27e2",
-                                    "Nom": "Joueur X",
-                                    "Pr\u00e9nom": "Dernier joueur de la liste",
-                                    "Rang": 400,
-                                    "Score": 1,
-                                    "Sexe": "M"
-                                },
-                                1,
-                                {
-                                    "Date de naissance": "03/03/03",
-                                    "Identifiant unique": "37e8",
-                                    "Nom": "Joueur 3",
-                                    "Pr\u00e9nom": "Georges",
-                                    "Rang": 533,
-                                    "Score": 0,
-                                    "Sexe": "NA"
-                                },
-                                0
-                            ],
-                            "Tournoi": "ezrze"
-                        },
-                        {
-                            "Score": [
-                                {
-                                    "Date de naissance": "12/12/12",
-                                    "Identifiant unique": "0cf8",
-                                    "Nom": "Joueur 12",
-                                    "Pr\u00e9nom": "Delphine",
-                                    "Rang": 345,
-                                    "Score": 0,
-                                    "Sexe": "M"
-                                },
-                                0,
-                                {
-                                    "Date de naissance": "04/04/04",
-                                    "Identifiant unique": "5f63",
-                                    "Nom": "Adam",
-                                    "Pr\u00e9nom": "Eve",
-                                    "Rang": 1241,
-                                    "Score": 1,
-                                    "Sexe": "A"
-                                },
-                                1
-                            ],
-                            "Tournoi": "ezrze"
-                        },
-                        {
-                            "Score": [
-                                {
-                                    "Date de naissance": "11/11/11",
-                                    "Identifiant unique": "4c26",
-                                    "Nom": "Joueur 11",
-                                    "Pr\u00e9nom": "Huber",
-                                    "Rang": 329,
-                                    "Score": 0.5,
-                                    "Sexe": "M"
-                                },
-                                0.5,
-                                {
-                                    "Date de naissance": "05/05/05",
-                                    "Identifiant unique": "7bb5",
-                                    "Nom": "Joueur 5",
-                                    "Pr\u00e9nom": "Prime",
-                                    "Rang": 1212,
-                                    "Score": 0.5,
-                                    "Sexe": "A"
-                                },
-                                0.5
-                            ],
-                            "Tournoi": "ezrze"
-                        }
-                    ],
-                    "Nom du round": "Round n\u00b01",
-                    "Tournoi": "ezrze"
-                }
-            ],
-            "Nature du chronom\u00e9trage": "blitz",
-            "Nb de rounds": "1",
-            "Nom du tournoi": "ezrze"
-        },
-        "4": {
-            "Commentaires": "TEST",
-            "Date": "2134312",
-            "Lieu": "TEST",
-            "Liste des joueurs": [
                 {
                     "Date de naissance": "04/04/04",
                     "Identifiant unique": "5f63",
@@ -1362,29 +1181,121 @@
                     "Rang": 1242,
                     "Score": 0.0,
                     "Sexe": "F"
-                },
-                {
-                    "Date de naissance": "10/10/10",
-                    "Identifiant unique": "2981",
-                    "Nom": "Joueur 10",
-                    "Pr\u00e9nom": "Olivier",
-                    "Rang": 123,
-                    "Score": 0.0,
-                    "Sexe": "F"
                 }
             ],
             "Liste des rounds": [
                 {
-                    "Heure de d\u00e9but": "13:26:21",
-                    "Heure de fin": "",
-                    "Liste des match du round": [],
-                    "Nom du round": "Round n\u00b01",
-                    "Tournoi": "TEST"
+                    "Heure de d\u00e9but": 0,
+                    "Heure de fin": 0,
+                    "Liste des match du round": [
+                        {
+                            "Score": [
+                                {
+                                    "Date de naissance": "03/03/03",
+                                    "Identifiant unique": "37e8",
+                                    "Nom": "Joueur 3",
+                                    "Pr\u00e9nom": "Georges",
+                                    "Rang": 533,
+                                    "Score": 0,
+                                    "Sexe": "NA"
+                                },
+                                "",
+                                {
+                                    "Date de naissance": "03/04/05",
+                                    "Identifiant unique": "27f2",
+                                    "Nom": "Joueur 15",
+                                    "Pr\u00e9nom": "Joker",
+                                    "Rang": 400,
+                                    "Score": 0,
+                                    "Sexe": "M"
+                                },
+                                ""
+                            ],
+                            "Tournoi": "SDFSDF"
+                        },
+                        {
+                            "Score": [
+                                {
+                                    "Date de naissance": "04/04/04",
+                                    "Identifiant unique": "5f63",
+                                    "Nom": "Adam",
+                                    "Pr\u00e9nom": "Eve",
+                                    "Rang": 1241,
+                                    "Score": 0,
+                                    "Sexe": "A"
+                                },
+                                "",
+                                {
+                                    "Date de naissance": "08/08/08",
+                                    "Identifiant unique": "19a1",
+                                    "Nom": "Joueur 8",
+                                    "Pr\u00e9nom": "Anabelle",
+                                    "Rang": 1231,
+                                    "Score": 0,
+                                    "Sexe": "M"
+                                },
+                                ""
+                            ],
+                            "Tournoi": "SDFSDF"
+                        },
+                        {
+                            "Score": [
+                                {
+                                    "Date de naissance": "05/05/05",
+                                    "Identifiant unique": "7bb5",
+                                    "Nom": "Joueur 5",
+                                    "Pr\u00e9nom": "Prime",
+                                    "Rang": 1212,
+                                    "Score": 0,
+                                    "Sexe": "A"
+                                },
+                                "",
+                                {
+                                    "Date de naissance": "23/23/12",
+                                    "Identifiant unique": "a751",
+                                    "Nom": "Joueur 16",
+                                    "Pr\u00e9nom": "Clara",
+                                    "Rang": 423,
+                                    "Score": 0,
+                                    "Sexe": "NA"
+                                },
+                                ""
+                            ],
+                            "Tournoi": "SDFSDF"
+                        },
+                        {
+                            "Score": [
+                                {
+                                    "Date de naissance": "06/06/06",
+                                    "Identifiant unique": "9a31",
+                                    "Nom": "Joueur 6",
+                                    "Pr\u00e9nom": "Pierre",
+                                    "Rang": 9301,
+                                    "Score": 0,
+                                    "Sexe": "NA"
+                                },
+                                "",
+                                {
+                                    "Date de naissance": "09/09/09",
+                                    "Identifiant unique": "4423",
+                                    "Nom": "Joueur 9",
+                                    "Pr\u00e9nom": "Helene",
+                                    "Rang": 1242,
+                                    "Score": 0,
+                                    "Sexe": "F"
+                                },
+                                ""
+                            ],
+                            "Tournoi": "SDFSDF"
+                        }
+                    ],
+                    "Nom du round": "Round n\u00b00",
+                    "Tournoi": "SDFSDF"
                 }
             ],
             "Nature du chronom\u00e9trage": "",
-            "Nb de rounds": "1",
-            "Nom du tournoi": "TEST",
+            "Nb de rounds": "2",
+            "Nom du tournoi": "SDFSDF",
             "Termin\u00e9": false
         }
     }

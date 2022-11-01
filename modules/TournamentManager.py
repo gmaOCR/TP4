@@ -73,7 +73,7 @@ class TournamentManager:
             'Lieu': tournament.place,
             'Date': tournament.date,
             'Nb de rounds': tournament.rounds,
-            'Liste des rounds': rm.serialize_rounds(tournament.round_list, tournament),
+            'Liste des rounds': rm.serialize_rounds(tournament),
             'Nature du chronométrage': menu.tc_selection(tournament)[3:],
             'Liste des joueurs': pm.serialize_players(tournament.players_list),
             'Commentaires': tournament.description,
@@ -90,14 +90,16 @@ class TournamentManager:
     @staticmethod
     def instance_tournament_from_db(serialized_tournament):
         """Instancie un tournoi depuis TinyDB"""
-        print(serialized_tournament['Liste des joueurs'])
         name = serialized_tournament['Nom du tournoi']
         place = serialized_tournament['Lieu']
         date = serialized_tournament['Date']
         rounds = serialized_tournament['Nb de rounds']
         round_list = rm.instance_rounds_from_db(serialized_tournament['Liste des rounds'])
         timecontrol = serialized_tournament['Nature du chronométrage']
-        players_list = pm.create_players_from_db(serialized_tournament['Liste des joueurs'][0])
+        if serialized_tournament['Liste des joueurs'] is not None:
+            players_list = pm.create_players_from_db(serialized_tournament['Liste des joueurs'][0])
+        else:
+            players_list = None
         description = serialized_tournament['Commentaires']
         done = serialized_tournament['Terminé']
         tournament = Tournament(name, place, date, timecontrol, rounds, round_list, description, players_list, done)

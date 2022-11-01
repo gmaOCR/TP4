@@ -107,7 +107,7 @@ class MatchManager:
         """Sérialise un match pour TinyDB"""
         serialized_matchs = []
         if match_list is None:
-            return serialized_matchs
+            return None
         else:
             for match in match_list:
                 serialized_match = {
@@ -117,3 +117,15 @@ class MatchManager:
                 }
                 serialized_matchs.append(serialized_match)
             return serialized_matchs
+
+    @staticmethod
+    def instance_matchs_from_db(unit_round):
+        i = 0
+        for match in unit_round[i]['Score']:
+            player_1 = unit_round[i]['Score'][0]
+            result_p1 = unit_round[i]['Score'][1]
+            player_2 = unit_round[i]['Score'][2]
+            result_p2 = unit_round[i]['Score'][3]
+
+            unit_round.match_list.append(match)
+            i += 1

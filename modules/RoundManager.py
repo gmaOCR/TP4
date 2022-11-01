@@ -12,15 +12,27 @@ mm = MatchManager()
 
 class RoundManager:
 
-    def create_round(self, tournament, max_round):
+    @staticmethod
+    def create_round(tournament, max_round):
         """Instance un round"""
-        i = 0
-        round_list = []
-        while i < int(max_round):
-            unit_round = Round(f"Round n°{i + 1}", tournament.name, self.timestamp(),"",[])
-            round_list.append(unit_round)
-            i = i + 1
-        return round_list
+        if len(tournament.round_list) < int(max_round):
+            unit_round = Round(f"Round n°{len(tournament.round_list)+1}", tournament.name, 0, 0, None)
+            tournament.round_list.append(unit_round)
+            return tournament.round_list
+        else:
+            return print("\nLe nombre de round maximum du tounoi est atteint !\n")
+
+
+        # while i < int(max_round):
+            # if i == 0:
+            #     """Condition du start time pour le premier round uniquement"""
+            #     unit_round = Round(f"Round n°{i + 1}", tournament.name, self.timestamp(), 0, None)
+            #     round_list.append(unit_round)
+            # else:
+            # unit_round = Round(f"Round n°{i + 1}", tournament.name, 0, 0, None)
+            # round_list.append(unit_round)
+            # i += 1
+        # return round_list
 
     @staticmethod
     def timestamp():
@@ -30,10 +42,10 @@ class RoundManager:
         return dt_string
 
     @staticmethod
-    def serialize_rounds(rounds_list, tournament):
+    def serialize_rounds(tournament):
         """Sérialise un round pour TinyDB"""
         serialized_rounds = []
-        for round_unit in rounds_list:
+        for round_unit in tournament.round_list:
             serialized_round = {
                 'Nom du round': round_unit.name,
                 'Tournoi': tournament.name,
@@ -56,6 +68,10 @@ class RoundManager:
                 tournament_name = unit_round['Tournoi']
                 start_time = unit_round['Heure de début']
                 end_time = unit_round['Heure de fin']
-                round_instance = Round(name, tournament_name, start_time, end_time, [])
+                if unit_round['Liste des match du round'] is not None:
+                    match_list = mm.instance_matchs_from_db(unit_round['Liste des match du round'])
+                else:
+                    match_list = None
+                round_instance = Round(name, tournament_name, start_time, end_time, match_list)
                 rounds_list.append(round_instance)
             return rounds_list
