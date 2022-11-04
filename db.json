@@ -55,7 +55,7 @@
             "Identifiant unique": "9a31",
             "Nom": "NONE",
             "Pr\u00e9nom": "Pierre",
-            "Rang": 9301,
+            "Rang": 301,
             "Score": 0,
             "Sexe": "NA",
             "VS": []
@@ -125,7 +125,7 @@
             "Identifiant unique": "0cf8",
             "Nom": "PARD",
             "Pr\u00e9nom": "Delphine",
-            "Rang": 422,
+            "Rang": 550,
             "Score": 0,
             "Sexe": "M",
             "VS": []
@@ -155,7 +155,7 @@
             "Identifiant unique": "27e2",
             "Nom": "LAST",
             "Pr\u00e9nom": "Last player",
-            "Rang": 400,
+            "Rang": 401,
             "Score": 0,
             "Sexe": "M",
             "VS": []
@@ -185,7 +185,7 @@
                     "Identifiant unique": "9a31",
                     "Nom": "Joueur 6",
                     "Pr\u00e9nom": "Pierre",
-                    "Rang": 9301,
+                    "Rang": 301,
                     "Score": 1.0,
                     "Sexe": "NA",
                     "VS": [

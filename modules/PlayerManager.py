@@ -121,11 +121,11 @@ class PlayerManager:
 
     def edit_player_rank(self, player):
         """Edite le rang d'un joueur serialisé"""
-        player = self.create_player_from_db(player)
         player.rank = menu.get_int("Saisir le nouveau classement du joueur:")
         print(f"Le nouveau rang du joueur est {player.rank}")
         player = self.serialize_player(player)
         return player
+
 
     @staticmethod
     def select_8_obj_players_for_tournmanent(players_list):
