@@ -108,23 +108,11 @@ class Menus:
 
     @staticmethod
     def display_tournament_obj_list_short(tournament_obj_list):
+        """Affiche une liste d'objet tournoi en version light"""
         i = 1
         for tournament in tournament_obj_list:
             print(f"\n\033[4mTournoi N°{i}:\033[0m\n"
                   f"Nom du tournoi: {tournament.name}")
-            i = i + 1
-
-    @staticmethod
-    def display_tournament_dict_short(tournament):
-        """Affiche une version courte d'un tournoi depuis la table tournoi"""
-        i = 0
-        exclude = {"Liste des rounds", "Liste des joueurs", "Lieu", "Date", "Nb de rounds", "Nature du chronométrage",
-                   "Commentaires", "Terminé"}
-        for _ in tournament:
-            print("\nTournoi N°" + str(i + 1) + ":")
-            dict_key_exclude = ({k: (tournament[i])[k] for k in tournament[i] if k not in exclude})
-            for t in dict_key_exclude.items():
-                print(t[0], ":", t[1])
             i = i + 1
 
     def display_tournament_with_winner(self, tournament):
@@ -164,6 +152,7 @@ class Menus:
             i = i + 1
 
     def display_player_obj_from_list(self, players_list):
+        """Affiche l'en-tête de ligne des joueurs"""
         i = 1
         for player in players_list:
             print(f"\033[4mJoueur N°{i}:\033[0m")
