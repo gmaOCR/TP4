@@ -1,5 +1,4 @@
 import os
-
 from tinydb import TinyDB, where
 import pandas as pd
 
@@ -13,9 +12,6 @@ from modules.View import Menus
 db = TinyDB("db.json", sort_keys=True, indent=4, separators=(',', ': '))
 players_table = db.table("players")
 tournaments_table = db.table("tournaments")
-
-"""Creation de la variable dataset pour les rapports de joueurs"""
-# players_datas = pd.read_json('db.json')
 pd.set_option('display.max_columns', None)
 
 
