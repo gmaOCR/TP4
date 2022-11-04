@@ -126,7 +126,6 @@ class PlayerManager:
         player = self.serialize_player(player)
         return player
 
-
     @staticmethod
     def select_8_obj_players_for_tournmanent(players_list):
         """Fais sélectionner 8 joueurs à l'operateur depuis la BDD"""

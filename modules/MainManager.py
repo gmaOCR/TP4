@@ -1,3 +1,5 @@
+import os
+
 from tinydb import TinyDB, where
 import pandas as pd
 
@@ -13,7 +15,7 @@ players_table = db.table("players")
 tournaments_table = db.table("tournaments")
 
 """Creation de la variable dataset pour les rapports de joueurs"""
-players_datas = pd.read_json('db.json')
+# players_datas = pd.read_json('db.json')
 pd.set_option('display.max_columns', None)
 
 
@@ -37,6 +39,8 @@ class MainManager:
         menu.hello()
         """Menu principal"""
         while True:
+            # Clearing the Screen
+            os.system('cls')
             choice = menu.get_int(menu.display_main_menu())
             if choice == 1:
                 """instancie et affiche un tournoi"""
@@ -55,9 +59,10 @@ class MainManager:
             elif choice == 4:
                 """ Menu: Consulter des informations """
                 """Affiche les choix disponibles de consultation"""
-                selection = menu.get_int(menu.display_main_reports_menu())
                 tournaments_obj_list = tm.instance_tournaments_list_obj(
                     tm.unserialize_all_tournaments(tournaments_table))
+                selection = menu.get_int(menu.display_main_reports_menu())
+                players_datas = pd.read_json('db.json')
                 menu.display_reports_menus(selection, players_datas, tournaments_obj_list)
             elif choice == 6:
                 """Modifie le rang d'un joueur"""
