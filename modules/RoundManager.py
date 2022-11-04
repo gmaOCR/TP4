@@ -20,19 +20,8 @@ class RoundManager:
             tournament.round_list.append(unit_round)
             return tournament.round_list
         else:
-            return print("\nLe nombre de round maximum du tounoi est atteint !\n")
-
-
-        # while i < int(max_round):
-            # if i == 0:
-            #     """Condition du start time pour le premier round uniquement"""
-            #     unit_round = Round(f"Round n°{i + 1}", tournament.name, self.timestamp(), 0, None)
-            #     round_list.append(unit_round)
-            # else:
-            # unit_round = Round(f"Round n°{i + 1}", tournament.name, 0, 0, None)
-            # round_list.append(unit_round)
-            # i += 1
-        # return round_list
+            print("\nC'était le dernier round de ce tournoi !")
+            return tournament.round_list
 
     @staticmethod
     def timestamp():

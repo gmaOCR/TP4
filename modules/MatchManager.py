@@ -34,30 +34,16 @@ class MatchManager:
         sorted(players_list, key=lambda player: int(player.rank), reverse=True)
         match_list = []
         for i, match in enumerate(players_list):
-            """Ajout du joueur à sa propre liste d'exclusion"""
-            players_list[int(i)].last_versus.append(players_list[int(i)])
-            players_list[int(i + 4)].last_versus.append(players_list[int(i + 4)])
+            """Ajout de l'identifiant du joueur à sa propre liste d'exclusion"""
+            players_list[int(i)].last_versus.append(players_list[int(i)].ident)
+            players_list[int(i + 4)].last_versus.append(players_list[int(i + 4)].ident)
             """Constitue la liste des VS dans chaque Player"""
-            players_list[int(i)].last_versus.append(players_list[int(i + 4)])
-            players_list[int(i + 4)].last_versus.append(players_list[int(i)])
+            players_list[int(i)].last_versus.append(players_list[int(i + 4)].ident)
+            players_list[int(i + 4)].last_versus.append(players_list[int(i)].ident)
             """Instancie les match et les paires"""
             match = Match("", "", players_list[int(i)], players_list[int(i + 4)])
             match_list.append(match)
             if i == 3:
-                break
-        return match_list
-
-    @staticmethod
-    def create_matches_next_round_back(players_list):
-        """Créé la liste des matchs pour les rounds suivants avec les scores du round précédent"""
-        sorted_list = sorted(players_list, key=lambda player: (int(player.score), int(player.rank)))
-        match_list = []
-        i = 0
-        for j, match in enumerate(sorted_list):
-            match = Match(float, float, sorted_list[i], sorted_list[i + 1])
-            match_list.append(match)
-            i = i + 2
-            if j == 3:
                 break
         return match_list
 
@@ -69,19 +55,18 @@ class MatchManager:
         i = 0
         while sorted_list[i].last_versus not in sorted_list[i + 1].last_versus:
             """Constitue la liste des VS dans chaque Player"""
-            sorted_list[int(i)].last_versus.append(sorted_list[int(i + 1)])
-            sorted_list[int(i + 1)].last_versus.append(sorted_list[int(i)])
+            sorted_list[int(i)].last_versus.append(sorted_list[int(i + 1)].ident)
+            sorted_list[int(i + 1)].last_versus.append(sorted_list[int(i)].ident)
             """Instancie le match"""
             match = Match(float, float, sorted_list[i], sorted_list[i + 1])
             match_list.append(match)
             if len(match_list) == 4:
                 break
             elif len(sorted_list) > 1:
-                del sorted_list[i]
-                del sorted_list[i]
+                del sorted_list[i:i+2]
         return match_list
 
-    def run_match(self, match_list):
+    def input_results_in_matchs(self, match_list):
         """Demande la saisie des resultats à l'operateur et les envois aux joueurs + match"""
         match_list_result = []
         next_round_players_list = []
@@ -121,11 +106,15 @@ class MatchManager:
     @staticmethod
     def instance_matchs_from_db(unit_round):
         i = 0
-        for match in unit_round[i]['Score']:
+        match_list = []
+        for _ in unit_round[i]['Score']:
             player_1 = unit_round[i]['Score'][0]
             result_p1 = unit_round[i]['Score'][1]
             player_2 = unit_round[i]['Score'][2]
             result_p2 = unit_round[i]['Score'][3]
-
-            unit_round.match_list.append(match)
+            player_1 = pm.create_player_from_db(player_1)
+            player_2 = pm.create_player_from_db(player_2)
+            match = Match(result_p1,result_p2,player_1,player_2)
+            match_list.append(match)
             i += 1
+        return match_list

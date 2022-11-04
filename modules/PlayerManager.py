@@ -28,7 +28,7 @@ class PlayerManager:
         choice = True
         while choice is True:
             player = self.create_player()
-            menu.display_player(player)
+            menu.display_player_obj(player)
             choice = menu.yes_or_no("Verifier la saisie, ajouter à la base ?")
             if choice is True:
                 serialized_player = self.serialize_player(player)
@@ -55,6 +55,7 @@ class PlayerManager:
             'Rang': int(player.rank),
             'Score': player.score,
             'Sexe': player.genre,
+            'VS': player.last_versus
         }
         return serialized_player
 
@@ -73,14 +74,15 @@ class PlayerManager:
                     'Sexe': player.genre,
                     'Rang': int(player.rank),
                     'Score': float(player.score),
-                    'Identifiant unique': str(player.ident)
+                    'Identifiant unique': str(player.ident),
+                    'VS': player.last_versus
                 }
                 serialized_players_list.append(serialized_player)
             return serialized_players_list
 
     @staticmethod
     def unserialize_all_players_from_db(players_table):
-        """Serialise les joueurs DEPUIS tinyDB"""
+        """Désérialise les joueurs DEPUIS tinyDB"""
         serialized_players = players_table.all()
         return serialized_players
 
@@ -93,8 +95,8 @@ class PlayerManager:
         genre = serialized_player["Sexe"]
         rank = serialized_player["Rang"]
         score = serialized_player["Score"]
+        last_versus = serialized_player["VS"]
         ident = serialized_player["Identifiant unique"]
-        last_versus = []
         player = Player(lastname, firstname, birthday, genre, rank, score, last_versus, ident)
         return player
 
@@ -102,17 +104,19 @@ class PlayerManager:
     def create_players_from_db(serialized_players):
         """Instancie une liste de joueurs depuis tinyDB"""
         players_list = []
+        i = 0
         for _ in serialized_players:
-            lastname = serialized_players["Nom"]
-            firstname = serialized_players["Prénom"]
-            birthday = serialized_players["Date de naissance"]
-            genre = serialized_players["Sexe"]
-            rank = serialized_players["Rang"]
-            score = serialized_players["Score"]
-            ident = serialized_players["Identifiant unique"]
-            last_versus = []
+            birthday = serialized_players[i]["Date de naissance"]
+            ident = serialized_players[i]["Identifiant unique"]
+            lastname = serialized_players[i]["Nom"]
+            firstname = serialized_players[i]["Prénom"]
+            rank = serialized_players[i]["Rang"]
+            score = serialized_players[i]["Score"]
+            genre = serialized_players[i]["Sexe"]
+            last_versus = serialized_players[i]["VS"]
             player = Player(lastname, firstname, birthday, genre, rank, score, last_versus, ident)
             players_list.append(player)
+            i = i + 1
         return players_list
 
     def edit_player_rank(self, player):
@@ -123,3 +127,22 @@ class PlayerManager:
         player = self.serialize_player(player)
         return player
 
+    @staticmethod
+    def select_8_obj_players_for_tournmanent(players_list):
+        players_selected = []
+        players_avalaible = players_list
+        i = 1
+        while i <= 8:
+            print("LISTE DES JOUEURS DISPONIBLES EN BASE DE DONNEES")
+            menu.display_players_list_obj_by_line(players_avalaible)
+            try:
+                choice = menu.get_int("Entrer le numéro du participant N°" + str(i) + " du tournoi en cours"
+                                      " (saisir le numéro de ligne): \n")
+                players_selected.append(players_avalaible[choice - 1])
+                del players_avalaible[choice - 1]
+            except (ValueError, IndexError):
+                print("\nEntrez un numero de joueur de la liste !\n")
+                menu.display_players_list_obj_by_line(players_avalaible)
+                continue
+            i = i + 1
+        return players_selected

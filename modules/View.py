@@ -14,56 +14,50 @@ class Menus:
     @staticmethod
     def display_main_menu():
         """Affiche le menu principal"""
-        return ("\n1.Créer un tournoi\n"
-                "2.Ajouter des joueurs à la base de données\n"
-                "3.Consulter des informations\n"
-                "4.Modifier le rang d'un joueur\n"
-                "5.Ajouter des joueurs à un tournoi inachevé\n"
-                "9.Quitter \n")
+        return ("\n---Gestion d'un tournoi---\n"
+                "\n1.Créer un tournoi\n"
+                "2.Ajouter des joueurs à un tournoi\n"
+                "3.Jouer les match d'un round\n"
+                "\n---Gestion des rapports et de la base---\n"
+                "\n4.Consulter des informations\n"
+                "5.Ajouter des joueurs à la base de données\n"
+                "6.Modifier le rang d'un joueur\n"
+                "\n9.Quitter \n")
 
     @staticmethod
     def display_main_reports_menu():
         """Affiche le menu des rapports"""
         return ("\n1.Consulter la liste des joueurs disponibles\n"
-                "2.Consulter la liste des joueurs d'un tournoi spécifique\n"
-                "3.Consulter la liste des tournois terminés\n"
-                "4.Consulter la liste des rounds d'un tournoi spécifique\n"
-                "5.Consulter la liste des matchs d'un tournoi spécifique\n"
+                "2.Consulter la liste des joueurs d'un tournoi\n"
+                "3.Consulter la liste des tournois\n"
+                "4.Consulter la liste des rounds d'un tournoi\n"
+                "5.Consulter la liste des matchs d'un tournoi\n"
                 "9.Retour \n")
 
-    def display_reports_menus(self, selection, datas, tournament):
+    def display_reports_menus(self, selection, datas, tournaments_list_obj):
         """"Sous-menu des rapports"""
         if selection == 1:
             """Sous menu des joueurs de la DB"""
             choice = self.get_int(self.menu_sort_by())
             if choice in [1, 2]:
-                """Affiche la liste des joueurs classés"""
+                """Affiche la liste des joueurs classése"""
                 return self.display_players_from_db(datas, choice)
             else:
-                print("\nSaisie incorrecte, retour au menu principal")
+                return print("\nSaisie incorrecte, retour au menu principal")
         elif selection == 2:
             """Sous menu des joueurs d'un tournoi sélectionné"""
-            self.display_tournament_from_db_short(tournament)
-            choice = self.get_int("\nEntrer le numéro du tournoi:")
-            return self.display_players_from_tournament(choice, tournament)
+            self.players_list_display_checker(tournaments_list_obj)
+            return
         elif selection == 3:
             """Sous menu d'un tournoi selectionné"""
-            self.display_tournament_from_db_short(tournament)
-            choice = self.get_int("\nCi-dessus la liste des tournois enregistrés.\nEntrez le numéro d'un tournoi "
-                                  "pour plus d'informations")
-            self.display_tournament_from_db_long(choice, tournament)
+            self.tournament_list_display_checker(tournaments_list_obj)
+            return
         elif selection == 4:
             """Sous menu des rounds d'un tournoi sélectionné"""
-            self.display_tournament_from_db_short(tournament)
-            choice = self.get_int("\nEntrer le numéro du tournoi:")
-            self.display_rounds_from_db(choice, tournament)
+            self.rounds_list_display_checker(tournaments_list_obj)
         elif selection == 5:
             """Sous menu des matchs d'un tournoi sélectionné"""
-            self.display_tournament_from_db_short(tournament)
-            choice_tournament = self.get_int("\nEntrer le numéro du tournoi:")
-            self.display_rounds_from_db(choice_tournament, tournament)
-            choice_round = self.get_int("\nEntrer le numéro du round:")
-            self.display_match_from_db(choice_tournament, choice_round, tournament)
+            self.matchs_list_display_checker(tournaments_list_obj)
 
     @staticmethod
     def menu_sort_by():
@@ -97,36 +91,31 @@ class Menus:
             message = input(message)
         return message
 
-    @staticmethod
-    def tc_menu(menu):
+    def tc_menu(self, menu):
         """Retourne le menu de choix de TIMECONTROL """
-        menu = input(menu + str("\n".join(TIME_CONTROL)))
+        menu = self.get_int(menu + str("\n".join(TIME_CONTROL)))
         return menu
 
-    def display_tournament(self, tournament_obj):
+    @staticmethod
+    def display_tournament_obj(tournament_obj):
         """Affiche un objet tournoi"""
-        tc = self.tc_selection(tournament_obj)
-        return print(f"Nom du tournoi: {tournament_obj.name}\n"
+        return print(f"\n\033[4mNom du tournoi:\033[0m {tournament_obj.name}\n"
                      f"Lieu: {tournament_obj.place}\n"
                      f"Jour:  {tournament_obj.date}\n"
                      f"Nombre de tour: {tournament_obj.rounds}\n"
-                     f"Type de chrono: {tc[3:]}\n"
+                     f"Type de chrono: {tournament_obj.timecontrol}\n"
                      f"Information complémentaire: {tournament_obj.description}\n")
 
     @staticmethod
-    def tc_selection(tournament):
-        """Renvoi la selection du choix du tournoi"""
-        tc = ""
-        if tournament.timecontrol == "1":
-            tc = str(TIME_CONTROL[0])
-        elif tournament.timecontrol == "2":
-            tc = str(TIME_CONTROL[1])
-        elif tournament.timecontrol == "3":
-            tc = str(TIME_CONTROL[2])
-        return tc
+    def display_tournament_obj_list_short(tournament_obj_list):
+        i = 1
+        for tournament in tournament_obj_list:
+            print(f"\n\033[4mTournoi N°{i}:\033[0m\n"
+                  f"Nom du tournoi: {tournament.name}")
+            i = i + 1
 
     @staticmethod
-    def display_tournament_from_db_short(tournament):
+    def display_tournament_dict_short(tournament):
         """Affiche une version courte d'un tournoi depuis la table tournoi"""
         i = 0
         exclude = {"Liste des rounds", "Liste des joueurs", "Lieu", "Date", "Nb de rounds", "Nature du chronométrage",
@@ -138,20 +127,18 @@ class Menus:
                 print(t[0], ":", t[1])
             i = i + 1
 
-    @staticmethod
-    def display_tournament_from_db_long(choice, tournament):
-        """Affiche une version longue d'un tournoi depuis la table tournoi"""
-        exclude = {"Liste des rounds", "Liste des joueurs"}
-        print("\nTournoi N°" + str(choice) + ":")
-        dict_key_exclude = ({k: (tournament[choice-1])[k] for k in tournament[choice-1] if k not in exclude})
-        dict_as_list = sorted(dict_key_exclude.items())
-        new_index = [5, 2, 1, 4, 3, 0]
-        dict_sorted = dict([dict_as_list[ind] for ind in new_index])
-        for t in dict_sorted.items():
-            print(t[0], ":", t[1])
+    def display_tournament_with_winner(self, tournament):
+        """Affiche un tournoi depuis une instance de tournoi"""
+        if tournament.done is not True:
+            self.display_tournament_obj(tournament)
+            print("\nCe tournoi n'est pas encore terminé.")
+        else:
+            self.display_tournament_obj(tournament)
+            print("\nCe tournoi est terminé.")
+            self.display_winner(tournament.players_list)
 
     @staticmethod
-    def display_player(player):
+    def display_player_obj(player):
         """Affiche un joueur depuis une instance joueur"""
         return print(f"\nNom: {player.lastname}\n"
                      f"Prénom: {player.firstname}\n"
@@ -159,7 +146,29 @@ class Menus:
                      f"Sexe: {player.genre}\n"
                      f"Classement: {player.rank}\n"
                      f"Score total: {player.score}\n"
-                     f"Identifiant: {player.ident}\n")
+                     # f"Identifiant: {player.ident}\n"
+                     )
+
+    @staticmethod
+    def display_players_list_obj_by_line(players_list):
+        """Affiche un joueur par ligne depuis une instance joueur"""
+        i = 1
+        for player in players_list:
+            print(f"\033[4mJoueur N°{i}\033[0m")
+            print(f"Nom: {player.lastname}  "
+                  f"Prénom: {player.firstname}  "
+                  f"Date de naissance: {player.birthday}  "
+                  f"Sexe: {player.genre}  "
+                  f"Classement: {player.rank}"
+                  )
+            i = i + 1
+
+    def display_player_obj_from_list(self, players_list):
+        i = 1
+        for player in players_list:
+            print(f"\033[4mJoueur N°{i}:\033[0m")
+            self.display_player_obj(player)
+            i = i + 1
 
     @staticmethod
     def display_players_from_db(datas, choice):
@@ -192,18 +201,21 @@ class Menus:
     @staticmethod
     def display_players_to_report(players_list):
         """Affiche des joueurs pour des rappports"""
-        i = 0
-        invalid_dict_key = {"Identifiant unique", "VS"}
-        print("Voici la liste des 8 joueurs du tournoi sélectionné:\n")
-        for _ in players_list:
-            dict_filtered = ({k: (players_list[i])[k] for k in players_list[i] if k not in invalid_dict_key})
-            dict_as_list = sorted(dict_filtered.items())
-            new_index = [1, 2, 0, 3, 4, 5]
-            dict_sorted = dict(dict_as_list[ind] for ind in new_index)
-            for t in dict_sorted.items():
-                print(t[0], ":", t[1], end=" | ")
-            i = i + 1
-            print("\n")
+        if players_list is not None:
+            i = 0
+            invalid_dict_key = {"Identifiant unique", "VS"}
+            print("Voici la liste des 8 joueurs du tournoi sélectionné:\n")
+            for _ in players_list:
+                dict_filtered = ({k: (players_list[i])[k] for k in players_list[i] if k not in invalid_dict_key})
+                dict_as_list = sorted(dict_filtered.items())
+                new_index = [1, 2, 0, 3, 4, 5]
+                dict_sorted = dict(dict_as_list[ind] for ind in new_index)
+                for t in dict_sorted.items():
+                    print(t[0], ":", t[1], end=" | ")
+                i = i + 1
+                print("\n")
+        else:
+            print("\nLa liste des joueurs de ce tournoi est vide\n")
 
     @staticmethod
     def display_rounds_from_db(choice, tournament):
@@ -223,33 +235,36 @@ class Menus:
         print("\nCi-dessus la liste des rounds du tournoi sélectionné.")
 
     @staticmethod
-    def display_round_validation():
-        """Affiche la validation de fin de round"""
-        print("\nCe round est à présent clôturé !\n")
-
+    def display_rounds_obj_from_tournament(tournament):
+        for a_round in tournament.round_list:
+            print(f"\n\033[4mNom du round: {a_round.name}\033[0m\n"
+                  f"Nom du tournoi: {tournament.name}\n"
+                  f"Heure de début: {a_round.start_time}\n"
+                  f"Heure de fin: {a_round.end_time}\n")
+        print("Les tours sans heures de fin ne sont pas encore joués.\n")
 
     @staticmethod
-    def display_match_from_db(choice_t, choice_r, tournament):
-        """Affiche les matchs depuis une table"""
-        exclude_key = {"Tournoi", "Identifiant unique", "VS"}
-        round_selected = (tournament[int(choice_t) - 1])["Liste des rounds"]
-        matchs = (round_selected[int(choice_r) - 1])["Liste des match du round"]
-        i = 0
-        print("\nRESULTATS DES MATCHS DU ROUND: \n")
-        for _ in matchs[0]["Score"]:
-            dict_match = ({k: matchs[i][k] for k in matchs[i] if k not in exclude_key})
-            players_1 = dict_match["Score"][0]
-            player_1_score_for_match = dict_match["Score"][1]
-            players_2 = dict_match["Score"][2]
-            player_2_score_for_match = dict_match["Score"][3]
-            print(f"Le score du joueur pour le match n°{i+1}: [" + str(players_1["Nom"]) + "] ["
-                  + str(players_1["Prénom"]) +
-                  "] pour ce match est de: [" + str(player_1_score_for_match) + "]")
-            print(f"Le score du joueur pour le match n°{i+1}: [" + str(players_2["Nom"]) + "] ["
-                  + str(players_2["Prénom"]) +
-                  "] pour ce match est de: [" + str(player_2_score_for_match) + "]")
-            print("Pour rappel 1 = gagnant, 0 = perdant et 0.5 = nul.\n")
-            i = i + 1
+    def display_round_validation():
+        """Affiche la validation de fin de round"""
+        print("\nCe round est à présent clôturé !")
+
+    @staticmethod
+    def display_matchs_obj_from_round(a_round):
+        if a_round.match_list is not None:
+            print("\n\033[4mRESULTATS DES MATCHS DU ROUND: \033[0m\n")
+            i = 1
+            for match in a_round.match_list:
+                player_a = match.score[0][0]
+                result_a = match.score[0][1]
+                player_b = match.score[1][0]
+                result_b = match.score[1][1]
+                print(f"\033[4mMatch N°{i}: \033[0m\n"
+                      f"Le score de [{player_a.lastname}] [{player_a.firstname}] est de [{result_a}]\n"
+                      f"Le score de [{player_b.lastname}] [{player_b.firstname}] est de [{result_b}]\n")
+                i = i + 1
+            print("Pour rappel du score: 1 = gagnant, 0 = perdant et 0.5 = nul.\n")
+        else:
+            print("\nCe round ne contient pas de match\n")
 
     @staticmethod
     def display_winner(player_list):
@@ -257,8 +272,9 @@ class Menus:
         winner = max(player_list, key=attrgetter("score"))
         lastname = attrgetter("lastname")(winner)
         firstname = attrgetter("firstname")(winner)
-        print("\nLe gagnant du tournoi est: [" + str(lastname) + "] [" + str(firstname) + "] avec un score de: ["
-              + str(winner.score) + "] points")
+        return print(
+            "Le gagnant de ce tournoi est: [" + str(lastname) + "] [" + str(firstname) + "] avec un score de: ["
+            + str(winner.score) + "] points")
 
     def display_players_from_tournament(self, choice, tournament):
         """Affiche les joueurs d'un tournoi spécifique"""
@@ -297,3 +313,55 @@ class Menus:
     def round_already_played():
         print("\nCe round est dèjà terminé.\n"
               "Retour au menu principal.")
+
+    @staticmethod
+    def no_matchs_avalaible():
+        print("\nAucun match n'est associé à ce round !\n"
+              "Retour au menu principal.")
+
+    @staticmethod
+    def tournament_list_is_empty(tournaments_list_obj):
+        if len(tournaments_list_obj) == 0:
+            print("\nLa base de donnée ne contient aucun tournoi !\n")
+            return True
+        else:
+            return False
+
+    def tournament_list_display_checker(self, tournaments_list_obj):
+        if self.tournament_list_is_empty(tournaments_list_obj) is True:
+            return
+        else:
+            self.display_tournament_obj_list_short(tournaments_list_obj)
+            index = self.get_int("\nCi-dessus la liste des tournois enregistrés.\nEntrez le numéro d'un tournoi "
+                                 "pour plus d'informations")
+            return self.display_tournament_with_winner(tournaments_list_obj[index - 1])
+
+    def players_list_display_checker(self, tournaments_list_obj):
+        if self.tournament_list_is_empty(tournaments_list_obj) is True:
+            return
+        else:
+            self.display_tournament_obj_list_short(tournaments_list_obj)
+            index = self.get_int("\nEntrer le numéro du tournoi:")
+            if tournaments_list_obj[index - 1].players_list is None:
+                return print("\nCe tournoi ne contient aucun joueurs !\n")
+            else:
+                return self.display_player_obj_from_list(tournaments_list_obj[index - 1].players_list)
+
+    def rounds_list_display_checker(self, tournaments_list_obj):
+        if self.tournament_list_is_empty(tournaments_list_obj) is True:
+            return
+        else:
+            self.display_tournament_obj_list_short(tournaments_list_obj)
+            index = self.get_int("\nEntrer le numéro du tournoi:")
+            return self.display_rounds_obj_from_tournament(tournaments_list_obj[index - 1])
+
+    def matchs_list_display_checker(self, tournaments_list_obj):
+        if self.tournament_list_is_empty(tournaments_list_obj) is True:
+            return
+        else:
+            self.display_tournament_obj_list_short(tournaments_list_obj)
+            index_t = self.get_int("\nEntrer le numéro du tournoi:")
+            self.display_rounds_obj_from_tournament(tournaments_list_obj[index_t - 1])
+            index_r = self.get_int("\nEntrer le numéro du round:")
+            return self.display_matchs_obj_from_round(tournaments_list_obj[index_t - 1].round_list[index_r - 1])
+
