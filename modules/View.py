@@ -307,21 +307,25 @@ class Menus:
 
     @staticmethod
     def players_list_not_empty():
+        """Affiche un message d'erreur"""
         print("\nLa liste de joueurs est déjà remplie pour ce tournoi.\n"
               "Retour au menu principal.")
 
     @staticmethod
     def round_already_played():
+        """Affiche un message d'erreur"""
         print("\nCe round est dèjà terminé.\n"
               "Retour au menu principal.")
 
     @staticmethod
     def no_matchs_avalaible():
+        """Affiche un message d'erreur"""
         print("\nAucun match n'est associé à ce round !\n"
               "Retour au menu principal.")
 
     @staticmethod
     def tournament_list_is_empty(tournaments_list_obj):
+        """Affiche un message d'erreur si la base de donnée tournoi est vide"""
         if len(tournaments_list_obj) == 0:
             print("\nLa base de donnée ne contient aucun tournoi !\n")
             return True
@@ -329,6 +333,7 @@ class Menus:
             return False
 
     def tournament_list_display_checker(self, tournaments_list_obj):
+        """Affiche les tournois disponible en BDD"""
         if self.tournament_list_is_empty(tournaments_list_obj) is True:
             return
         else:
@@ -338,6 +343,7 @@ class Menus:
             return self.display_tournament_with_winner(tournaments_list_obj[index - 1])
 
     def players_list_display_checker(self, tournaments_list_obj):
+        """Affiche les joueurs disponibles des tournois"""
         if self.tournament_list_is_empty(tournaments_list_obj) is True:
             return
         else:
@@ -349,6 +355,7 @@ class Menus:
                 return self.display_player_obj_from_list(tournaments_list_obj[index - 1].players_list)
 
     def rounds_list_display_checker(self, tournaments_list_obj):
+        """Affiche les rounds disponibles des tournois"""
         if self.tournament_list_is_empty(tournaments_list_obj) is True:
             return
         else:
@@ -357,6 +364,7 @@ class Menus:
             return self.display_rounds_obj_from_tournament(tournaments_list_obj[index - 1])
 
     def matchs_list_display_checker(self, tournaments_list_obj):
+        """Affiche les matchs disponibles des tournois"""
         if self.tournament_list_is_empty(tournaments_list_obj) is True:
             return
         else:
