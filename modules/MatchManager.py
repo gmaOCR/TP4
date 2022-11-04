@@ -105,6 +105,7 @@ class MatchManager:
 
     @staticmethod
     def instance_matchs_from_db(unit_round):
+        """Instance les 4 match d'un round"""
         i = 0
         match_list = []
         for _ in unit_round[i]['Score']:

@@ -39,31 +39,6 @@ class TournamentManager:
         return tournament
 
     @staticmethod
-    def select_8_players(players_table):
-        """" Génère la liste des joueurs présent en DB"""
-        """ Fais choisir 8 joueurs à l'opérateur depuis la DB """
-        all_player_available = pm.unserialize_all_players_from_db(players_table)
-        players_list = []
-        i = 0
-        """" Boucle selectionnant 8 joueurs par choix opérateur"""
-        while i < 8:
-            i = i + 1
-            print("LISTE DES JOUEURS DISPONIBLES EN BASE DE DONNEES")
-            menu.display_players_to_select(all_player_available)
-            while True:
-                try:
-                    choice = menu.get_input("\nChoisir le joueur " + str(i) + " du tournoi en cours: "
-                                                                              "(saisir le numéro): \n")
-                    int(choice)
-                    players_list.append(pm.create_player_from_db(all_player_available[int(choice)]))
-                    del all_player_available[int(choice)]
-                    break
-                except (ValueError, IndexError):
-                    menu.display_players_to_select(all_player_available)
-                    print("\n\nEntrez un numero de joueur de la liste !\n")
-        return players_list
-
-    @staticmethod
     def input_round_checker(choice):
         """Controle la saisie du nombre de rounds d'un tournoi"""
         choice = input(choice)
@@ -116,6 +91,7 @@ class TournamentManager:
         return tournament
 
     def instance_tournaments_list_obj(self, tournaments_db):
+        """Instancie une liste de tournoi depuis la BDD"""
         t_list = []
         for tournament in tournaments_db:
             tournament_obj = self.instance_tournament_from_db(tournament)
@@ -124,6 +100,7 @@ class TournamentManager:
 
     @staticmethod
     def tournaments_with_players_list(tournaments_list):
+        """Renvoie les tournois contenant une liste de joueurs"""
         i = 0
         t_with_players_list = []
         for tournament in tournaments_list:
@@ -136,6 +113,7 @@ class TournamentManager:
 
     @staticmethod
     def check_tournament_done(tournament):
+        """Controle si un tournoi est terminé et le marque sur le paramètre .done"""
         i = 0
         for _ in tournament.round_list:
             if tournament.round_list[i].end_time == 0:
@@ -148,6 +126,7 @@ class TournamentManager:
 
     @staticmethod
     def tournament_selection(tournaments_obj_list):
+        """Selecteur de tournoi"""
         menu.display_tournament_obj_list_short(tournaments_obj_list)
         selection = menu.get_int("Saisissez le numéro du tounoi:")
         tournament = tournaments_obj_list[selection - 1]
