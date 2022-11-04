@@ -181,9 +181,10 @@ class Menus:
         datas = datas.drop("players", axis=1)
         datas = datas.drop("tournaments", axis=1)
         if choice == 1:
-            return print(datas.sort_values(["Nom"], axis=0))
+            datas = datas.sort_values(["Nom"], axis=0)
         elif choice == 2:
-            return print(datas.sort_values(["Classement"], axis=0, ascending=False))
+            datas = datas.sort_values(["Classement"], axis=0, ascending=False)
+        return print(datas.to_string(index=False))
 
     @staticmethod
     def display_players_to_select(players_list):
@@ -364,4 +365,3 @@ class Menus:
             self.display_rounds_obj_from_tournament(tournaments_list_obj[index_t - 1])
             index_r = self.get_int("\nEntrer le numéro du round:")
             return self.display_matchs_obj_from_round(tournaments_list_obj[index_t - 1].round_list[index_r - 1])
-

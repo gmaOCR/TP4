@@ -13,9 +13,9 @@ players_table = db.table("players")
 tournaments_table = db.table("tournaments")
 
 """Creation de la variable dataset pour les rapports de joueurs"""
-# A revoir
 players_datas = pd.read_json('db.json')
 pd.set_option('display.max_columns', None)
+
 
 """Déclare l'objet "Menus" from View.py """
 menu = Menus()
@@ -28,10 +28,6 @@ rm = RoundManager()
 """Déclare l'objet "Matchmanager" from matchmanager.py """
 mm = MatchManager()
 
-
-# a = pm.unserialize_all_players_from_db(players_table)
-# b = pm.create_players_from_db(a)
-# menu.display_players_list_obj_by_line(b)
 
 class MainManager:
 

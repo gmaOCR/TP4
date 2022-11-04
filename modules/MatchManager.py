@@ -63,7 +63,7 @@ class MatchManager:
             if len(match_list) == 4:
                 break
             elif len(sorted_list) > 1:
-                del sorted_list[i:i+2]
+                del sorted_list[i:i + 2]
         return match_list
 
     def input_results_in_matchs(self, match_list):
@@ -114,7 +114,7 @@ class MatchManager:
             result_p2 = unit_round[i]['Score'][3]
             player_1 = pm.create_player_from_db(player_1)
             player_2 = pm.create_player_from_db(player_2)
-            match = Match(result_p1,result_p2,player_1,player_2)
+            match = Match(result_p1, result_p2, player_1, player_2)
             match_list.append(match)
             i += 1
         return match_list
